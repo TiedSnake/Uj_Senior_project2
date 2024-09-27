@@ -1,0 +1,98 @@
+# Manually excluded files
+*.docx
+*.jar
+*.webp
+
+# ========================================================================
+# Generated Android Studio Files
+# Source: https://github.com/github/gitignore/blob/main/Android.gitignore
+# ========================================================================
+# Built application files
+*.apk
+*.ap_
+*.aab
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+/bin/
+/gen/
+/out/
+/build/
+
+# Gradle files
+.gradle/
+/build/
+/local.properties
+
+# Android Studio files
+.idea/
+*.iml
+*.hprof
+
+# Keystore files
+*.jks
+*.keystore
+
+# External native build folder
+.externalNativeBuild
+
+# NDK
+obj/
+
+# IntelliJ
+*.ipr
+*.iws
+*.idea/
+
+# User-specific configurations
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+# ========================================================================
+# Generated Latex files
+# Source: https://github.com/github/gitignore/blob/main/TeX.gitignore
+# ========================================================================
+# LaTeX generated files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.dvi
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# PDF and other output files
+*.pdf
+*.ps
+*.eps
+
+# Temporary files created by text editors
+*.tmp
+*.swp
+*.bak
+*~
