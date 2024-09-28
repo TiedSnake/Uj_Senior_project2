@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:src="@drawable/template"
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf=""
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/haircut_app_icon"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:translationX="110dp"
+        android:translationY="20dp"
+        android:src="@drawable/haircut_app_icon"
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf=""
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/Barber"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFF"
+
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf=""
+        app:layout_constraintTop_toTopOf=""
+        app:layout_constraintVertical_bias="0.0"
+        android:textSize="80px"
+        android:text="Barber"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="525dp" />
+
+    <Button
+        android:id="@+id/Admin"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:text="Admin"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="630dp"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFFFF"
+        android:textSize="80px"
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""/>
+
+    <Button
+        android:id="@+id/Customer"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:text="Customer"
+        android:textSize="80px"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="418dp"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFFFF"
+
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""/>
+    <TextView
+        android:id="@+id/Login_label"
+        android:layout_width="300dp"
+        android:layout_height="97dp"
+        android:text="Which user are you?"
+        android:textAlignment="center"
+        android:textSize="80px"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="240dp"
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf=""
+        app:layout_constraintTop_toTopOf=""
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

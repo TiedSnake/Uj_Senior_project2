@@ -7,13 +7,84 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+<<<<<<< HEAD
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
+=======
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:src="@drawable/welcome_page"
+        app:layout_constraintBottom_toTopOf=""
+>>>>>>> 6a14088 (Welcome page and login page designed)
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:src="@drawable/login_signup"
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf=""
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/Login"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:text="Login"
+        android:textSize="80px"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="318dp"
+        android:background="#0000000"
+        android:textColor="#FFFFFFFF"
+
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""/>
+
+    <Button
+        android:id="@+id/Signup"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:text="Signup"
+        android:textSize="80px"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="470dp"
+        android:background="#0000000"
+        android:textColor="#FFFFFFFF"
+
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""/>
+
+    <TextView
+        android:id="@+id/Login_label"
+        android:layout_width="280dp"
+        android:layout_height="97dp"
+        android:text="Already Registered?"
+        android:textSize="80px"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="280dp" />
+    <TextView
+        android:id="@+id/Signup_label"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:text="First Time?"
+        android:textSize="80px"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="440dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
