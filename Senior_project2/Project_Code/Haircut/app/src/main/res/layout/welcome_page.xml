@@ -87,7 +87,7 @@
         android:id="@+id/Login_label"
         android:layout_width="300dp"
         android:layout_height="97dp"
-        android:text="Which user are you?"
+        android:text="@string/which_user_are_you"
         android:textAlignment="center"
         android:textSize="80px"
         tools:layout_editor_absoluteX="58dp"

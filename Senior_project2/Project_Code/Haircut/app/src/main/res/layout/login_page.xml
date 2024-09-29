@@ -19,16 +19,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="525dp"
+        android:text="Password"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf=""
+        app:layout_constraintTop_toTopOf=""
+        android:layout_marginStart="5dp"/>
     <EditText
         android:id="@+id/editTextTextPassword2"
-        android:layout_width="308dp"
-        android:layout_height="43dp"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteX="140dp"
         tools:layout_editor_absoluteY="529dp"
         android:background="#BBBBBB"
         android:textColor="#FFFFFF"
+        android:hint="@string/pwd_hint"
         app:layout_constraintBottom_toTopOf=""
         app:layout_constraintEnd_toEndOf=""
         app:layout_constraintEnd_toStartOf=""
@@ -37,16 +52,31 @@
         app:layout_constraintTop_toTopOf=""
         />
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="471dp"
+        android:text="Email"
+        android:textSize="25sp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toTopOf=""
+        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toStartOf=""
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf=""
+        app:layout_constraintTop_toTopOf=""
+        />
     <EditText
         android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="308dp"
-        android:layout_height="42dp"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:background="#BBBBBB"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="51dp"
+        android:hint="@string/email_hint"
+        tools:layout_editor_absoluteX="140dp"
         tools:layout_editor_absoluteY="471dp"
         app:layout_constraintBottom_toTopOf=""
         app:layout_constraintEnd_toEndOf=""
@@ -54,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf=""
         app:layout_constraintTop_toTopOf=""
-        android:text="Email"/>
+        />
 
     <Button
         android:id="@+id/Login_button"

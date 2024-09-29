@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Haircut</string>
+    <string name="fname_hint">Enter first name</string>
+    <string name="lname_hint">Enter last name</string>
+    <string name="email_hint">Enter email</string>
+    <string name="pwd_hint">Enter password</string>
+    <string name="already_registered">Already Registered?</string>
+    <string name="which_user_are_you">Which user are you?</string>
 </resources>
