@@ -10,6 +10,7 @@
     <ImageView
         android:id="@+id/imageView1"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:importantForAccessibility="no"
         android:layout_width="409dp"
         android:layout_height="729dp"
@@ -20,6 +21,9 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
 =======
+=======
+        android:importantForAccessibility="no"
+>>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/template"
@@ -33,6 +37,7 @@
     <ImageView
         android:id="@+id/haircut_app_icon"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:importantForAccessibility="no"
         android:layout_width="130dp"
         android:layout_height="130dp"
@@ -45,6 +50,9 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
 =======
+=======
+        android:importantForAccessibility="no"
+>>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/haircut_app_icon"
@@ -74,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:text="@string/already_registered1"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf=""
@@ -87,6 +96,9 @@
         tools:layout_editor_absoluteY="280dp" />
 =======
         android:text="Already Registered?"
+=======
+        android:text="@string/already_registered1"
+>>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
         android:textSize="80px"
         app:layout_constraintTop_toBottomOf="@id/Login_label"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -113,12 +125,15 @@
         app:layout_constraintTop_toBottomOf="@id/Login_label"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 
-        />
+        app:layout_constraintEnd_toStartOf=""
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="318dp" />
 
     <TextView
         android:id="@+id/Signup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
 <<<<<<< HEAD
         android:text="@string/first_time1"
         android:textSize="30sp"
@@ -139,6 +154,13 @@
         app:layout_constraintBottom_toTopOf="@id/Signup_button"
 
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+=======
+        android:text="@string/first_time1"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Signup_button"
+>>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
         />
 
     <Button
