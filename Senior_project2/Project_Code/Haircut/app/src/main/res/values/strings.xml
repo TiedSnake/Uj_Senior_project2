@@ -6,4 +6,7 @@
     <string name="pwd_hint">Enter password</string>
     <string name="already_registered">Already Registered?</string>
     <string name="which_user_are_you">Which user are you?</string>
+    <string name="recover_password">recover password</string>
+    <string name="email">Email</string>
+    <string name="password_recovery">Password recovery</string>
 </resources>
