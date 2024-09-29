@@ -9,4 +9,7 @@
     <string name="recover_password">recover password</string>
     <string name="email">Email</string>
     <string name="password_recovery">Password recovery</string>
+    <string name="admin">Admin</string>
+    <string name="barber">Barber</string>
+    <string name="customer">Customer</string>
 </resources>
