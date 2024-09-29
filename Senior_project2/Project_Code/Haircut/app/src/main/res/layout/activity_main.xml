@@ -5,8 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".MainActivity"
     android:importantForAccessibility="no">
+=======
+    tools:context=".logic_1">
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 
 <<<<<<< HEAD
     <TextView
@@ -18,14 +22,26 @@
 
     <ImageView
         android:id="@+id/imageView1"
+<<<<<<< HEAD
         android:importantForAccessibility="no"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:src="@drawable/template"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
+=======
+        android:contentDescription=""
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:src="@drawable/template"
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+<<<<<<< HEAD
+=======
+        app:layout_constraintBottom_toBottomOf="parent"
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         />
 
     <ImageView
@@ -35,8 +51,8 @@
         android:layout_height="200dp"
         android:translationX="120dp"
         android:translationY="20dp"
-
         android:src="@drawable/haircut_app_icon"
+<<<<<<< HEAD
 <<<<<<< HEAD
         app:layout_constraintBottom_toTopOf=""
 >>>>>>> 6a14088 (Welcome page and login page designed)
@@ -46,8 +62,12 @@
 =======
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
+=======
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+<<<<<<< HEAD
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -55,6 +75,52 @@
 
 >>>>>>> b076c4e (fixed all warning errors in activity main, login_page, login_signup, and signup)
 
+=======
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@+id/Barber"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:background="#000000"
+        android:textColor="#FFFFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="80px"
+        android:text="Barber"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="425dp" />
+
+    <Button
+        android:id="@+id/Admin"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:text="Admin"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="530dp"
+        android:background="#000000"
+        android:textColor="#FFFFFFFF"
+        android:textSize="80px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@+id/Customer"
+        android:layout_width="252dp"
+        android:layout_height="97dp"
+        android:text="Customer"
+        android:textSize="80px"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="318dp"
+        android:background="#000000"
+        android:textColor="#FFFFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
     <Button
         android:id="@+id/Login"
         android:layout_width="wrap_content"
@@ -65,11 +131,18 @@
         android:textColor="#FFFFFF"
         tools:layout_editor_absoluteX="140dp"
         tools:layout_editor_absoluteY="318dp"
+<<<<<<< HEAD
 
         app:layout_constraintBottom_toTopOf="@android:id/empty"
         app:layout_constraintEnd_toEndOf="@android:id/empty"
         app:layout_constraintEnd_toStartOf="@android:id/empty"/>
 
+=======
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
     <Button
         android:id="@+id/Signup"
         android:layout_width="wrap_content"
@@ -80,11 +153,19 @@
         tools:layout_editor_absoluteY="480dp"
         android:backgroundTint="#000000"
         android:textColor="#FFFFFF"
+<<<<<<< HEAD
 
         app:layout_constraintBottom_toTopOf="@android:id/empty"
         app:layout_constraintEnd_toEndOf="@android:id/empty"
         app:layout_constraintEnd_toStartOf="@android:id/empty"/>
 
+=======
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
     <TextView
         android:id="@+id/Login_label"
         android:layout_width="wrap_content"
@@ -93,9 +174,16 @@
         android:textSize="30sp"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="280dp"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@android:id/empty"
         app:layout_constraintEnd_toEndOf="@android:id/empty"
         app:layout_constraintEnd_toStartOf="@android:id/empty"
+=======
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         />
     <TextView
         android:id="@+id/Signup_label"
@@ -105,10 +193,15 @@
         android:textSize="30sp"
         tools:layout_editor_absoluteX="135dp"
         tools:layout_editor_absoluteY="440dp"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@android:id/empty"
         app:layout_constraintEnd_toEndOf="@android:id/empty"
         app:layout_constraintEnd_toStartOf="@android:id/empty"
+=======
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

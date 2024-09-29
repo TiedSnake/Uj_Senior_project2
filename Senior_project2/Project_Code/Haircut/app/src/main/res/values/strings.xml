@@ -7,6 +7,7 @@
     <string name="already_registered">Already Registered?</string>
     <string name="which_user_are_you">Which user are you?</string>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <string name="recover_password">recover password</string>
     <string name="email">Email</string>
     <string name="password_recovery">Password recovery</string>
@@ -35,4 +36,7 @@
     <string name="log_in1">Log In</string>
     <string name="signup2">Signup</string>
 >>>>>>> 0aa74cb
+=======
+    <string name="first_name">First name</string>
+>>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 </resources>
