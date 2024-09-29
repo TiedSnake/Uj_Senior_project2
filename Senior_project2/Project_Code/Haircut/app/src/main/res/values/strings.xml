@@ -14,6 +14,7 @@
     <string name="admin">Admin</string>
     <string name="barber">Barber</string>
     <string name="customer">Customer</string>
+<<<<<<< HEAD
 =======
     <string name="barber">Barber</string>
     <string name="admin">Admin</string>
@@ -39,4 +40,7 @@
 =======
     <string name="first_name">First name</string>
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+=======
+    <string name="welcome">welcome</string>
+>>>>>>> e5b1884 (Added the missing value for the hardcoded  header in welcome_page)
 </resources>
