@@ -1,7 +1,6 @@
 # Manually excluded files
 *.docx
 *.jar
-*.webp
 
 # ========================================================================
 # Generated Android Studio Files
