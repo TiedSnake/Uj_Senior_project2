@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Haircut</string>
-    <string name="fname_hint">Enter first name</string>
+    <string name="f_name_hint">Enter first name</string>
     <string name="lname_hint">Enter last name</string>
     <string name="email_hint">Enter email</string>
     <string name="pwd_hint">Enter password</string>
@@ -52,21 +52,25 @@
     <string name="admin">Admin</string>
     <string name="customer">Customer</string>
     <string name="login">Login</string>
-    <string name="signup">Signup</string>
     <string name="first_time">First Time?</string>
     <string name="password">Password</string>
-    <string name="email">Email</string>
+    <string name="email_field">Email</string>
     <string name="log_in">Log In</string>
     <string name="login1">Login</string>
     <string name="login2">Login</string>
     <string name="already_registered1">Already Registered?</string>
-    <string name="signup1">Signup</string>
     <string name="first_time1">First Time?</string>
     <string name="password1">Password</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="email1">Email</string>
     <string name="log_in1">Log In</string>
+<<<<<<< HEAD
     <string name="signup2">Signup</string>
 >>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
+=======
+    <string name="signup">Signup</string>
+    <string name="login_signup">Login/signup</string>
+    <string name="email_label">Email</string>
+>>>>>>> 7721faa (Added the UI for users pages still undesigned)
 </resources>
