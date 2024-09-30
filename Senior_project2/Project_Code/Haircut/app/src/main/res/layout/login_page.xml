@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".logic_2">
+    tools:context=".login">
     <ImageView
         android:id="@+id/imageView1"
 <<<<<<< HEAD
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@id/haircut_app_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/editTextTextEmailAddress"
+        app:layout_constraintBottom_toTopOf="@id/email_field"
         />
     <TextView
         android:id="@+id/Passowrd_label"
@@ -71,6 +71,7 @@
         android:text="Password"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
+<<<<<<< HEAD
         app:layout_constraintRight_toLeftOf="@id/editTextTextPassword2"
         app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress"
         app:layout_constraintBottom_toTopOf="@id/Login_button"
@@ -79,6 +80,14 @@
     <EditText
         android:id="@+id/editTextTextPassword2"
         android:autofillHints="password"
+=======
+        app:layout_constraintRight_toLeftOf="@id/pwd_field"
+        app:layout_constraintTop_toBottomOf="@id/email_field"
+        app:layout_constraintBottom_toTopOf="@id/signup_button"
+        android:layout_marginStart="5dp"/>
+    <EditText
+        android:id="@+id/pwd_field"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -102,9 +111,14 @@
         android:hint="@string/pwd_hint"
         app:layout_constraintLeft_toRightOf="@id/Passowrd_label"
         app:layout_constraintRight_toRightOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress"
         app:layout_constraintBottom_toTopOf="@id/Login_button"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+=======
+        app:layout_constraintTop_toBottomOf="@id/email_field"
+        app:layout_constraintBottom_toTopOf="@id/signup_button"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         />
 
     <TextView
@@ -125,11 +139,13 @@
         app:layout_constraintTop_toTopOf="@android:id/empty"
 =======
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:layout_marginRight="35dp"
+        android:text="@string/email_label"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/editTextTextEmailAddress"
+        app:layout_constraintRight_toLeftOf="@id/email_field"
         app:layout_constraintTop_toBottomOf="@id/Login_label"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@id/editTextTextPassword2"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         />
@@ -138,12 +154,20 @@
         android:id="@+id/editTextTextEmailAddress"
         android:textColorHint="#000000"
         android:autofillHints="emailAddress"
+=======
+        app:layout_constraintBottom_toTopOf="@id/pwd_field"
+        />
+
+    <EditText
+        android:id="@+id/email_field"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:inputType="textEmailAddress"
         android:background="#BBBBBB"
         android:textColor="#000000"
         android:hint="@string/email_hint"
+<<<<<<< HEAD
 <<<<<<< HEAD
         tools:layout_editor_absoluteX="140dp"
         tools:layout_editor_absoluteY="471dp"
@@ -155,6 +179,9 @@
         app:layout_constraintTop_toTopOf="@android:id/empty"
 =======
         app:layout_constraintBottom_toTopOf="@id/editTextTextPassword2"
+=======
+        app:layout_constraintBottom_toTopOf="@id/pwd_field"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         app:layout_constraintLeft_toRightOf="@id/Email_label"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Login_label"
@@ -162,7 +189,7 @@
         />
 
     <Button
-        android:id="@+id/Login_button"
+        android:id="@+id/signup_button"
         android:layout_width="315dp"
         android:layout_height="58dp"
         android:text="@string/log_in"
@@ -215,7 +242,7 @@
 =======
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword2"
+        app:layout_constraintTop_toBottomOf="@id/pwd_field"
         app:layout_constraintBottom_toBottomOf="parent"/>
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 </androidx.constraintlayout.widget.ConstraintLayout>

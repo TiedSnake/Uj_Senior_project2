@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".logic_2">
+    tools:context=".signup_login">
     <ImageView
         android:id="@+id/imageView1"
 <<<<<<< HEAD
@@ -74,11 +74,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@id/signup"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+=======
+        app:layout_constraintBottom_toTopOf="@id/signup_label"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         />
     <TextView
-        android:id="@+id/signup"
+        android:id="@+id/signup_label"
         android:layout_width="wrap_content"
 <<<<<<< HEAD
         android:layout_height="50dp"
@@ -101,13 +105,15 @@
         app:layout_constraintTop_toBottomOf="@id/haircut_app_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Fname"
+        app:layout_constraintBottom_toTopOf="@id/f_name"
         android:layout_marginTop="40dp"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         />
 
     <EditText
+        android:id="@+id/f_name"
         android:autofillHints="name"
+<<<<<<< HEAD
         android:id="@+id/Fname"
 <<<<<<< HEAD
         android:autofillHints="name"
@@ -118,10 +124,16 @@
         android:layout_width="200dp"
         android:layout_height="35dp"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+=======
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:textColorHint="#000000"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:ems="10"
         android:inputType="textEmailAddress"
         android:background="#BBBBBB"
         android:textColor="#000000"
+<<<<<<< HEAD
         android:hint="@string/fname_hint"
 <<<<<<< HEAD
         tools:layout_editor_absoluteX="170dp"
@@ -154,9 +166,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/Lname"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+=======
+        android:hint="@string/f_name_hint"
+
+        app:layout_constraintTop_toBottomOf="@id/signup_label"
+        app:layout_constraintLeft_toRightOf="@id/f_name_label"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/l_name"/>
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
 
     <EditText
+        android:id="@+id/l_name"
         android:autofillHints="name"
+<<<<<<< HEAD
         android:id="@+id/Lname"
 <<<<<<< HEAD
         android:autofillHints="name"
@@ -167,28 +189,33 @@
         android:layout_width="200dp"
         android:layout_height="35dp"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+=======
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:ems="10"
         android:inputType="textEmailAddress"
         android:background="#BBBBBB"
         android:textColor="#000000"
+        android:textColorHint="#000000"
         android:hint="@string/lname_hint"
         app:layout_constraintLeft_toRightOf="@id/Lname_label"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Fname"
-        app:layout_constraintBottom_toTopOf="@id/email"
+        app:layout_constraintTop_toBottomOf="@id/f_name"
+        app:layout_constraintBottom_toTopOf="@id/email_field"
         />
 
 
 
     <TextView
-        android:id="@+id/Fname_label"
+        android:id="@+id/f_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/first_name"
         android:textSize="23sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/Fname"
-        app:layout_constraintTop_toBottomOf="@id/signup"
+        app:layout_constraintRight_toLeftOf="@id/f_name"
+        app:layout_constraintTop_toBottomOf="@id/signup_label"
         app:layout_constraintBottom_toTopOf="@id/Lname_label"
         />
     <TextView
@@ -220,8 +247,8 @@
         android:text="@string/last_name"
         android:textSize="23sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/Lname"
-        app:layout_constraintTop_toBottomOf="@id/Fname_label"
+        app:layout_constraintRight_toLeftOf="@id/l_name"
+        app:layout_constraintTop_toBottomOf="@id/f_name_label"
         app:layout_constraintBottom_toTopOf="@id/email_label"
         />
 
@@ -232,29 +259,35 @@
         android:text="@string/email1"
         android:textSize="23sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/email"
+        app:layout_constraintRight_toLeftOf="@id/email_field"
         app:layout_constraintBottom_toTopOf="@id/Password_label"
         app:layout_constraintTop_toBottomOf="@id/Lname_label"
 
         />
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/email_field"
+        android:autofillHints="name"
         android:layout_width="200dp"
+<<<<<<< HEAD
         android:layout_height="35dp"
 <<<<<<< HEAD
         android:layout_marginLeft="50dp"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 =======
+=======
+        android:layout_height="48dp"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:layout_marginStart="50dp"
 >>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
         android:inputType="textEmailAddress"
         android:background="#BBBBBB"
         android:textColor="#000000"
         android:hint="@string/email_hint"
-        app:layout_constraintTop_toBottomOf="@id/Lname"
+        android:textColorHint="#000000"
+        app:layout_constraintTop_toBottomOf="@id/l_name"
         app:layout_constraintLeft_toRightOf="@id/email_label"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/password"
+        app:layout_constraintBottom_toTopOf="@id/pwd_field"
         />
     <TextView
         android:id="@+id/Password_label"
@@ -265,26 +298,28 @@
         android:textSize="23sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_label"
-        app:layout_constraintRight_toLeftOf="@id/password"
-        app:layout_constraintBottom_toTopOf="@id/Login_button"
+        app:layout_constraintRight_toLeftOf="@id/pwd_field"
+        app:layout_constraintBottom_toTopOf="@id/signup_button"
         />
     <EditText
+        android:id="@+id/pwd_field"
         android:autofillHints="name"
-        android:id="@+id/password"
         android:layout_width="200dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:inputType="textPassword"
         android:background="#BBBBBB"
         android:textColor="#000000"
         android:hint="@string/pwd_hint"
+        android:textColorHint="#000000"
         app:layout_constraintLeft_toRightOf="@id/Password_label"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        app:layout_constraintBottom_toTopOf="@id/Login_button"
+        app:layout_constraintTop_toBottomOf="@id/email_field"
+        app:layout_constraintBottom_toTopOf="@id/signup_button"
         />
 
     <Button
+<<<<<<< HEAD
         android:id="@+id/Login_button"
 <<<<<<< HEAD
         android:layout_width="315dp"
@@ -339,9 +374,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/log_in"
+=======
+        android:id="@+id/signup_button"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:text="@string/signup"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:backgroundTint="#000000"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintTop_toBottomOf="@id/pwd_field"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

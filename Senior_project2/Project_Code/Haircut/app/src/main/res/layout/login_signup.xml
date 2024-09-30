@@ -5,13 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".logic_2">
+    tools:context=".signup_login">
 
     <ImageView
         android:id="@+id/imageView1"
 <<<<<<< HEAD
 <<<<<<< HEAD
         android:importantForAccessibility="no"
+<<<<<<< HEAD
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:src="@drawable/template"
@@ -26,6 +27,10 @@
 >>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+=======
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:src="@drawable/template"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         app:layout_constraintTop_toTopOf="parent"
@@ -35,6 +40,7 @@
         />
 
     <ImageView
+<<<<<<< HEAD
         android:id="@+id/haircut_app_icon"
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -53,8 +59,13 @@
 =======
         android:importantForAccessibility="no"
 >>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
+=======
+        android:importantForAccessibility="no"
+        android:id="@+id/haircut_app_icon"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/haircut_app_icon"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         app:layout_constraintTop_toTopOf="parent"
@@ -66,15 +77,14 @@
         android:id="@+id/login_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login/signup"
+        android:text="@string/login_signup"
         android:textAlignment="center"
-        android:textSize="80px"
+        android:textSize="40sp"
         app:layout_constraintTop_toBottomOf="@id/haircut_app_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/Login_label"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="40dp"
+
         />
 
     <TextView
@@ -84,6 +94,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
         android:text="@string/already_registered1"
+<<<<<<< HEAD
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf=""
         app:layout_constraintEnd_toEndOf=""
@@ -101,19 +112,25 @@
 >>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
         android:textSize="80px"
         app:layout_constraintTop_toBottomOf="@id/Login_label"
+=======
+        android:layout_marginTop="60dp"
+        android:textSize="35sp"
+        app:layout_constraintTop_toBottomOf="@id/login_signup"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Login_button"
+        app:layout_constraintBottom_toTopOf="@id/signup_button"
         />
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 
     <Button
-        android:id="@+id/Login_button"
+        android:id="@+id/signup_button"
         android:layout_width="252dp"
         android:layout_height="97dp"
         android:backgroundTint="#000000"
         android:text="@string/login2"
         android:textColor="#FFFFFFFF"
+<<<<<<< HEAD
 <<<<<<< HEAD
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf=""
@@ -128,11 +145,19 @@
         app:layout_constraintEnd_toStartOf=""
         tools:layout_editor_absoluteX="75dp"
         tools:layout_editor_absoluteY="318dp" />
+=======
+        android:textSize="35sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Signup_label"
+        app:layout_constraintTop_toBottomOf="@id/Login_label" />
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
 
     <TextView
         android:id="@+id/Signup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         android:text="@string/first_time1"
@@ -155,22 +180,30 @@
 
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 =======
+=======
+        android:layout_marginTop="35dp"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         android:text="@string/first_time1"
-        android:textSize="30sp"
+        android:textSize="35sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/Signup_button"
+<<<<<<< HEAD
 >>>>>>> 87a5e6a (Merged all warning fixes with the constraints fixes in this commit)
+=======
+        app:layout_constraintTop_toBottomOf="@id/signup_button"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         />
 
     <Button
         android:id="@+id/Signup_button"
         android:layout_width="252dp"
         android:layout_height="97dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="80dp"
         android:backgroundTint="#000000"
-        android:text="@string/signup1"
+        android:text="@string/signup"
         android:textColor="#FFFFFFFF"
+<<<<<<< HEAD
 <<<<<<< HEAD
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf=""
@@ -181,9 +214,13 @@
         tools:layout_editor_absoluteY="480dp" />
 =======
         android:textSize="80px"
+=======
+        android:textSize="35sp"
+>>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Signup_label"
         />
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 </androidx.constraintlayout.widget.ConstraintLayout>
