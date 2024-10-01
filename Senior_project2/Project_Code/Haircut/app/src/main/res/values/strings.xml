@@ -72,5 +72,25 @@
     <string name="signup">Signup</string>
     <string name="login_signup">Login/signup</string>
     <string name="email_label">Email</string>
+<<<<<<< HEAD
 >>>>>>> 7721faa (Added the UI for users pages still undesigned)
+=======
+    <string name="sign_out_barber">sign out</string>
+    <string name="see_appointments_barber">see appointments</string>
+    <string name="check_reviews_barber">check reviews</string>
+    <string name="edit_contact_the_barber">Edit Contact the barber</string>
+    <string name="payment_barber">payment</string>
+    <string name="edit_service_barber">Edit service</string>
+    <string name="profile_barber">Profile</string>
+    <string name="barbershop_name">صالون الشيراتون</string>
+    <string name="admin_page_text">Admin</string>
+    <string name="profile_picture_admin_page">profile_picture_admin_page</string>
+    <string name="ali_admin_page">Ali</string>
+    <string name="barber_admin_page">Barber</string>
+    <string name="view_rating_reviews">view rating/reviews</string>
+    <string name="sign_out_admin_page">Sign out</string>
+    <string name="login_page">Login</string>
+    <string name="password_login_page">Password</string>
+    <string name="login_login_page">Log In</string>
+>>>>>>> f3486f9 (fixed all warnings in the login_page and added pics for the project 2)
 </resources>
