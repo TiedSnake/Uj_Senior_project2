@@ -6,19 +6,27 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/haircut_app_icon_square"
+        android:icon="@mipmap/generated_haircut_app_icon_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/haircut_app_icon"
+        android:roundIcon="@mipmap/generated_haircut_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Haircut"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".signup_login">
+
+        </activity>
+        <activity android:name=".login">
+
+        </activity>
+        <activity android:name=".signup">
         </activity>
     </application>
 
