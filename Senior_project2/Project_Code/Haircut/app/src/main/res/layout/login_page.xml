@@ -212,10 +212,14 @@
         android:layout_width="315dp"
         android:layout_height="58dp"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:text="@string/log_in"
 =======
         android:text="@string/login_login_page"
 >>>>>>> d73dff8 (fixed all warnings in the login_page)
+=======
+        android:text="@string/login"
+>>>>>>> f0c7fd8 (Fixed strings in login_page and welcome_page)
         android:backgroundTint="#000000"
         android:textColor="#FFFFFF"
 <<<<<<< HEAD

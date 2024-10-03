@@ -109,7 +109,7 @@
         android:layout_height="90dp"
 >>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         android:backgroundTint="#000000"
-        android:text="@string/admin"
+        android:text="@string/admin_welcome_page"
         android:textColor="#FFFFFFFF"
 <<<<<<< HEAD
 <<<<<<< HEAD

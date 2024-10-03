@@ -128,5 +128,9 @@
     <string name="verification_code">Verification Code</string>
     <string name="verification_code_hint">Enter Verification code</string>
     <string name="send_verification_code">Send</string>
+<<<<<<< HEAD
 >>>>>>> 8af772b (fixed conflicts and added customer_page, forgot_password(password recovery),and reset_password_page only one warning in customer_page)
+=======
+    <string name="admin_welcome_page">Admin</string>
+>>>>>>> f0c7fd8 (Fixed strings in login_page and welcome_page)
 </resources>
