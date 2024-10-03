@@ -17,20 +17,6 @@ public class login extends AppCompatActivity {
     Button login_btn;
     EditText email;
     EditText pwd;
-    /**
-     * Simulating a database Key-->email_username, value--> (email_domain, password)
-     * [username]@[domain_name].tld
-     */
-    private static final Map<String, String[]> DB = new HashMap<String, String[]>() {
-        {
-            put("bria83", new String[]{"@gmail.com", "bria83"});
-            put("torey_schultz79", new String[]{"@yahoo.com", "torey_schultz79"});
-            put("hermann_wiza", new String[]{"@hotmail.c", "hermann_wiza"});
-            put("ludie_feest", new String[]{"@yahoo.com", "ludie_feest"});
-            put("adrain.ziemann", new String[]{"@yahoo.com", "adrain.ziemann"});
-            put("keagan_barrows41", new String[]{"@yahoo.com", "keagan_barrows41"});
-        }
-    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

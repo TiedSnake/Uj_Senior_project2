@@ -24,6 +24,15 @@ public class signup extends AppCompatActivity {
         signup_btn = findViewById(R.id.signup_button);
         pwd = findViewById(R.id.pwd_field);
         signup_btn.setOnClickListener(view -> {
+<<<<<<< HEAD
+=======
+            String _fname = fname.getText().toString();
+            String _lname = lname.getText().toString();
+            String _email = email.getText().toString();
+            String _pwd = pwd.getText().toString();
+            Service.signup(new User(_fname, _lname, _email, _pwd));
+            //Needs more writing
+>>>>>>> a5e7979 (Committing surface logic code before integrating it with the frontend)
             Intent intent = new Intent(signup.this, login.class);
             intent.putExtra("action", "login");
             startActivity(intent);

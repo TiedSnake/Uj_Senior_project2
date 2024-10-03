@@ -23,21 +23,21 @@ public class logic_1 extends AppCompatActivity {
         customer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(logic_1.this, logic_2.class);
+                Intent intent = new Intent(logic_1.this, password_reset.class);
                 intent.putExtra("user_type", "customer");
             }
         });
         barber_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(logic_1.this, logic_2.class);
+                Intent intent = new Intent(logic_1.this, password_reset.class);
                 intent.putExtra("user_type", "barber");
             }
         });
         admin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(logic_1.this, logic_2.class);
+                Intent intent = new Intent(logic_1.this, password_reset.class);
                 intent.putExtra("user_type", "admin");
             }
         });
