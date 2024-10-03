@@ -49,7 +49,7 @@
 =======
     <string name="welcome">welcome</string>
     <string name="barber">Barber</string>
-    <string name="admin">Admin</string>
+    <string name="admin">Ali</string>
     <string name="customer">Customer</string>
     <string name="login">Login</string>
     <string name="first_time">First Time?</string>
@@ -73,6 +73,7 @@
     <string name="login_signup">Login/signup</string>
     <string name="email_label">Email</string>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7721faa (Added the UI for users pages still undesigned)
 =======
     <string name="sign_out_barber">sign out</string>
@@ -93,4 +94,39 @@
     <string name="password_login_page">Password</string>
     <string name="login_login_page">Log In</string>
 >>>>>>> f3486f9 (fixed all warnings in the login_page and added pics for the project 2)
+=======
+    <string name="password_login_page">Password</string>
+    <string name="login_page">Login</string>
+    <string name="login_button">Log In</string>
+    <string name="admin_page">Admin</string>
+    <string name="profile_picture_admin">Profile Picture</string>
+    <string name="ali_admin_page">Ali</string>
+    <string name="profile_picture_admin_page">Profile Picture</string>
+    <string name="admin_page_text">Admin</string>
+    <string name="barber_admin_page">Barber</string>
+    <string name="view_rating_reviews">View Rating/Reviews</string>
+    <string name="sign_out_admin_page">Sign Out</string>
+    <string name="barbershop_name">صاون الشيراتون</string>
+    <string name="profile_barber">Profile</string>
+    <string name="edit_service_barber">Edit service\n</string>
+    <string name="see_appointments_barber">See appointments\n</string>
+    <string name="edit_contact_the_barber">Edit Contact the barber</string>
+    <string name="payment_barber">Payment\n</string>
+    <string name="check_reviews_barber">Check reviews</string>
+    <string name="sign_out_barber">Sign out</string>
+    <string name="haircut_cus_page">Haircut</string>
+    <string name="find_your_barber">Find your barber</string>
+    <string name="sheraton_salon">Sheraton salon</string>
+    <string name="nearby_shop">nearby shop</string>
+    <string name="capo_salon_cus_page">Capo salon</string>
+    <string name="popular_barbershop">Popular Barbershop</string>
+    <string name="popular_shop">popular shop</string>
+    <string name="sheraton_salon_cus_page">Sheraton salon</string>
+    <string name="menu_cus_page">menu customer page</string>
+    <string name="nearby_cus_page">nearby</string>
+    <string name="email">Email</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verification_code_hint">Enter Verification code</string>
+    <string name="send_verification_code">Send</string>
+>>>>>>> 8af772b (fixed conflicts and added customer_page, forgot_password(password recovery),and reset_password_page only one warning in customer_page)
 </resources>

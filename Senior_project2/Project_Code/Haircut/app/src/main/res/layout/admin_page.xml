@@ -4,7 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+<<<<<<< HEAD
     tools:context=".admin">
+=======
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+>>>>>>> 8af772b (fixed conflicts and added customer_page, forgot_password(password recovery),and reset_password_page only one warning in customer_page)
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
