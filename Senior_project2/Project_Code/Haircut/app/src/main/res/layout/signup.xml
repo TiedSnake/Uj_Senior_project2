@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
     <ImageView
         android:id="@+id/imageView1"
+        android:importantForAccessibility="no"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:src="@drawable/template"
@@ -24,7 +25,7 @@
         android:layout_height="50dp"
         tools:layout_editor_absoluteX="50dp"
         tools:layout_editor_absoluteY="490dp"
-        android:text="Password"
+        android:text="@string/password1"
         android:textSize="25sp"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toTopOf=""
@@ -37,6 +38,8 @@
 
     <EditText
         android:id="@+id/editTextTextPassword2"
+        android:textColorHint="000000"
+        android:autofillHints="password"
         android:layout_width="170dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -59,7 +62,7 @@
         android:layout_height="50dp"
         tools:layout_editor_absoluteX="50dp"
         tools:layout_editor_absoluteY="300dp"
-        android:text="First name"
+        android:text="@string/first_name"
         android:textSize="25sp"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toTopOf=""
@@ -72,6 +75,8 @@
 
     <EditText
         android:id="@+id/Fname"
+        android:autofillHints="name"
+        android:textColorHint="000000"
         android:layout_width="170dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -93,7 +98,7 @@
         android:layout_height="50dp"
         tools:layout_editor_absoluteX="50dp"
         tools:layout_editor_absoluteY="360dp"
-        android:text="Last name"
+        android:text="@string/last_name"
         android:textSize="25sp"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toTopOf=""
@@ -106,6 +111,8 @@
 
     <EditText
         android:id="@+id/Lname"
+        android:autofillHints="name"
+        android:textColorHint="000000"
         android:layout_width="170dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -127,7 +134,7 @@
         android:layout_height="50dp"
         tools:layout_editor_absoluteX="50dp"
         tools:layout_editor_absoluteY="431dp"
-        android:text="Email"
+        android:text="@string/email1"
         android:textSize="25sp"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toTopOf=""
@@ -139,6 +146,8 @@
         />
     <EditText
         android:id="@+id/editTextTextEmailAddress"
+        android:autofillHints="emailAddress"
+        android:textColorHint="000000"
         android:layout_width="170dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -160,7 +169,7 @@
         android:id="@+id/Login_button"
         android:layout_width="315dp"
         android:layout_height="58dp"
-        android:text="Log In"
+        android:text="@string/log_in1"
         android:backgroundTint="#000000"
         android:textColor="#FFFFFF"
         tools:layout_editor_absoluteX="49dp"
@@ -174,6 +183,7 @@
 
     <ImageView
         android:id="@+id/haircut_app_icon"
+        android:importantForAccessibility="no"
         android:layout_width="100dp"
         android:layout_height="200dp"
         android:translationX="120dp"
@@ -190,10 +200,10 @@
     <TextView
         android:id="@+id/Login_label"
         android:layout_width="250dp"
-        android:layout_height="97dp"
-        android:text="Signup"
+        android:layout_height="67dp"
+        android:text="@string/signup2"
         android:textAlignment="center"
-        android:textSize="80px"
+        android:textSize="30sp"
         tools:layout_editor_absoluteX="78dp"
         tools:layout_editor_absoluteY="240dp"
         app:layout_constraintBottom_toTopOf=""
