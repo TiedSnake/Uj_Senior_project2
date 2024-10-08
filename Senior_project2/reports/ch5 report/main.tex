@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{booktabs} % For better-looking tables
 \usepackage{graphicx}
+\usepackage{listings}
 \usepackage{xcolor}
 \begin{document}
 \begin{figure}[ht]
@@ -125,7 +126,7 @@ and the users are categorized as follows:
     \label{fig: User classification screen}
 \end{figure}
 
-
+\lstinputlisting[language=Java, caption=Welcome.java]{attachments/welcome.java}
 \newpage
 \begin{itemize}
     \item Customer
@@ -144,7 +145,7 @@ Secondly, after the user clicks on the suitable option another page asks the use
     \label{fig: signup or login page screen}
 \end{figure}
 
-
+\lstinputlisting[language=Java, caption=signup login.java]{attachments/signup_login.java}
 \newpage
 \begin{figure}[ht]
     \centering
@@ -153,7 +154,7 @@ Secondly, after the user clicks on the suitable option another page asks the use
     \label{fig: login screen}
 \end{figure}
 
-
+\lstinputlisting[language=Java, caption=login.java]{attachments/login.java}
 
 \newpage
 If the user chooses the login option, they will be redirected to the login page, where the user enters the email and password and logs in to the app.
@@ -164,7 +165,7 @@ If the user chooses the login option, they will be redirected to the login page,
     \label{fig: signup page screen}
 \end{figure}
 
-
+\lstinputlisting[language=Java, caption=signup.java]{attachments/signup.java}
 
 
 \newpage
@@ -175,7 +176,7 @@ If the user chooses the signup option, they will be redirected to the signup pag
     \caption{forgot password page}
     \label{fig: forgot password page screen}
 \end{figure}
-
+\lstinputlisting[language=Java, caption="password reset"]{attachments/password_reset.java}
 
 \newpage
 if the user forgets their password, they will be redirected to the forgot password page, where the user enters their email and clicks on recover password.
@@ -188,7 +189,7 @@ if the user forgets their password, they will be redirected to the forgot passwo
 \end{figure}
 once the user clicks on recover password button, they are redirected to the reset password page, where the user receives a verification code on their email, once they enter the verification code, the user clicks on send.
 
-
+\lstinputlisting[language=Java, caption=code verification.java]{attachments/code_verification.java}
 
 \newpage
 
