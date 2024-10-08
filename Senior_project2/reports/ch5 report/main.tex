@@ -1,12 +1,13 @@
 \documentclass{article}
 \usepackage{booktabs} % For better-looking tables
 \usepackage{graphicx}
+\usepackage{xcolor}
 \begin{document}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/HairCut.png}
     \caption{HairCut application Icon}
-    \label{fig: exmaple}
+    \label{fig: App icon}
 \end{figure}
 \begin{table}[h] % Place the table "here" (h) on the page
     \centering
@@ -53,7 +54,7 @@ In this chapter, we are going to discuss and describe software tools and IDEs th
     \centering
     \includegraphics[width=0.5\textwidth]{images/Android studio.png}
     \caption{Android Studio Icon}
-    \label{fig: }
+    \label{fig: android studio icon}
 \end{figure}
 In this section, we are going to describe the software tools and IDEs that we are going to use in this project, starting with Android studio, it is an IDE used for the development of mobile applications, It is based on JetBrains' IntelliJ IDEA software and tailored specifically for Android development. Android Studio offers a comprehensive set of tools for designing, building, and testing Android applications. 
 \newpage
@@ -61,7 +62,7 @@ In this section, we are going to describe the software tools and IDEs that we ar
     \centering
     \includegraphics[width=0.5\textwidth]{images/Kotlin_Icon.png}
     \caption{Kotlin Icon}
-    \label{fig: exmaple}
+    \label{fig: Kotlin icon}
 \end{figure}
 
 As for the programming language, we are going to use Kotlin, it is a programming language that runs on the Java Virtual Machine (JVM) and also compiles to JavaScript or native code. Developed by JetBrains, the creators of popular IDEs like IntelliJ IDEA Here are some key points about Kotlin:
@@ -98,32 +99,34 @@ As for the \textbf{front end} design, we used the\textbf{\textit{ }figma} progra
 \item \subsection{Hardware Description}
 In this section we are going to describe the hardware components and the requirements and specifications needed for the app to run on the hardware without any issues, we are going to use Android pixel to run the application on, the required storage space would be at least 300 MB, and the RAM (Random Access Memory) needed is at least 4GB RAM for the app to run properly. The Android pixel device is a test device for the application, any other android device that meets the requirements will run the application without any issues.
 
- \begin{figure}[h]
+ \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/Android platform chart.png}
     \caption{Android platform chart of each platform's distribution}
-    \label{fig: exmaple}
+    \label{fig: android platform chart}
 \end{figure}
 \item \subsection{Details}
 In this section of the report we discuss the user interface in steps with description of each page and the present components
 in addition to the flow of the pages and the difference between each user. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/Android platform chart.png}
     \caption{Android platform chart of each platform's distribution}
-    \label{fig: exmaple}
+    \label{fig: platform chart}
 \end{figure}
 \newpage
 Firstly, the application starts by the `welcome page' which displays several options of kind of users the application is going to serve
 and the users are categorized as follows:
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/user_classification.png}
-    \caption{Android platform chart of each platform's distribution}
+    \caption{Welcome page}
     \label{fig: User classification screen}
 \end{figure}
 
+
+\newpage
 \begin{itemize}
     \item Customer
     \item Barber
@@ -134,22 +137,63 @@ and the users are categorized as follows:
 Secondly, after the user clicks on the suitable option another page asks the user whether they are trying to login or signup for the first time.
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/signup_or_login.png}
-    \caption{Android platform chart of each platform's distribution}
-    \label{fig: User classification screen}
+    \caption{signup or login}
+    \label{fig: signup or login page screen}
 \end{figure}
 
-\begin{figure}[h]
+
+\newpage
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/login_page.png}
-    \caption{Android platform chart of each platform's distribution}
-    \label{fig: User classification screen}
+    \caption{login}
+    \label{fig: login screen}
 \end{figure}
 
-\item \subsection{Conclusion}
 
+
+\newpage
+If the user chooses the login option, they will be redirected to the login page, where the user enters the email and password and logs in to the app.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/signup_page.png}
+    \caption{signup page}
+    \label{fig: signup page screen}
+\end{figure}
+
+
+
+
+\newpage
+If the user chooses the signup option, they will be redirected to the signup page, where the user needs to enter their credentials, and it includes: First name, last name, email and password, after the user enters the credentials they press signup button.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/forgot_password.png}
+    \caption{forgot password page}
+    \label{fig: forgot password page screen}
+\end{figure}
+
+
+\newpage
+if the user forgets their password, they will be redirected to the forgot password page, where the user enters their email and clicks on recover password.
+\newpage
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/reset_password.png}
+    \caption{reset password recovery page}
+    \label{fig: password recovery page screen}
+\end{figure}
+once the user clicks on recover password button, they are redirected to the reset password page, where the user receives a verification code on their email, once they enter the verification code, the user clicks on send.
+
+
+
+\newpage
+
+\item \subsection{Conclusion}
+In this chapter, we discussed and described the software tools and IDEs that we used for the project, including Android studio, Kotlin, and Figma, and described the hardware needed for this project, in that case an Android pixel or an android mobile device with at least 300 MB of available storage space, and 4 GB RAM, and we went on to describe details related to the screens and the steps needed to properly use the app, starting with the welcome page, where the user chooses the type of user they are, and whether the user needs to either login or signup, to which when they choose the login, the user enters the email and password, if they choose signup, the user enters the required credentials, if the user forgets their password, they're redirected to the password recovery page, where the user enters the email, receives a verification code, and enters the code to be able to reset their password.
 \end{itemize}
 
 \end{document}
