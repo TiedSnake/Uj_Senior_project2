@@ -29,7 +29,6 @@ class UtilityTest {
             "margie.vandervort@yahoo.com",
             "waino11@hotmail.com",
             "marcelle73@yahoo.com",
-
             "test.user@example.com",
             "invalid-email@.com",
     })

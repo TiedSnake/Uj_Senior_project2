@@ -15,6 +15,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -27,12 +28,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
+
+
 }
 
 dependencies {
@@ -42,7 +45,34 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    //JSON Web Token
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    implementation(libs.java.jwt)
+
+
+
+    // JUnit 5 (JUnit Jupiter)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
+
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
+    testRuntimeOnly(libs.junit.platform.launcher)
+
+
+    androidTestImplementation(libs.androidx.espresso.core)
+    //Junit 4 cannot be replaced with Junit jupiter in this case because of the Android instrumentation testing is included in 4 only
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
+    // https://mvnrepository.com/artifact/dnsjava/dnsjava
+    implementation(libs.dnsjava)
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    testImplementation(libs.slf4j.simple)
+
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

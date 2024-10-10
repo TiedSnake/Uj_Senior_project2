@@ -27,23 +27,26 @@ public class login extends AppCompatActivity {
         pwd = findViewById(R.id.pwd_field);
         login_btn.setOnClickListener(view -> {
             String _email = email.getText().toString();
-            String _email_username = _email.split("@")[0];
             String _pwd = pwd.getText().toString();
-            if (!_email.isEmpty() && !_pwd.isEmpty()) {//if both email & password fields are NOT empty
-                String[] record;
-                //if the database contains the email then fetch its value inside record otherwise pass null to record
-                record = DB.containsKey(_email_username) ? DB.get(_email_username) : null;
-                if (record == null)//if record is null then email isn't present in the system
+            Service.ResponseFlag flag = Service.login(_email, _pwd);
+            switch (flag.name()) {
+                case "EMAIL_NOT_ENTERED":
+                    Toast.makeText(login.this, "Please enter the email", Toast.LENGTH_SHORT).show();
+                    break;
+                case "PASSWORD_NOT_ENTERED":
+                    Toast.makeText(login.this, "Please enter the password", Toast.LENGTH_SHORT).show();
+                    break;
+                case "EMAIL_NOT_REGISTERED":
                     Toast.makeText(login.this, "This email isn't registered", Toast.LENGTH_SHORT).show();
-                else {//email is present.
-                    if (!_pwd.equals(record[1]))//entered password i.e. `_pwd` doesn't equal record [1] which is the stored password in DB
-                        Toast.makeText(login.this, "email or password is invalid", Toast.LENGTH_SHORT).show();
-                    else {
-                        Toast.makeText(login.this, "Access granted", Toast.LENGTH_SHORT).show();
-                        String user = getIntent().getStringExtra("user_type");
-                        Intent intent = null;
-                        if (user!=null)
-                        {
+                    break;
+                case "INCORRECT_CREDENTIALS":
+                    Toast.makeText(login.this, "email or password is invalid", Toast.LENGTH_SHORT).show();
+                    break;
+                case "SUCCESS":
+                    Toast.makeText(login.this, "Access granted", Toast.LENGTH_SHORT).show();
+                    String user = getIntent().getStringExtra("user_type");
+                    Intent intent = null;
+                    if (user != null) {
                         if (user.equals("customer"))
                             intent = new Intent(login.this, customer.class);
                         if (user.equals("barber"))
@@ -52,14 +55,8 @@ public class login extends AppCompatActivity {
                             intent = new Intent(login.this, admin.class);
                         if (intent != null)
                             startActivity(intent);
-                        }
                     }
-                }
-            } else {//else one of the fields is empty or both of them are empty
-                if (_email.isEmpty())
-                    Toast.makeText(login.this, "Please enter the email", Toast.LENGTH_SHORT).show();
-                if (_pwd.isEmpty())
-                    Toast.makeText(login.this, "Please enter the password", Toast.LENGTH_SHORT).show();
+                    break;
             }
         });
     }

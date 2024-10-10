@@ -37,7 +37,7 @@ public class password_reset extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgot_password);
         EditText email_field = findViewById(R.id.email_field);
-        Button reset_btn = findViewById(R.id.recover_button);
+        Button reset_btn = findViewById(R.id.recover_password_btn);
         reset_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
