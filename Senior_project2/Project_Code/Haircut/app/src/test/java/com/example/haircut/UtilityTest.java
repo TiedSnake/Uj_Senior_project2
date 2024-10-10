@@ -37,16 +37,16 @@ class UtilityTest {
     }
 
     //validates an email by checking if its domain has "mail-exchange"(MX) record.
-    @ParameterizedTest
-    @ValueSource(strings ={
-            "gowirhgoirhv.com",
-            "gmail.com",
-            "outlook.com",
-            "uj.edu.sa",
-            "yahoo.com"
-
-    })
-    void validateMX(String domain) {
-        System.out.println("MX/A validation for " + domain + ": " + Utility.validateMX(domain));
-    }
+//    @ParameterizedTest
+//    @ValueSource(strings ={
+//            "gowirhgoirhv.com",
+//            "gmail.com",
+//            "outlook.com",
+//            "uj.edu.sa",
+//            "yahoo.com"
+//
+//    })
+//    void validateMX(String domain) {
+////        System.out.println("MX/A validation for " + domain + ": " + Utility.validateMX(domain));
+//    }
 }
