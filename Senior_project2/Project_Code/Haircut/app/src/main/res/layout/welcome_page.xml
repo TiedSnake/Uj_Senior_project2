@@ -10,18 +10,9 @@
 
     <ImageView
         android:id="@+id/imageView1"
-<<<<<<< HEAD
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:importantForAccessibility="no"
-=======
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
-=======
         android:importantForAccessibility="no"
->>>>>>> e5b1884 (Added the missing value for the hardcoded  header in welcome_page)
         android:src="@drawable/template"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -31,20 +22,9 @@
 
     <ImageView
         android:id="@+id/haircut_app_icon"
-<<<<<<< HEAD
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:importantForAccessibility="no"
-        android:translationX="110dp"
-        android:translationY="20dp"
-=======
         android:layout_width="100dp"
         android:layout_height="100dp"
-<<<<<<< HEAD
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
-=======
         android:importantForAccessibility="no"
->>>>>>> e5b1884 (Added the missing value for the hardcoded  header in welcome_page)
         android:src="@drawable/haircut_app_icon"
         app:layout_constraintBottom_toTopOf="@id/welcome"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,7 +35,7 @@
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
+        android:text="@string/welcome_label"
         android:textAlignment="center"
         android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@id/qlabel"
@@ -68,34 +48,7 @@
         android:layout_width="190dp"
         android:layout_height="90dp"
         android:backgroundTint="#000000"
-<<<<<<< HEAD
-<<<<<<< HEAD
-        android:textColor="#FFFFFF"
-
-        app:layout_constraintBottom_toTopOf=""
-        app:layout_constraintEnd_toEndOf=""
-        app:layout_constraintEnd_toStartOf=""
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf=""
-        app:layout_constraintTop_toTopOf=""
-        app:layout_constraintVertical_bias="0.0"
-        android:textSize="35sp"
         android:text="@string/barber"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="525dp" />
-
-    <Button
-        android:id="@+id/Admin"
-        android:layout_width="252dp"
-        android:layout_height="97dp"
-        android:text="@string/admin"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="630dp"
-=======
-        android:text="Barber"
-=======
-        android:text="@string/barber"
->>>>>>> e5b1884 (Added the missing value for the hardcoded  header in welcome_page)
         android:textColor="#FFFFFF"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@id/Admin"
@@ -107,30 +60,10 @@
         android:id="@+id/Admin"
         android:layout_width="190dp"
         android:layout_height="90dp"
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         android:backgroundTint="#000000"
         android:text="@string/admin_welcome_page"
         android:textColor="#FFFFFFFF"
-<<<<<<< HEAD
-<<<<<<< HEAD
         android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf=""
-        app:layout_constraintEnd_toEndOf=""
-        app:layout_constraintEnd_toStartOf=""/>
-
-    <Button
-        android:id="@+id/Customer"
-        android:layout_width="252dp"
-        android:layout_height="97dp"
-        android:text="@string/customer"
-        android:textSize="35sp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="418dp"
-=======
-        android:textSize="80px"
-=======
-        android:textSize="35sp"
->>>>>>> e5b1884 (Added the missing value for the hardcoded  header in welcome_page)
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -141,43 +74,14 @@
         android:id="@+id/Customer"
         android:layout_width="wrap_content"
         android:layout_height="90dp"
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
         android:backgroundTint="#000000"
         android:text="@string/customer"
         android:textColor="#FFFFFFFF"
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-        app:layout_constraintBottom_toTopOf=""
-        app:layout_constraintEnd_toEndOf=""
-        app:layout_constraintEnd_toStartOf=""/>
-    <TextView
-        android:id="@+id/Login_label"
-        android:importantForAccessibility="no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/which_user_are_you"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="240dp"
-        app:layout_constraintBottom_toTopOf=""
-        app:layout_constraintEnd_toEndOf=""
-        app:layout_constraintEnd_toStartOf=""
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf=""
-        app:layout_constraintTop_toTopOf=""
-        app:layout_constraintVertical_bias="0.0" />
-=======
-        android:textSize="80px"
-=======
         android:textSize="32sp"
->>>>>>> e5b1884 (Added the missing value for the hardcoded  header in welcome_page)
         app:layout_constraintBottom_toTopOf="@id/Barber"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/qlabel"
-
         />
 
     <TextView
@@ -191,5 +95,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome" />
 
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
 </androidx.constraintlayout.widget.ConstraintLayout>

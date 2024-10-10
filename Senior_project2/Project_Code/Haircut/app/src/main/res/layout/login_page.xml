@@ -7,269 +7,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity"
     >
-    <ImageView
-        android:id="@+id/imageView1"
-<<<<<<< HEAD
-<<<<<<< HEAD
-        android:importantForAccessibility="no"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:src="@drawable/template"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        <ImageView
+            android:id="@+id/imageView1"
+            android:importantForAccessibility="no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/template"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <ImageView
+            android:id="@+id/haircut_app_icon"
+            android:importantForAccessibility="no"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/haircut_app_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/Login_label"
+            />
+        <TextView
+            android:id="@+id/Login_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_page"
+            android:textAlignment="center"
+            android:textSize="40sp"
+            app:layout_constraintTop_toBottomOf="@id/haircut_app_icon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/email_field"
+            />
+        <TextView
+            android:id="@+id/Password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password_login_page"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/pwd_field"
+            app:layout_constraintTop_toBottomOf="@id/email_field"
+            app:layout_constraintBottom_toTopOf="@id/signup_button"
+            android:layout_marginStart="5dp"/>
+        <EditText
+            android:id="@+id/pwd_field"
+            android:autofillHints="password"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:background="#BBBBBB"
+            android:textColorHint="#000000"
+            android:textColor="#000000"
+            android:hint="@string/pwd_hint"
+            app:layout_constraintLeft_toRightOf="@id/Password_label"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_field"
+            app:layout_constraintBottom_toTopOf="@id/signup_button"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="525dp"
-        android:text="@string/password"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@android:id/empty"
-        app:layout_constraintEnd_toEndOf="@android:id/empty"
-        app:layout_constraintEnd_toStartOf="@android:id/empty"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@android:id/empty"
-        app:layout_constraintTop_toTopOf="@android:id/empty"
-=======
-=======
-        android:importantForAccessibility="no"
->>>>>>> d73dff8 (fixed all warnings in the login_page)
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/template"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-    <ImageView
-        android:id="@+id/haircut_app_icon"
-        android:importantForAccessibility="no"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/haircut_app_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Login_label"
-        />
-    <TextView
-        android:id="@+id/Login_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_page"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        app:layout_constraintTop_toBottomOf="@id/haircut_app_icon"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/email_field"
-        />
-    <TextView
-        android:id="@+id/Password_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/password_login_page"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintRight_toLeftOf="@id/editTextTextPassword2"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress"
-        app:layout_constraintBottom_toTopOf="@id/Login_button"
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
-        android:layout_marginStart="5dp"/>
-    <EditText
-        android:id="@+id/editTextTextPassword2"
-        android:autofillHints="password"
-=======
-        app:layout_constraintRight_toLeftOf="@id/pwd_field"
-        app:layout_constraintTop_toBottomOf="@id/email_field"
-        app:layout_constraintBottom_toTopOf="@id/signup_button"
-        android:layout_marginStart="5dp"/>
-    <EditText
-        android:id="@+id/pwd_field"
-<<<<<<< HEAD
->>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
-=======
-        android:autofillHints="password"
->>>>>>> d73dff8 (fixed all warnings in the login_page)
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:textColorHint="#000000"
-        android:inputType="textPassword"
-<<<<<<< HEAD
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="529dp"
-        android:background="#FFFFFF"
-        android:textColor="#000000"
-        android:hint="@string/pwd_hint"
-        app:layout_constraintBottom_toTopOf="@android:id/empty"
-        app:layout_constraintEnd_toEndOf="@android:id/empty"
-        app:layout_constraintEnd_toStartOf="@android:id/empty"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@android:id/empty"
-        app:layout_constraintTop_toTopOf="@android:id/empty"
-=======
-        android:background="#BBBBBB"
-        android:textColorHint="#000000"
-        android:textColor="#FFFFFF"
-        android:hint="@string/pwd_hint"
-        app:layout_constraintLeft_toRightOf="@id/Password_label"
-        app:layout_constraintRight_toRightOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress"
-        app:layout_constraintBottom_toTopOf="@id/Login_button"
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
-=======
-        app:layout_constraintTop_toBottomOf="@id/email_field"
-        app:layout_constraintBottom_toTopOf="@id/signup_button"
->>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
-        />
+        <TextView
+            android:id="@+id/Email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30sp"
+            android:text="@string/email_label"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/email_field"
+            app:layout_constraintTop_toBottomOf="@id/Login_label"
+            app:layout_constraintBottom_toTopOf="@id/pwd_field"
+            />
 
-    <TextView
-        android:id="@+id/Email_label"
-        android:layout_width="wrap_content"
-<<<<<<< HEAD
-        android:layout_height="50dp"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="471dp"
-        android:text="@string/email"
-        android:textSize="25sp"
-        android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toTopOf="@android:id/empty"
-        app:layout_constraintEnd_toEndOf="@android:id/empty"
-        app:layout_constraintEnd_toStartOf="@android:id/empty"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@android:id/empty"
-        app:layout_constraintTop_toTopOf="@android:id/empty"
-=======
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30sp"
-        android:text="@string/email_label"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/email_field"
-        app:layout_constraintTop_toBottomOf="@id/Login_label"
-<<<<<<< HEAD
-        app:layout_constraintBottom_toTopOf="@id/editTextTextPassword2"
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
-        />
+        <EditText
+            android:id="@+id/email_field"
+            android:autofillHints="emailAddress"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:inputType="textEmailAddress"
+            android:background="#BBBBBB"
+            android:textColorHint="#000000"
+            android:textColor="#FFFFFF"
+            android:hint="@string/email_hint"
+            app:layout_constraintBottom_toTopOf="@id/pwd_field"
+            app:layout_constraintLeft_toRightOf="@id/Email_label"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Login_label"
+            />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:textColorHint="#000000"
-        android:autofillHints="emailAddress"
-=======
-        app:layout_constraintBottom_toTopOf="@id/pwd_field"
-        />
-
-    <EditText
-        android:id="@+id/email_field"
-<<<<<<< HEAD
->>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
-=======
-        android:autofillHints="emailAddress"
->>>>>>> d73dff8 (fixed all warnings in the login_page)
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:inputType="textEmailAddress"
-        android:background="#BBBBBB"
-<<<<<<< HEAD
-        android:textColor="#000000"
-=======
-        android:textColorHint="#000000"
-        android:textColor="#FFFFFF"
->>>>>>> d73dff8 (fixed all warnings in the login_page)
-        android:hint="@string/email_hint"
-<<<<<<< HEAD
-<<<<<<< HEAD
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="471dp"
-        app:layout_constraintBottom_toTopOf="@android:id/empty"
-        app:layout_constraintEnd_toEndOf="@android:id/empty"
-        app:layout_constraintEnd_toStartOf="@android:id/empty"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@android:id/empty"
-        app:layout_constraintTop_toTopOf="@android:id/empty"
-=======
-        app:layout_constraintBottom_toTopOf="@id/editTextTextPassword2"
-=======
-        app:layout_constraintBottom_toTopOf="@id/pwd_field"
->>>>>>> 585d85b (Fixed the constraints in the UI files that prevented the app from running)
-        app:layout_constraintLeft_toRightOf="@id/Email_label"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Login_label"
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
-        />
-
-    <Button
-        android:id="@+id/signup_button"
-        android:layout_width="315dp"
-        android:layout_height="58dp"
-<<<<<<< HEAD
-<<<<<<< HEAD
-        android:text="@string/log_in"
-=======
-        android:text="@string/login_login_page"
->>>>>>> d73dff8 (fixed all warnings in the login_page)
-=======
-        android:text="@string/login"
->>>>>>> f0c7fd8 (Fixed strings in login_page and welcome_page)
-        android:backgroundTint="#000000"
-        android:textColor="#FFFFFF"
-<<<<<<< HEAD
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="613dp"
-        app:layout_constraintBottom_toTopOf="@android:id/empty"
-        app:layout_constraintEnd_toEndOf="@android:id/empty"
-        app:layout_constraintEnd_toStartOf="@android:id/empty"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@android:id/empty"
-        app:layout_constraintTop_toTopOf="@android:id/empty"/>
-
-    <ImageView
-        android:id="@+id/haircut_app_icon"
-        android:importantForAccessibility="no"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        android:translationX="120dp"
-        android:translationY="20dp"
-
-        android:src="@drawable/haircut_app_icon"
-        app:layout_constraintBottom_toTopOf="@android:id/empty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@android:id/empty"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-    <TextView
-        android:id="@+id/Login_label"
-        android:layout_width="250dp"
-        android:layout_height="97dp"
-        android:text="@string/login1"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="240dp"
-        app:layout_constraintBottom_toTopOf="@android:id/empty"
-        app:layout_constraintEnd_toEndOf="@android:id/empty"
-        app:layout_constraintEnd_toStartOf="@android:id/empty"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@android:id/empty"
-        app:layout_constraintTop_toTopOf="@android:id/empty"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-=======
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pwd_field"
-        app:layout_constraintBottom_toBottomOf="parent"/>
->>>>>>> edfa1e1 (Adjusted the constraints for all pages in addition to other properties (width, height, margins))
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="315dp"
+            android:layout_height="58dp"
+            android:text="@string/login"
+            android:backgroundTint="#000000"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pwd_field"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
