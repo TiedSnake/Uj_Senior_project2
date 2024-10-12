@@ -67,4 +67,18 @@
     <string name="send_verification_code">Send</string>
     <string name="verify_btn">Verify</string>
     <string name="admin_welcome_page">Admin</string>
+    <string name="side_menu_button_customer">Menu Button</string>
+    <string name="About_us">About us</string>
+    <string name="profile_customer">Profile</string>
+    <string name="open_sidebar_menu">Open Sidebar Menu</string>
+    <string name="book_an_appointment">Book an appointment</string>
+    <string name="chat_with_barber">Chat with Barber</string>
+    <string name="about_us">about us</string>
+    <string name="about_us_content">Introducing [Haircut], revolutionizing the barbershop experience. Our app utilizes technology to minimize wasted time, enhance customer satisfaction, and empower barbers. Features include easy appointments, a rating system, personalized communication, secure payments, and convenient sign-up options. Join us in transforming the world of barbershops. Download [Haircut] today for a seamless grooming experience.</string>
+    <string name="back">Back</string>
+    <string name="first_review">Great service! The barber was friendly and professional. Will definitely come back!</string>
+    <string name="first_reviewer">John Doe</string>
+    <string name="go_back_button">Go back</string>
+    <string name="ratings_and_reviews">Ratings and Reviews</string>
+    <string name="sign_out_button_customer">Sign out</string>
 </resources>

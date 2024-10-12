@@ -20,6 +20,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
+=======
+        <activity android:name=".signup_login">
+
+        </activity>
+        <activity android:name=".customer"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".login">
+
+        </activity>
+        <activity android:name=".signup">
+        </activity>
+
+    <activity android:name=".barber"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+    </activity>
+
+        <activity android:name=".admin"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".about_us"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+>>>>>>> 3a60e63 (added back the customer, admin, and barber pages with changes and adjustments to them, fixed their constraints as well, added buttons for customer, working buttons are sign out and about us, added view_ratings_page and about_us_page and made their logic, as well as the logic of admin and customer, incomplete logics so far are: admin,customer, and barber pages)
     </application>
 
 </manifest>
