@@ -23,10 +23,44 @@
         <activity android:name=".signup_login">
 
         </activity>
+        <activity android:name=".customer"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".login">
 
         </activity>
         <activity android:name=".signup">
+        </activity>
+
+    <activity android:name=".barber"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+    </activity>
+
+        <activity android:name=".admin"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".about_us"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
