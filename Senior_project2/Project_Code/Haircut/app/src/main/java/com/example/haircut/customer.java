@@ -21,6 +21,14 @@ public class customer extends AppCompatActivity {
         Button aboutUsButton = findViewById(R.id.sidebarOption1); // Make sure to use the correct ID here
         // Find the Sign Out button by ID
         Button btnSignOut = findViewById(R.id.sidebarOption5); // Assuming this is the ID for the Sign Out button
+        // Find the Profile button by ID (sidebarOption2)
+        Button profileButton = findViewById(R.id.sidebarOption2);
+        // Find the Chat with Barber button by ID (sidebarOption4)
+        Button chatWithBarberButton = findViewById(R.id.sidebarOption4); // Updated ID
+
+        // Find the Book Appointment button by ID (add this to your onCreate method)
+        Button bookAppointmentButton = findViewById(R.id.sidebarOption3); // Assuming sidebarOption3 is the Book Appointment button
+
 
         // Set an onClick listener for the menu button
         menuButton.setOnClickListener(v -> toggleSidebarVisibility());
@@ -29,6 +37,26 @@ public class customer extends AppCompatActivity {
         aboutUsButton.setOnClickListener(v -> {
             // Create an Intent to navigate to the about_us activity
             Intent intent = new Intent(customer.this, about_us.class);
+            startActivity(intent);
+        });
+
+        // Set an onClick listener for the Profile button
+        profileButton.setOnClickListener(v -> {
+            // Create an Intent to navigate to the profile activity (profile_page)
+            Intent intent = new Intent(customer.this, profile.class);
+            startActivity(intent);
+        });
+
+        bookAppointmentButton.setOnClickListener(v -> {
+            // Create an Intent to navigate to the BookAppointment activity
+            Intent intent = new Intent(customer.this, BookAppointment.class);
+            startActivity(intent);
+        });
+
+        // Set an onClick listener for the Chat with Barber button
+        chatWithBarberButton.setOnClickListener(v -> {
+            // Create an Intent to navigate to the ChatWithBarber activity
+            Intent intent = new Intent(customer.this, ChatWithBarber.class);
             startActivity(intent);
         });
 

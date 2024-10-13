@@ -81,4 +81,14 @@
     <string name="go_back_button">Go back</string>
     <string name="ratings_and_reviews">Ratings and Reviews</string>
     <string name="sign_out_button_customer">Sign out</string>
+    <string name="go_back">Go Back</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="send_button_chat">Send</string>
+    <string name="book_appointment__text">Book Appointment at Sheraton</string>
+    <string name="selected_date">Selected Date:</string>
+    <string name="available_times">Available Times:</string>
+    <string name="book_appointment_button">Book Appointment</string>
+    <string name="sheraton_name">Sheraton</string>
+    <string name="scroll_view_description">Scrollable content area for appointment booking</string>
+
 </resources>

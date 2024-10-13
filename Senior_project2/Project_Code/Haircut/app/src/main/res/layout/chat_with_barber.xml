@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Go Back Button -->
+    <ImageButton
+        android:id="@+id/go_back_button"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="@string/go_back_button"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+    <!-- Barbershop Name -->
+    <TextView
+        android:id="@+id/barbershop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sheraton_name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"/>
+
+    <!-- Chat Messages Section -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:contentDescription="@string/scroll_view_description">
+
+        <LinearLayout
+            android:id="@+id/chat_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+    </ScrollView>
+
+    <!-- Message Input and Send Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/message_input"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:autofillHints="chat"
+            android:hint="@string/type_a_message"
+            android:inputType="textShortMessage"
+            android:padding="10dp"/>
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@string/send_button_chat"/>
+    </LinearLayout>
+
+</LinearLayout>
