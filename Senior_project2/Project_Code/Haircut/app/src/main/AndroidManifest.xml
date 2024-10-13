@@ -64,7 +64,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 >>>>>>> 3a60e63 (added back the customer, admin, and barber pages with changes and adjustments to them, fixed their constraints as well, added buttons for customer, working buttons are sign out and about us, added view_ratings_page and about_us_page and made their logic, as well as the logic of admin and customer, incomplete logics so far are: admin,customer, and barber pages)
+=======
+        <activity android:name=".profile" />
+        <!-- Add the new chat activity -->
+        <activity android:name=".ChatWithBarber"
+            android:label="Chat with Barber"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".BookAppointment"> </activity>
+
+
+
+>>>>>>> 0c1bb60 (Added profile, book apppointment and chat with barber pages to the sidebar in the customer_page and added their logic as well)
     </application>
 
 </manifest>
