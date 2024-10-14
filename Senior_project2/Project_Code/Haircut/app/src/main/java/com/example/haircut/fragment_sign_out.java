@@ -33,8 +33,8 @@ public class fragment_sign_out extends Fragment {
     private void signOutUser() {
         // Perform sign out logic, such as clearing shared preferences or user session
         // After signing out, redirect to the Welcome Page (assuming it's an Activity)
-        Intent intent = new Intent(getActivity(), welcome.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), welcome.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
     }
 }

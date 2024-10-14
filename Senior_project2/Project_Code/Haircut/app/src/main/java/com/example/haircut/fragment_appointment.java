@@ -47,9 +47,9 @@ public class fragment_appointment extends Fragment {
     // Sample method to populate the list with appointments
     private void loadAppointments() {
         // This is just an example, you can fetch actual data from a database, API, etc.
-        appointmentList.add(new Appointment("John Doe", "Haircut", "2024-10-20", "10:00 AM"));
-        appointmentList.add(new Appointment("Jane Smith", "Beard Trim", "2024-10-21", "1:30 PM"));
-        appointmentList.add(new Appointment("Bob Johnson", "Haircut + Beard", "2024-10-22", "4:00 PM"));
+//        appointmentList.add(new Appointment("John Doe", "Haircut", "2024-10-20", "10:00 AM"));
+//        appointmentList.add(new Appointment("Jane Smith", "Beard Trim", "2024-10-21", "1:30 PM"));
+//        appointmentList.add(new Appointment("Bob Johnson", "Haircut + Beard", "2024-10-22", "4:00 PM"));
 
         // Notify adapter that the data has changed (useful when data is updated dynamically)
         if (appointmentsAdapter != null) {

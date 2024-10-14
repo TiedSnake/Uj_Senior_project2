@@ -48,8 +48,8 @@ public class Home extends Fragment {
     private List<Appointment> getIncomingAppointments() {
         List<Appointment> appointments = new ArrayList<>();
         // Add sample appointments with 4 arguments: name, service, date, and time
-        appointments.add(new Appointment("John Doe", "Haircut", "10/18/2024", "12:30 PM"));
-        appointments.add(new Appointment("Jane Smith", "Beard Trim", "10/19/2024", "2:00 PM"));
+//        appointments.add(new Appointment("John Doe", "Haircut", "10/18/2024", "12:30 PM"));
+//        appointments.add(new Appointment("Jane Smith", "Beard Trim", "10/19/2024", "2:00 PM"));
         return appointments;
     }
 

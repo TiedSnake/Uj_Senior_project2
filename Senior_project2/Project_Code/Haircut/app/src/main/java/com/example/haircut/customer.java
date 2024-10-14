@@ -26,10 +26,10 @@ public class customer extends AppCompatActivity implements NavigationView.OnNavi
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+//                R.string.open, R.string.close);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
 
         if (savedInstanceState == null) {
             // Default fragment when the app first opens (Home)
@@ -57,12 +57,12 @@ public class customer extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 }

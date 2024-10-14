@@ -1,33 +1,41 @@
 package com.example.haircut.backend;
 
+import java.util.Date;
+
 public class Appointment {
-    private String name;
-    private String service;
-    private String date;
-    private String time;
+    private Date date;
+    private Customer customer;
+    private Barber barber;
+    private String status;
 
-    // Constructor that accepts 4 arguments
-    public Appointment(String name, String service, String date, String time) {
-        this.name = name;
-        this.service = service;
-        this.date = date;
-        this.time = time;
+    public Appointment() {
     }
 
-    // Getters and setters (optional)
-    public String getName() {
-        return name;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public String getTime() {
-        return time;
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Barber getBarber() {
+        return barber;
+    }
+
+    public void setBarber(Barber barber) {
+        this.barber = barber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

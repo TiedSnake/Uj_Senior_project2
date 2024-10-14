@@ -47,7 +47,7 @@ public class fragment_barbershop_list extends Fragment {
                 navigateToAppointments();
             } else {
                 // Show a message if no barbershop is selected
-                Toast.makeText(getActivity(), "Please select a barbershop first.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Please select a barbershop first.", Toast.LENGTH_SHORT).show();
             }
         });
 

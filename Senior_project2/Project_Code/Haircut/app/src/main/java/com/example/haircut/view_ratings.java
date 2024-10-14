@@ -18,7 +18,7 @@ public class view_ratings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle back button press
-                finish(); // Finish the current activity and go back to the previous one
+//                finish(); // Finish the current activity and go back to the previous one
             }
         });
     }
