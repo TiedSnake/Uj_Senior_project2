@@ -35,32 +35,32 @@ public class password_reset extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.forgot_password);
-        EditText email_field = findViewById(R.id.email_field);
-        Button reset_btn = findViewById(R.id.recover_password_btn);
-        reset_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = email_field.getText().toString();
-                Service.ResponseFlag flag = Service.forgotPassword(email);
-                switch (flag.name()) {
-                    case "EMAIL_NOT_ENTERED":
-                        Toast.makeText(password_reset.this, "Please enter the email", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "ERROR":
-                        Toast.makeText(password_reset.this, "There's no account associated with email.", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "SUCCESS":
-                        if (sendCode(email))
-                        {
-                            Intent intent = new Intent(password_reset.this, code_verification.class);
-                            startActivity(intent);
-                        }
-                        break;
-                }
-                Intent intent = new Intent(password_reset.this, password_reset.class);
-                intent.putExtra("user_type", "customer");
-            }
-        });
+//        setContentView(R.layout.forgot_password);
+//        EditText email_field = findViewById(R.id.email_field);
+//        Button reset_btn = findViewById(R.id.recover_password_btn);
+//        reset_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String email = email_field.getText().toString();
+//                Service.ResponseFlag flag = Service.forgotPassword(email);
+//                switch (flag.name()) {
+//                    case "EMAIL_NOT_ENTERED":
+//                        Toast.makeText(password_reset.this, "Please enter the email", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case "ERROR":
+//                        Toast.makeText(password_reset.this, "There's no account associated with email.", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case "SUCCESS":
+//                        if (sendCode(email))
+//                        {
+//                            Intent intent = new Intent(password_reset.this, code_verification.class);
+//                            startActivity(intent);
+//                        }
+//                        break;
+//                }
+//                Intent intent = new Intent(password_reset.this, password_reset.class);
+//                intent.putExtra("user_type", "customer");
+//            }
+//        });
     }
 }

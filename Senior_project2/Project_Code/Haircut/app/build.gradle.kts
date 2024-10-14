@@ -58,7 +58,7 @@ dependencies {
     testImplementation(libs.junit.jupiter.params)
 
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-    testRuntimeOnly(libs.junit.platform.launcher)
+    testImplementation(libs.junit.platform.launcher)
 
 
     androidTestImplementation(libs.androidx.espresso.core)

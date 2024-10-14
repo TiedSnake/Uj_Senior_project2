@@ -15,33 +15,33 @@ public class welcome extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_page);
-        customer_btn = findViewById(R.id.Customer);
-        barber_btn = findViewById(R.id.Barber);
-        admin_btn = findViewById(R.id.Admin);
-        customer_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(welcome.this, signup_login.class);
-                intent.putExtra("user_type", "customer");
-                startActivity(intent);
-            }
-        });
-        barber_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(welcome.this, signup_login.class);
-                intent.putExtra("user_type", "barber");
-                startActivity(intent);
-            }
-        });
-        admin_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(welcome.this, signup_login.class);
-                intent.putExtra("user_type", "admin");
-                startActivity(intent);
-            }
-        });
+//        setContentView(R.layout.welcome_page);
+//        customer_btn = findViewById(R.id.Customer);
+//        barber_btn = findViewById(R.id.Barber);
+//        admin_btn = findViewById(R.id.Admin);
+//        customer_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(welcome.this, signup_login.class);
+//                intent.putExtra("user_type", "customer");
+//                startActivity(intent);
+//            }
+//        });
+//        barber_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(welcome.this, signup_login.class);
+//                intent.putExtra("user_type", "barber");
+//                startActivity(intent);
+//            }
+//        });
+//        admin_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(welcome.this, signup_login.class);
+//                intent.putExtra("user_type", "admin");
+//                startActivity(intent);
+//            }
+//        });
     }
 }

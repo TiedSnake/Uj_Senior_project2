@@ -20,7 +20,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 dnsjava = { module = "dnsjava:dnsjava", version.ref = "dnsjava" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-java-jwt = { module = "com.auth0:java-jwt", version.ref = "javaJwt" }
+wjava-jwt = { module = "com.auth0:java-jwt", version.ref = "javaJwt" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }

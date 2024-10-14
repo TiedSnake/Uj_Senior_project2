@@ -16,30 +16,30 @@ public class logic_1 extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_page);
-        customer_button = findViewById(R.id.Customer);
-        barber_button = findViewById(R.id.Barber);
-        admin_button = findViewById(R.id.Admin);
-        customer_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(logic_1.this, password_reset.class);
-                intent.putExtra("user_type", "customer");
-            }
-        });
-        barber_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(logic_1.this, password_reset.class);
-                intent.putExtra("user_type", "barber");
-            }
-        });
-        admin_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(logic_1.this, password_reset.class);
-                intent.putExtra("user_type", "admin");
-            }
-        });
+//        setContentView(R.layout.welcome_page);
+//        customer_button = findViewById(R.id.Customer);
+//        barber_button = findViewById(R.id.Barber);
+//        admin_button = findViewById(R.id.Admin);
+//        customer_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(logic_1.this, password_reset.class);
+//                intent.putExtra("user_type", "customer");
+//            }
+//        });
+//        barber_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(logic_1.this, password_reset.class);
+//                intent.putExtra("user_type", "barber");
+//            }
+//        });
+//        admin_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(logic_1.this, password_reset.class);
+//                intent.putExtra("user_type", "admin");
+//            }
+//        });
     }
 }

@@ -1,6 +1,8 @@
 package com.example.haircut;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,17 +38,58 @@ class UtilityTest {
         System.out.println(email + " is valid: "+ Utility.isValidEmailFormat(email)); // true
     }
 
-    //validates an email by checking if its domain has "mail-exchange"(MX) record.
     @ParameterizedTest
     @ValueSource(strings ={
-            "gowirhgoirhv.com",
-            "gmail.com",
-            "outlook.com",
-            "uj.edu.sa",
-            "yahoo.com"
-
+            "Mike",
+            "Joseph",
+            "Ahmad",
+            "Nasser",
+            "K5alid",
+            "f",
+            "A",
+            "",
     })
-    void validateMX(String domain) {
-        System.out.println("MX/A validation for " + domain + ": " + Utility.validateMX(domain));
+    void isValidName() {
     }
+
+    @ParameterizedTest
+    @ValueSource(strings ={
+            "Mike",
+            "GSGSOK",
+            "#%@#%@#%",
+            "29837589",
+            "dlsfjsdkfj",
+            "g9384y9g()*Y98g2498y9*Y9f82908fy2",
+            "1tk@aoeY",
+            "Tw1%2k0",
+            "Tw12k0",
+    })
+    void isValidPassword() {
+    }
+    @ParameterizedTest
+    @CsvSource({
+            "Mike, ssga, something@something.com, t24oth2owT", //valid data
+            "Mi3ke, ssga, something@something.com, t24oth2owT", //invalid first name
+            "Mike, ss$ga, something@something.com, t24oth2owT", //invalid last name
+            "Mike, ssga, somethingsomething.com, t24oth2owT", //invalid email
+            "Mike, ssga, something@something.com, t24oth2owt", //invalid password
+    })
+    void signupTest(String fname, String lname, String email, String password) {
+        String result = Utility.signup(fname, lname, email, password);
+        Assertions.assertEquals("-1", result);
+    }
+
+    //validates an email by checking if its domain has "mail-exchange"(MX) record.
+//    @ParameterizedTest
+//    @ValueSource(strings ={
+//            "gowirhgoirhv.com",
+//            "gmail.com",
+//            "outlook.com",
+//            "uj.edu.sa",
+//            "yahoo.com"
+//
+//    })
+//    void validateMX(String domain) {
+//        System.out.println("MX/A validation for " + domain + ": " + Utility.validateMX(domain));
+//    }
 }
