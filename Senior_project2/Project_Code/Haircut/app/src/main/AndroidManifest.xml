@@ -68,7 +68,7 @@
             android:label="Chat with Barber"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".BookAppointment"> </activity>
-
+        <activity android:name=".view_ratings" />
 
 
     </application>

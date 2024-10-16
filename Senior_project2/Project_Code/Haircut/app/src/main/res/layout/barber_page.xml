@@ -1,118 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parentLayout"
+    android:id="@+id/drawer_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".barber">
 
+<com.google.android.material.navigation.NavigationView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:headerLayout="@layout/barber_header"
+    app:menu="@menu/barber_sidebar"
+    android:id="@+id/nav_view"
+    android:layout_gravity="start" >
 
+</com.google.android.material.navigation.NavigationView>
 
-    <!-- TextView for the shop name -->
-    <TextView
-        android:id="@+id/salonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        android:background="@color/lightGray"
-        android:text="@string/barbershop_name"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- LinearLayout to contain all buttons -->
-    <LinearLayout
-        android:id="@+id/buttonContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/salonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Button for Profile -->
-        <Button
-            android:id="@+id/btnProfile"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/profile_barber"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
-
-        <!-- Button for Edit Service -->
-        <Button
-            android:id="@+id/btnEditService"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/edit_service_barber"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
-
-        <!-- Button for See Appointments -->
-        <Button
-            android:id="@+id/btnAppointments"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/see_appointments_barber"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
-
-        <!-- Button for Edit Contact the Barber -->
-        <Button
-            android:id="@+id/btnContactBarber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/edit_contact_the_barber"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
-
-        <!-- Button for Payment -->
-        <Button
-            android:id="@+id/btnPayment"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/payment_barber"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
-
-        <!-- Button for Check Reviews -->
-        <Button
-            android:id="@+id/btnCheckReviews"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/check_reviews_barber"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
-
-        <!-- Button for Sign Out -->
-        <Button
-            android:id="@+id/btnSignOut"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/sign_out_barber"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

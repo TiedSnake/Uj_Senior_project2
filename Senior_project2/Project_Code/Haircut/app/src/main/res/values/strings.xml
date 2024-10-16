@@ -45,11 +45,10 @@
     <string name="sign_out_admin_page">Sign Out</string>
     <string name="barbershop_name">صاون الشيراتون</string>
     <string name="profile_barber">Profile</string>
-    <string name="edit_service_barber">Edit service\n</string>
-    <string name="see_appointments_barber">See appointments\n</string>
-    <string name="edit_contact_the_barber">Edit Contact the barber</string>
-    <string name="payment_barber">Payment\n</string>
-    <string name="check_reviews_barber">Check reviews</string>
+    <string name="menu_button">Services menu</string>
+    <string name="appointments_button">Appointments</string>
+    <string name="payment_barber">Payment</string>
+    <string name="check_reviews_barber">Reviews</string>
     <string name="sign_out_barber">Sign out</string>
     <string name="haircut_cus_page">Haircut</string>
     <string name="find_your_barber">Find your barber</string>
@@ -73,7 +72,7 @@
     <string name="open_sidebar_menu">Open Sidebar Menu</string>
     <string name="book_an_appointment">Book an appointment</string>
     <string name="chat_with_barber">Chat with Barber</string>
-    <string name="about_us">about us</string>
+    <string name="about_us">About us</string>
     <string name="about_us_content">Introducing [Haircut], revolutionizing the barbershop experience. Our app utilizes technology to minimize wasted time, enhance customer satisfaction, and empower barbers. Features include easy appointments, a rating system, personalized communication, secure payments, and convenient sign-up options. Join us in transforming the world of barbershops. Download [Haircut] today for a seamless grooming experience.</string>
     <string name="back">Back</string>
     <string name="first_review">Great service! The barber was friendly and professional. Will definitely come back!</string>
@@ -90,5 +89,11 @@
     <string name="book_appointment_button">Book Appointment</string>
     <string name="sheraton_name">Sheraton</string>
     <string name="scroll_view_description">Scrollable content area for appointment booking</string>
-
+    <string name="home">Home\n</string>
+    <string name="edit_profile_barber">Edit profile</string>
+    <string name="sheraton_email">sheraton@gmail.com</string>
+    <string name="open">Open Navigation Drawer</string>
+    <string name="close">Close Navigation Drawer</string>
+    <string name="profile">Profile</string>
+    <string name="update_profile">Update</string>
 </resources>

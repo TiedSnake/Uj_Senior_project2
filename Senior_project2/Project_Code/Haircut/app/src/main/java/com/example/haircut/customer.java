@@ -63,7 +63,7 @@ public class customer extends AppCompatActivity {
         // Set an onClick listener for the Sign Out button
         btnSignOut.setOnClickListener(v -> {
             // Code to handle "Sign Out" button click
-            Intent intent = new Intent(customer.this, login.class); // Redirect to the login activity
+            Intent intent = new Intent(customer.this, welcome.class); // Redirect to the login activity
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the activity stack
             startActivity(intent);
             finish(); // Optional: close the current activity

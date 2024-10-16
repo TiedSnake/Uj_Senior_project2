@@ -30,7 +30,7 @@ public class admin extends AppCompatActivity {
         btnSignOut.setOnClickListener(v -> {
             // Code to handle "Sign Out" button click
             // For example, log the user out and redirect them to the login page
-            Intent intent = new Intent(admin.this, login.class); // Example activity
+            Intent intent = new Intent(admin.this, welcome.class); // Example activity
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the activity stack
             startActivity(intent);
             finish(); // Close the current activity
