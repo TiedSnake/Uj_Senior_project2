@@ -1,26 +1,60 @@
 package com.example.haircut;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends Fragment {
 
-    public Home() {
-        // Required empty public constructor
+    private RecyclerView appointmentsRecyclerView;
+    private RecyclerView reviewsRecyclerView;
+    private AppointmentsAdapter appointmentsAdapter;
+    private ReviewsAdapter reviewsAdapter;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflate the fragment layout
+        View view = inflater.inflate(R.layout.fragment_home2, container, false);
+
+        // Setup RecyclerView for Incoming Appointments
+        appointmentsRecyclerView = view.findViewById(R.id.incomingAppointmentsRecyclerView);
+        appointmentsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        appointmentsAdapter = new AppointmentsAdapter(getIncomingAppointments());
+        appointmentsRecyclerView.setAdapter(appointmentsAdapter);
+
+        // Setup RecyclerView for Customer Reviews
+        reviewsRecyclerView = view.findViewById(R.id.customerReviewsRecyclerView);
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        reviewsAdapter = new ReviewsAdapter(getCustomerReviews());
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
+
+        return view;
     }
 
+    // Mock method to get incoming appointments (replace with real data source)
+    private List<Appointment> getIncomingAppointments() {
+        List<Appointment> appointments = new ArrayList<>();
+        // Add sample appointments with 4 arguments: name, service, date, and time
+        appointments.add(new Appointment("John Doe", "Haircut", "10/18/2024", "12:30 PM"));
+        appointments.add(new Appointment("Jane Smith", "Beard Trim", "10/19/2024", "2:00 PM"));
+        return appointments;
+    }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home2, container, false);
+    // Mock method to get customer reviews (replace with real data source)
+    private List<Review> getCustomerReviews() {
+        List<Review> reviews = new ArrayList<>();
+        // Add sample reviews
+        reviews.add(new Review("John Doe", "Great haircut!", 5));
+        reviews.add(new Review("Jane Smith", "Very professional.", 4));
+        return reviews;
     }
 }

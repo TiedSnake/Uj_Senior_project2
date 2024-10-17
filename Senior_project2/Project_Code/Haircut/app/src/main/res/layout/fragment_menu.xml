@@ -3,15 +3,139 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".menu">
+    <TextView
+        android:id="@+id/menu_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="@string/menu_label"
+        android:textAlignment="center"
+        android:textSize="50sp"
+         />
+<TableLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+    <!-- First row -->
+<TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:text="Regular Haircut" />
 
     <TextView
-        android:gravity="center"
-        android:textSize="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20 SAR"
+        android:textSize="25dp"/>
+</TableRow>
+    <!-- Second row -->
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Haircut + Beard"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40 SAR"
+            android:textSize="25dp"/>
+    </TableRow>
+    <!-- Third row -->
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="Beard Trim/Shave" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20 SAR"
+            android:textSize="25dp"/>
+    </TableRow>
+    <!-- Fourth row -->
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="Hair Tint" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="70 SAR"
+            android:textSize="25dp"/>
+    </TableRow>
+
+    <!-- Fifth row -->
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="Hair nourisher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40 SAR"
+            android:textSize="25dp"/>
+    </TableRow>
+    <!-- Sixth row -->
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="Face Cleansing" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 SAR"
+            android:textSize="25dp"/>
+    </TableRow>
+    <!-- Seventh row -->
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="Face Mask" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="80 SAR"
+            android:textSize="25dp"/>
+    </TableRow>
+</TableLayout>
+
 
 
 </FrameLayout>

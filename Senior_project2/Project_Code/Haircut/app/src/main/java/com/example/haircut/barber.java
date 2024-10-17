@@ -1,8 +1,8 @@
 package com.example.haircut;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -59,15 +59,26 @@ public class barber extends AppCompatActivity implements NavigationView.OnNaviga
         } else if (item.getItemId() == R.id.btnMenu) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new menu()).commit();
         } else if (item.getItemId() == R.id.btnAppointments) {
-            Toast.makeText(this, "Appointments", Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_appointment()).commit();
         } else if (item.getItemId() == R.id.btnReviews) {
-            Toast.makeText(this, "Reviews", Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_reviews()).commit();
         } else if (item.getItemId() == R.id.btnSignOut) {
-            Toast.makeText(this, "Sign out", Toast.LENGTH_SHORT).show();
+            // Handle sign-out: clear session, redirect to WelcomePage
+            signOut();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void signOut() {
+        // Clear session data if necessary (e.g., shared preferences or any auth token)
+        // Then, navigate to the WelcomePage activity
+        Intent intent = new Intent(barber.this, welcome.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
+        startActivity(intent);
+        Toast.makeText(this, "Signed out successfully!", Toast.LENGTH_SHORT).show();
+        finish(); // Close current activity
     }
 
     @Override
