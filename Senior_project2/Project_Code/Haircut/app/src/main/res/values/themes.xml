@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.Haircut" parent="Base.Theme.Haircut" />
+    <style name="Theme.Navigation" parent="Base.Theme.Haircut">
+        <item name="colorControlHighlight">@android:color/transparent</item>
+    </style>
 </resources>

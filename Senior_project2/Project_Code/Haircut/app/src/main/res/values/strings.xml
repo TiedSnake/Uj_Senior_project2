@@ -89,11 +89,14 @@
     <string name="book_appointment_button">Book Appointment</string>
     <string name="sheraton_name">Sheraton</string>
     <string name="scroll_view_description">Scrollable content area for appointment booking</string>
-    <string name="home">Home\n</string>
+    <string name="sidebar_headerText">Home</string>
     <string name="edit_profile_barber">Edit profile</string>
     <string name="sheraton_email">sheraton@gmail.com</string>
     <string name="open">Open Navigation Drawer</string>
     <string name="close">Close Navigation Drawer</string>
     <string name="profile">Profile</string>
     <string name="update_profile">Update</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sidebar_title">Barber\n\n</string>
 </resources>

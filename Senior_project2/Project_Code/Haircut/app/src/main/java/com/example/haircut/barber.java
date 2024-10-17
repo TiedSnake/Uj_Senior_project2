@@ -2,68 +2,72 @@ package com.example.haircut;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class barber extends AppCompatActivity {
+public class barber extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    ActionBarDrawerToggle drawerToggle;
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.barber_page);
-        // Initialize DrawerLayout and NavigationView
-        drawerLayout = findViewById(R.id.drawer_Layout);
+
+        // Initialize views
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Set the navigation icon for the Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setNavigationIcon(R.drawable.ic_menu); // Ensure you have the right icon resource
+        }
+
+        drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        // Set up ActionBarDrawerToggle to link the DrawerLayout with the action bar
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        // Set up the ActionBarDrawerToggle
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.gray)); // Set icon color
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState(); // Sync the toggle state with the drawer
 
-        // Set NavigationItemSelectedListener for menu options
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.btnHome)
-                    Toast.makeText(barber.this, "Home Selected", Toast.LENGTH_SHORT).show();
-                else if (item.getItemId() == R.id.btnProfile)
-                    Toast.makeText(barber.this, "Profile Selected", Toast.LENGTH_SHORT).show();
-                else if (item.getItemId() == R.id.btnMenu)
-                    Toast.makeText(barber.this, "Services Menu Selected", Toast.LENGTH_SHORT).show();
-                else if (item.getItemId() == R.id.btnAppointments)
-                    Toast.makeText(barber.this, "Appointments Selected", Toast.LENGTH_SHORT).show();
-                else if (item.getItemId() == R.id.btnCheckReviews)
-                    Toast.makeText(barber.this, "Reviews Selected", Toast.LENGTH_SHORT).show();
-                else if (item.getItemId() == R.id.btnSignOut)
-                    Toast.makeText(barber.this, "Sign out Selected", Toast.LENGTH_SHORT).show();
+        // Load default fragment
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new Home()).commit();
+            navigationView.setCheckedItem(R.id.btnHome);
+        }
+    }
 
-                // Close the drawer after selecting an item
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.btnHome) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new Home()).commit();
+        } else if (item.getItemId() == R.id.btnProfile) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new profile1()).commit();
+        } else if (item.getItemId() == R.id.btnMenu) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new menu()).commit();
+        } else if (item.getItemId() == R.id.btnAppointments) {
+            Toast.makeText(this, "Appointments", Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == R.id.btnReviews) {
+            Toast.makeText(this, "Reviews", Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == R.id.btnSignOut) {
+            Toast.makeText(this, "Sign out", Toast.LENGTH_SHORT).show();
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
