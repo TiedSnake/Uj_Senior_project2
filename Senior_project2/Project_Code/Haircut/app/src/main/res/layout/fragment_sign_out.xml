@@ -6,20 +6,27 @@
     android:background="@color/white"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/signOutMessage"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to sign out?"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:layout_marginBottom="20dp"/>
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/confirmSignOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Out"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/signOutMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Are you sure you want to sign out?"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/confirmSignOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_out_button_customer"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"/>
+    </LinearLayout>
 </FrameLayout>

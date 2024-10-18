@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <!-- Home Button -->
+        <item
+            android:id="@+id/sidebarOptionHome"
+            android:icon="@drawable/baseline_home_24"
+            android:title="@string/sidebar_headerText"
+            android:checked="true"
+            android:layout_height="wrap_content" />
+
+        <!-- About Us Button -->
+        <item
+            android:id="@+id/sidebarOption1"
+            android:icon="@drawable/ic_info"
+            android:title="@string/About_us"
+            android:layout_height="wrap_content" />
+
+        <!-- Profile Button -->
+        <item
+            android:id="@+id/sidebarOption2"
+            android:icon="@drawable/baseline_account_circle_24"
+            android:title="@string/profile_customer"
+            android:layout_height="wrap_content" />
+
+        <!-- Book Appointment Button -->
+        <item
+            android:id="@+id/sidebarOption3"
+            android:icon="@drawable/appointment"
+            android:title="@string/book_an_appointment"
+            android:layout_height="wrap_content" />
+
+        <!-- Chat with Barber Button -->
+        <item
+            android:id="@+id/sidebarOption4"
+            android:icon="@drawable/baseline_chat_24"
+            android:title="@string/chat_with_barber"
+            android:layout_height="wrap_content" />
+
+        <!-- Sign Out Button -->
+        <item
+            android:id="@+id/sidebarOption5"
+            android:icon="@drawable/baseline_logout_24"
+            android:title="@string/sign_out_button_customer"
+            android:layout_height="wrap_content" />
+    </group>
+</menu>

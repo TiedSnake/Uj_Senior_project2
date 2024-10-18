@@ -5,15 +5,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Go Back Button -->
-    <ImageButton
-        android:id="@+id/go_back_button"
-        android:layout_width="90sp"
-        android:layout_height="60sp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/baseline_arrow_back_24"
-        android:contentDescription="@string/go_back" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,6 +59,13 @@
                 android:layout_marginTop="8dp" />
         </LinearLayout>
     </ScrollView>
+
+    <!-- FrameLayout for additional content or overlays -->
+    <FrameLayout
+        android:id="@+id/overlay_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
 
     <!-- Book Appointment Button -->
     <Button
