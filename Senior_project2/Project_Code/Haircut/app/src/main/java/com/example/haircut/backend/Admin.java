@@ -9,7 +9,8 @@ public class Admin extends User {
     private final HashSet<com.example.haircut.Review> reviews_list;
 
     public Admin(String firstName, String lastName, String email, String password) {
-        super(firstName, lastName, email, password);
+        //Pass the user type optionally upon Admin object creation.
+        super(firstName, lastName, email, password, Admin.class.getName());
         this.users_blacklist = new HashSet<>();
         this.reviews_list = new HashSet<>();
     }

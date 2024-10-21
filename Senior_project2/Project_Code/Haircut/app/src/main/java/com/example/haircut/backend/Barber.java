@@ -31,7 +31,7 @@ public class Barber extends User {
     }
 
     public Barber(String firstName, String lastName, String email, String password) {
-        super(firstName, lastName, email, password);
+        super(firstName, lastName, email, password, Barber.class.getName());
         this.reviews = new HashSet<Review>();
         this.appointments = new HashSet<Appointment>();
     }

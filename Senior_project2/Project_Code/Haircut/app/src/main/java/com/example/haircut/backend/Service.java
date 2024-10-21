@@ -3,8 +3,11 @@ package com.example.haircut.backend;
 import android.util.Base64;
 
 import androidx.annotation.Nullable;
+
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.haircut.backend.User;
 
 import java.security.SecureRandom;
@@ -19,15 +22,16 @@ public abstract class Service {
      */
     private final static HashMap<UUID, User> user_records = new HashMap<>();
     private final static HashMap<String, UUID> users_emails = new HashMap<>();
+    private final static HashMap<UUID, String> users_keys = new HashMap<>();
 
     static {
         //Users Objects, UUID generated inside the User constructor.
-        User u1 = new User("Mike", "Jake", "bria83@gmail.com", "bria83");
-        User u2 = new User("Vince", "Morgan", "torey_schultz79@yahoo.com", "torey_schultz79");
-        User u3 = new User("John", "Alex", "ermann_wiza@hotmail.com", "hermann_wiza");
-        User u4 = new User("Shaun", "Luis", "udie_feest@yahoo.com", "ludie_feest");
-        User u5 = new User("Ryan", "Jason", "drain.ziemann@yahoo.com", "adrain.ziemann");
-        User u6 = new User("Peter", "Grey", "eagan_barrows41@yahoo.com", "keagan_barrows41");
+        User u1 = new Customer("Mike", "Jake", "bria83@gmail.com", "bria83");
+        User u2 = new Barber("Vince", "Morgan", "torey_schultz79@yahoo.com", "torey_schultz79");
+        User u3 = new Admin("John", "Alex", "ermann_wiza@hotmail.com", "hermann_wiza");
+        User u4 = new Customer("Shaun", "Luis", "udie_feest@yahoo.com", "ludie_feest");
+        User u5 = new Customer("Ryan", "Jason", "drain.ziemann@yahoo.com", "adrain.ziemann");
+        User u6 = new Customer("Peter", "Grey", "eagan_barrows41@yahoo.com", "keagan_barrows41");
 
         /*
          * Users records
@@ -67,20 +71,23 @@ public abstract class Service {
     /**
      * adding to the hashmap will return the user object we compare against Non-null
      * to force the function into return true if user added successfully & false if not.
+     * This Method returns multiple types of object depending on the program flow(User, ResponseFlag)
      */
-    protected static ResponseFlag signup(User user) {
+    protected static Object signup(User user) {
         if (users_emails.containsKey(user.getEmail()))
             return ResponseFlag.EMAIL_ALREADY_REGISTERED;
         else {
             //if insertion is successful the `put` method would return `null` i.e. no value is present yet in user_records with the entered ID & null if there's a value.
             if (user_records.put(user.getUuid(), user) != null) {
-                String token = generateToken(user.getUuid().toString(), generateSecretKey());
+                //Adds user secret key in secret key map.
+                users_keys.put(user.getUuid(), generateSecretKey());
+                String token = generateToken(user.getUuid(), users_keys.get(user.getUuid()));
                 user.setToken(token);
                 /*
-                * Need to send a verification email to the user in here. then prompt user to enter code that's sent into the email.
-                * if user entered the correct verification code then they will be directed to the jappropriate page & the flag `isLoggedIn` is set to true.
+                 * Need to send a verification email to the user in here. then prompt user to enter code that's sent into the email.
+                 * if user entered the correct verification code then they will be directed to the appropriate page & the flag `isLoggedIn` is set to true.
                  */
-                return ResponseFlag.SUCCESS;
+                return user;
             } else
                 return null;
         }
@@ -124,28 +131,39 @@ public abstract class Service {
         }
         return false;
     }
-    static ResponseFlag reset_password(UUID uuid, String password)
-    {
-        User user = user_records.get(uuid);
-        if (user!=null)
-        {
-            if(!password.isEmpty())
-            {
 
-            }
-        }else
-        {
+    //This Method returns multiple types of object depending on the program flow(User, ResponseFlag)
+    static Object reset_password(UUID uuid, String password) {
+        User user = user_records.get(uuid);
+        if (user != null) {
+            if (password != null && !password.isEmpty()) {
+
+                /*
+                 * Need to send a verification email to the user in here. then prompt user to enter code that's sent into the email.
+                 * if the entered code is correct then the user will be prompted twice to enter the new password.
+                 * if user entered the correct verification code then they will be directed to the appropriate page & the flag `isLoggedIn` is set to true.
+                 */
+                //returns the user object after setting the token attribute inside it.
+                return uuid.toString();
+            } else
+                return ResponseFlag.PASSWORD_NOT_ENTERED;
+        } else {
             return ResponseFlag.ERROR;
         }
-        return null;
     }
+
     static ResponseFlag forgotPassword(String entered_email) {
         if (!entered_email.isEmpty()) {
             UUID uuid = users_emails.containsKey(entered_email) ? users_emails.get(entered_email) : null;
-            if (uuid != null) {
+            User user = user_records.get(uuid);
+            if (user != null) {
+                String token = generateToken(user.getUuid(), generateSecretKey());
+                user.setToken(token);
+                //Store the token in hash map
+                users_keys.put(uuid, token);
                 /*
-                * Send email contains code verification to the user email.
-                * forward the user to the code verification page along with the UUID of the user.
+                 * Send email contains code verification to the user email.
+                 * forward the user to the code verification page along with the UUID of the user.
                  */
                 return ResponseFlag.SUCCESS;
             } else
@@ -170,7 +188,34 @@ public abstract class Service {
             return ResponseFlag.PASSWORD_NOT_ENTERED;
     }
 
-    static String generateToken(String userId, String secretKey) {
+    static String decodeToken(UUID uuid, String secretKey) {
+        try {
+            User user = user_records.get(uuid);
+            if (user != null) {
+                //Use the same algorithm used in during encoding/generating token with specified generated key.
+                Algorithm algorithm = Algorithm.HMAC256(secretKey);
+
+                //Apply the algorithm HMAC256 with the token issuer name & build it..
+                JWTVerifier verifier = JWT.require(algorithm)
+                        .withIssuer("Haircut")
+                        .build();
+
+                //Decode & verify the token by passing the original token associated with the user from the user object
+                DecodedJWT decodedJWT = verifier.verify(user.getToken());
+
+                //Retrieve the (embedded uuid, user_type, user_email, token expiration date) from the token
+                String embeddedUuid = decodedJWT.getSubject();
+                String user_type = decodedJWT.getClaim("user_type").asString();
+                String user_email = decodedJWT.getClaim("user_email").asString();
+                return String.format("user_id: %s\nuser_type: %s\nuser_email: %s\ntoken_expires_at: %s", embeddedUuid, user_type, user_email, decodedJWT.getExpiresAt());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return "user id doesn't match or error";
+    }
+
+    static String generateToken(UUID userId, String secretKey) {
         /**
          * Token to identify the user consist of:
          * Issuer: The one who issue the token which is our app in this case.
@@ -180,17 +225,24 @@ public abstract class Service {
          * secretKey: encryption key used to encrypted the previous data.
          * sign: The algorithm used to sign the token with a secret key.
          */
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        Date now = new Date();
-        //1 hour expiration in milliseconds
-        Date expiryDate = new Date(now.getTime() + 3600 * 1000);
-        //returns the token
-        return JWT.create()
-                .withIssuer("myApp")
-                .withIssuedAt(now)
-                .withExpiresAt(expiryDate)
-                .withClaim("userId", userId)
-                .sign(algorithm);
+        User user = user_records.get(userId);
+        if (user != null) {
+            Algorithm algorithm = Algorithm.HMAC256(secretKey);
+            Date now = new Date();
+            //1 hour expiration in milliseconds
+            Date expiryDate = new Date(now.getTime() + 3600 * 1000);
+            //returns the token
+            return JWT.create()
+                    .withIssuer("Haircut")
+                    .withIssuedAt(now)
+                    .withExpiresAt(expiryDate)
+                    .withClaim("user_id", userId.toString())
+                    .withClaim("user_email", user.getEmail())
+                    .withClaim("user_type", user.getUser_type())
+                    .sign(algorithm);
+        } else {
+            return "user is null";
+        }
     }
 
     private static String generateSecretKey() {

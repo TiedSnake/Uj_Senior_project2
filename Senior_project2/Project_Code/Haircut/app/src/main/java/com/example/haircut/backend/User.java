@@ -12,13 +12,17 @@ public class User {
     private transient String password;
     private boolean isLoggedIn;
     private Date dob;
+    private String user_type;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String... user_type) {
         this.uuid = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        //Pass the user type optionally upon user object creation.
+        if (user_type.length > 0)
+            this.user_type = user_type[0];
     }
 
     public String getFirstName() {
@@ -49,6 +53,14 @@ public class User {
         this.dob = dob;
     }
 
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -65,8 +77,7 @@ public class User {
         this.email = email;
     }
 
-    public void setIsLoggedIn(boolean status)
-    {
+    public void setIsLoggedIn(boolean status) {
         this.isLoggedIn = status;
     }
 
