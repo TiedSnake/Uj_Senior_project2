@@ -8,12 +8,17 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.example.haircut.backend.User;
 
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+
 
 public abstract class Service {
     /**
@@ -23,8 +28,11 @@ public abstract class Service {
     private final static HashMap<UUID, User> user_records = new HashMap<>();
     private final static HashMap<String, UUID> users_emails = new HashMap<>();
     private final static HashMap<UUID, String> users_keys = new HashMap<>();
+    private final static FirebaseAuth auth;
 
     static {
+        //Initializing firebase authentication object
+        auth = FirebaseAuth.getInstance();
         //Users Objects, UUID generated inside the User constructor.
         User u1 = new Customer("Mike", "Jake", "bria83@gmail.com", "bria83");
         User u2 = new Barber("Vince", "Morgan", "torey_schultz79@yahoo.com", "torey_schultz79");
@@ -73,31 +81,60 @@ public abstract class Service {
      * to force the function into return true if user added successfully & false if not.
      * This Method returns multiple types of object depending on the program flow(User, ResponseFlag)
      */
-    protected static Object signup(User user) {
-        if (users_emails.containsKey(user.getEmail()))
-            return ResponseFlag.EMAIL_ALREADY_REGISTERED;
-        else {
-            //if insertion is successful the `put` method would return `null` i.e. no value is present yet in user_records with the entered ID & null if there's a value.
-            if (user_records.put(user.getUuid(), user) != null) {
-                //Adds user secret key in secret key map.
-                users_keys.put(user.getUuid(), generateSecretKey());
-                String token = generateToken(user.getUuid(), users_keys.get(user.getUuid()));
-                user.setToken(token);
-                /*
-                 * Need to send a verification email to the user in here. then prompt user to enter code that's sent into the email.
-                 * if user entered the correct verification code then they will be directed to the appropriate page & the flag `isLoggedIn` is set to true.
-                 */
-                return user;
-            } else
-                return null;
+    protected static CompletableFuture<ResponseFlag> signup(String firstName, String lastName, String email, String usertype, String password) {
+        CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
+        if (!users_emails.containsKey(email)) {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            User user;
+                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (firebaseUser != null) {
+                                switch (usertype) {
+                                    case "customer" ->
+                                            user = new Customer(firstName, lastName, email, usertype);
+                                    case "barber" ->
+                                            user = new Barber(firstName, lastName, email, usertype);
+                                    case "admin" ->
+                                            user = new Admin(firstName, lastName, email, usertype);
+                                    default -> {
+                                        future.completeExceptionally(new IllegalArgumentException("Invalid user type: " + usertype));
+                                        return;
+                                    }
+                                }
+                                user.setUuid(UUID.fromString(firebaseUser.getUid()));
+                                /*
+                                If insertion is successful the `put` method would return `null`
+                                i.e. no value is present yet in user_records with the entered ID & null if there's a value.
+                                 */
+                                if (user_records.put(user.getUuid(), user) == null)
+                                    //Sending email verification to the registered using Firebase.
+                                    firebaseUser.sendEmailVerification()
+                                            .addOnCompleteListener(verificationTask ->
+                                            {
+                                                if (verificationTask.isSuccessful()) //sending succeed
+                                                    future.complete(ResponseFlag.SUCCESS);
+                                                else //sending failed
+                                                    future.completeExceptionally(verificationTask.getException()); //propagate exception
+                                            });
+                                else //Adding to Database failed.
+                                    future.complete(ResponseFlag.ERROR);
+                            }
+                        } else
+                            //if user object creation failed propagate the exception.
+                            future.completeExceptionally(task.getException());
+                    });
+        } else {
+            future.complete(ResponseFlag.EMAIL_ALREADY_REGISTERED);
         }
+        return future;
     }
 
 
     protected static ResponseFlag login(String email, String password) {
         if (!email.isEmpty() && !password.isEmpty()) {//if both email & password fields are NOT empty
             //if the database contains the email then fetch its value inside record otherwise pass null to the user
-            UUID uuid = users_emails.containsKey(email) ? users_emails.get(email) : null;
+            UUID uuid = users_emails.getOrDefault(email, null);
             if (uuid == null)//if user is null then email isn't present in the system
                 return ResponseFlag.EMAIL_NOT_REGISTERED;
             else {//email is present.
@@ -152,41 +189,23 @@ public abstract class Service {
         }
     }
 
-    static ResponseFlag forgotPassword(String entered_email) {
-        if (!entered_email.isEmpty()) {
-            UUID uuid = users_emails.containsKey(entered_email) ? users_emails.get(entered_email) : null;
-            User user = user_records.get(uuid);
-            if (user != null) {
-                String token = generateToken(user.getUuid(), generateSecretKey());
-                user.setToken(token);
-                //Store the token in hash map
-                users_keys.put(uuid, token);
-                /*
-                 * Send email contains code verification to the user email.
-                 * forward the user to the code verification page along with the UUID of the user.
-                 */
-                return ResponseFlag.SUCCESS;
-            } else
-                return ResponseFlag.ERROR;// There's no account associated with this email.
-        } else
-            return ResponseFlag.EMAIL_NOT_ENTERED;
-    }
 
-    static ResponseFlag deleteAccount(User user, String entered_Pass) {
-        if (!entered_Pass.isEmpty()) {//if entered password value is NOT empty
-            if (!entered_Pass.equals(user.getPassword()))//entered password i.e. `password` doesn't equal user's password which is the stored in user_records
-                return ResponseFlag.INCORRECT_CREDENTIALS;
-            else {
-                int records_length = user_records.size();
-                user_records.remove(user);
-                if (records_length < user_records.size())// Validating that the records size decreased after user account deletion.
-                    return ResponseFlag.SUCCESS;
-                else
-                    return ResponseFlag.ERROR; //Otherwise send a signal to the frontend that the deletion process failed.
-            }
-        } else
-            return ResponseFlag.PASSWORD_NOT_ENTERED;
-    }
+
+//    static ResponseFlag deleteAccount(User user, String entered_Pass) {
+//        if (!entered_Pass.isEmpty()) {//if entered password value is NOT empty
+//            if (!entered_Pass.equals(user.getPassword()))//entered password i.e. `password` doesn't equal user's password which is the stored in user_records
+//                return ResponseFlag.INCORRECT_CREDENTIALS;
+//            else {
+//                int records_length = user_records.size();
+//                user_records.remove(user);
+//                if (records_length < user_records.size())// Validating that the records size decreased after user account deletion.
+//                    return ResponseFlag.SUCCESS;
+//                else
+//                    return ResponseFlag.ERROR; //Otherwise send a signal to the frontend that the deletion process failed.
+//            }
+//        } else
+//            return ResponseFlag.PASSWORD_NOT_ENTERED;
+//    }
 
     static String decodeToken(UUID uuid, String secretKey) {
         try {
@@ -238,7 +257,7 @@ public abstract class Service {
                     .withExpiresAt(expiryDate)
                     .withClaim("user_id", userId.toString())
                     .withClaim("user_email", user.getEmail())
-                    .withClaim("user_type", user.getUser_type())
+                    .withClaim("user_type", user.getUserType())
                     .sign(algorithm);
         } else {
             return "user is null";

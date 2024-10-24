@@ -5,11 +5,13 @@ import android.util.Base64;
 import androidx.annotation.NonNull;
 
 import java.security.SecureRandom;
+import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+
 import java.util.Date;
 
 public class Utility {
@@ -33,12 +35,18 @@ public class Utility {
 //                    + "(?=.*[@#$%^&+=])"
                     + "(?=\\S+$).{8,}$";
 
-    static boolean isValidName(@NonNull String fName) {
-        return fName.length() < 20 && fName.matches(NAME_REGEX);
+    static boolean isValidName(String fName) {
+        if (fName == null)
+            return false;
+        else
+            return fName.length() < 20 && fName.matches(NAME_REGEX);
     }
 
-    static boolean isValidPassword(@NonNull String pass) {
-        return pass.length() <= 20 && pass.matches(PASSWORD_REGEX);
+    static boolean isValidPassword(String pass) {
+        if (pass == null)
+            return false;
+        else
+            return pass.length() <= 20 && pass.matches(PASSWORD_REGEX);
     }
     // RFC 5322 Official Standard Regex
     /**
@@ -87,25 +95,47 @@ public class Utility {
     }
 
 
-    public static String signup(String _fname, String _lname, String _email, String _pwd) {
-        if (_fname != null && _lname != null && _email != null && _pwd != null)
-            if (Utility.isValidName(_fname) && Utility.isValidName(_lname) && Utility.isValidEmailFormat(_email) && Utility.isValidPassword(_pwd)) {//if entered values are valid fname & lname
-                return String.valueOf(Service.signup(new User(_fname, _fname, _email, _pwd)));
-            } else {
-                if (!Utility.isValidName(_fname))
-                    return "Please enter a valid first name";
-                //                Toast.makeText(signup.this, "Please enter a valid first name", Toast.LENGTH_SHORT).show();
-                if (!Utility.isValidName(_lname))
-                    return "Please enter a valid last name";
-                //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-                if (!Utility.isValidEmailFormat(_email))
-                    return "Please enter a valid email";
-                //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-                if (!Utility.isValidPassword(_pwd))
-                    return "Please enter a valid password";
-                //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-            }
-        return null;
+    static String signup(String _fname, String _lname, String _email, String _pwd, String user_type) {
+        if (Utility.isValidName(_fname) && Utility.isValidName(_lname) && Utility.isValidEmailFormat(_email) && Utility.isValidPassword(_pwd)) {//if entered values are valid fname & lname
+            return String.valueOf(Service.signup(_fname, _lname, _email, user_type, _pwd));
+        } else {
+            if (!Utility.isValidName(_fname))
+                return "Please enter a valid first name";
+            //                Toast.makeText(signup.this, "Please enter a valid first name", Toast.LENGTH_SHORT).show();
+            if (!Utility.isValidName(_lname))
+                return "Please enter a valid last name";
+            //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
+            if (!Utility.isValidEmailFormat(_email))
+                return "Please enter a valid email";
+            //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
+            if (!Utility.isValidPassword(_pwd))
+                return "Please enter a valid password";
+            //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
+            return "There has been unexpected error";
+        }
     }
-}
+
+    static String forgotPassword(String email, String password) {
+        if (isValidEmailFormat(email)) {
+            return String.valueOf(Service.reset_password(email));
+        }
+            if (!entered_email.isEmpty()) {
+                UUID uuid = users_emails.getOrDefault(entered_email, null);
+                User user = user_records.get(uuid);
+                if (user != null) {
+                    String token = generateToken(user.getUuid(), generateSecretKey());
+                    user.setToken(token);
+                    //Store the token in hash map
+                    users_keys.put(uuid, token);
+                    /*
+                     * Send email contains code verification to the user email.
+                     * forward the user to the code verification page along with the UUID of the user.
+                     */
+                    return Service.ResponseFlag.SUCCESS;
+                } else
+                    return Service.ResponseFlag.ERROR;// There's no account associated with this email.
+            } else
+                return Service.ResponseFlag.EMAIL_NOT_ENTERED;
+        }
+    }
 

@@ -4,25 +4,41 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class User {
-    private final UUID uuid;
+    private UUID uuid;
     private String token;
     private String firstName;
     private String lastName;
     private String email;
-    private transient String password;
+//    private transient String password;
     private boolean isLoggedIn;
     private Date dob;
-    private String user_type;
+    private String userType;
 
-    public User(String firstName, String lastName, String email, String password, String... user_type) {
-        this.uuid = UUID.randomUUID();
+    public User(String firstName, String lastName, String email, String... userType) {
+//        this.uuid = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+//        this.password = password;
         //Pass the user type optionally upon user object creation.
-        if (user_type.length > 0)
-            this.user_type = user_type[0];
+        if (userType.length > 0)
+            this.userType = userType[0];
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getFirstName() {
@@ -53,21 +69,17 @@ public class User {
         this.dob = dob;
     }
 
-    public String getUser_type() {
-        return user_type;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
-    }
-
-    public String getPassword() {
+    /*public String getPassword() {
         return password;
-    }
+    }*/
 
-    public void setPassword(String password) {
+    /*public void setPassword(String password) {
         this.password = password;
-    }
+    }*/
 
     public String getEmail() {
         return email;
@@ -85,15 +97,5 @@ public class User {
         return isLoggedIn;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }
