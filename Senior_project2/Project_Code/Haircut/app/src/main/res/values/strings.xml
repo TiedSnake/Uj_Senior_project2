@@ -83,7 +83,7 @@
     <string name="go_back">Go Back</string>
     <string name="type_a_message">Type a message</string>
     <string name="send_button_chat">Send</string>
-    <string name="book_appointment__text">Book Appointment at Sheraton</string>
+    <string name="book_appointment__text">Book Appointment</string>
     <string name="selected_date">Selected Date:</string>
     <string name="available_times">Available Times:</string>
     <string name="book_appointment_button">Book Appointment</string>
@@ -100,4 +100,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sidebar_title">Barber\n\n</string>
     <string name="menu_label">Menu</string>
+    <string name="see_appointments_text">See Appointments</string>
+    <string name="lava_salon">Lava Salon</string>
+    <string name="king_of_shaves_salon">King of shaves Salon</string>
+    <string name="maria_salon">Maria Salon</string>
+    <string name="_90_seconds_salon">90 seconds Salon</string>
 </resources>

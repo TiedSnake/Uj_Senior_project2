@@ -32,7 +32,8 @@ public class customer extends AppCompatActivity implements NavigationView.OnNavi
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_home_customer()).commit();
+            // Default fragment when the app first opens (Home)
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_home_customer()).commit();
             navigationView.setCheckedItem(R.id.sidebarOptionHome);
         }
     }
@@ -40,23 +41,22 @@ public class customer extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.sidebarOptionHome) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_home_customer()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_home_customer()).commit();
         } else if (item.getItemId() == R.id.sidebarOption1) { // About Us
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_about_us()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
         } else if (item.getItemId() == R.id.sidebarOption2) { // Profile
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new profile1()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new profile1()).commit();
         } else if (item.getItemId() == R.id.sidebarOption3) { // Book Appointment
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_appointment_customer()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_barbershop_list()).commit();
         } else if (item.getItemId() == R.id.sidebarOption4) { // Chat with Barber
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_chat_with_barber()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_chat_with_barber()).commit();
         } else if (item.getItemId() == R.id.sidebarOption5) { // Sign Out
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_sign_out()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_sign_out()).commit();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
