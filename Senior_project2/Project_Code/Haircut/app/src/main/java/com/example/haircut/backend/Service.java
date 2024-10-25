@@ -1,20 +1,8 @@
 package com.example.haircut.backend;
 
-import android.util.Base64;
-
-import androidx.annotation.Nullable;
-
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.google.firebase.Firebase;
+import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.example.haircut.backend.User;
-
-import java.security.SecureRandom;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +15,6 @@ public abstract class Service {
      */
     private final static HashMap<UUID, User> user_records = new HashMap<>();
     private final static HashMap<String, UUID> users_emails = new HashMap<>();
-    private final static HashMap<UUID, String> users_keys = new HashMap<>();
     private final static FirebaseAuth auth;
 
     static {
@@ -81,14 +68,14 @@ public abstract class Service {
      * to force the function into return true if user added successfully & false if not.
      * This Method returns multiple types of object depending on the program flow(User, ResponseFlag)
      */
-    protected static CompletableFuture<ResponseFlag> signup(String firstName, String lastName, String email, String usertype, String password) {
+    protected static CompletableFuture<ResponseFlag> signup(String firstName, String lastName, String email, String password, String usertype) {
         CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
         if (!users_emails.containsKey(email)) {
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             User user;
-                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
                             if (firebaseUser != null) {
                                 switch (usertype) {
                                     case "customer" ->
@@ -131,69 +118,112 @@ public abstract class Service {
     }
 
 
-    protected static ResponseFlag login(String email, String password) {
-        if (!email.isEmpty() && !password.isEmpty()) {//if both email & password fields are NOT empty
-            //if the database contains the email then fetch its value inside record otherwise pass null to the user
-            UUID uuid = users_emails.getOrDefault(email, null);
-            if (uuid == null)//if user is null then email isn't present in the system
-                return ResponseFlag.EMAIL_NOT_REGISTERED;
-            else {//email is present.
-                User user = user_records.get(uuid);
-                assert user != null;
-                if (!password.equals(user.getPassword()))//entered password i.e. `password` doesn't equal user's password which is the stored in user_records
-                    return ResponseFlag.INCORRECT_CREDENTIALS;
-                else {
-                    return ResponseFlag.SUCCESS;
-                }
-            }
-        } else {//else one of the fields is empty or both of them are empty
-            if (email.isEmpty())
-                return ResponseFlag.EMAIL_NOT_ENTERED;
-            if (password.isEmpty())
-                return ResponseFlag.PASSWORD_NOT_ENTERED;
-        }
-        return null;
+    protected static CompletableFuture<ResponseFlag> login(String email, String password) {
+        CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
+        if (users_emails.containsKey(email)) {
+            auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            UUID uuid = users_emails.getOrDefault(email, null);
+                            if (uuid == null)
+                                future.completeExceptionally(new RuntimeException("Unexpected error this email " + email + " already exist but,\nthe fetched uuid associated with it is null"));
+                            else {
+                                User user = user_records.get(uuid);
+                                if (user == null)
+                                    future.completeExceptionally(new RuntimeException("Unexpected error this email " + email + " already exist but,\nthe fetched user object with the uuid " + uuid + " is null"));
+                                else {
+                                    user.setLoggedIn(true); //Marking the user as logged in
+                                    future.complete(ResponseFlag.SUCCESS);
+                                }
+                            }
+                        } else
+                            //if signing the user in the system fails for Firebase, propagate the exception.
+                            future.completeExceptionally(task.getException());
+                    });
+        } else
+            future.completeExceptionally(new RuntimeException("This email " + email + "is not registered in the system"));
+        return future;
     }
 
     /**
-     * @param user user can't logout if he/she isn't logged in from the first place, that explains why the parameter is of type User instead of email.
+     * @param uuid user can't logout if he/she isn't logged in from the first place, that explains why the parameter is of type User instead of email.
      *             the point is to avoid the overhead of finding in the records for the user object again when the user is already logged in.
      * @return
      */
-    protected static boolean logout(User user) {
-        if (user != null && user.isLoggedIn()) {
-            user.setIsLoggedIn(false);
-            //redirect user to main page.
-            return true;
-        }
-        return false;
+    protected static CompletableFuture<ResponseFlag> logout(UUID uuid) {
+        CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
+        User user = user_records.getOrDefault(uuid, null);
+        if (user == null)
+            future.completeExceptionally(new RuntimeException("Unexpected error during logout, the user associated with this uuid " + uuid.toString() + " is null"));
+        else if (user.isLoggedIn()) {
+            auth.signOut();
+            user.setLoggedIn(false);
+            future.complete(ResponseFlag.SUCCESS);
+        } else
+            future.completeExceptionally(new RuntimeException("Unexpected error during logout, the user associated with this uuid " + uuid.toString() + " is not signed in the system"));
+        return future;
+    }
+
+    static CompletableFuture<ResponseFlag> codeVerification(String code) {
+        CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
+        auth.verifyPasswordResetCode(code)
+                .addOnCompleteListener(task ->
+                {
+                    if (task.isSuccessful()) {
+                        future.complete(ResponseFlag.SUCCESS);
+                    } else
+                        future.completeExceptionally(new RuntimeException("Invalid verification code or it has expired " + task.getException()));
+                });
+        return future;
     }
 
     //This Method returns multiple types of object depending on the program flow(User, ResponseFlag)
-    static Object reset_password(UUID uuid, String password) {
-        User user = user_records.get(uuid);
-        if (user != null) {
-            if (password != null && !password.isEmpty()) {
+    static CompletableFuture<ResponseFlag> sendPasswordResetEmail(String email) {
+        CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
+        if (users_emails.containsKey(email)) {
+            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
+                    .setUrl("https://Haircut.com/passwordReset")
+                    .setHandleCodeInApp(true)
+                    .build();
 
-                /*
-                 * Need to send a verification email to the user in here. then prompt user to enter code that's sent into the email.
-                 * if the entered code is correct then the user will be prompted twice to enter the new password.
-                 * if user entered the correct verification code then they will be directed to the appropriate page & the flag `isLoggedIn` is set to true.
-                 */
-                //returns the user object after setting the token attribute inside it.
-                return uuid.toString();
-            } else
-                return ResponseFlag.PASSWORD_NOT_ENTERED;
-        } else {
-            return ResponseFlag.ERROR;
-        }
+            auth.sendPasswordResetEmail(email, actionCodeSettings)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful())
+                            future.complete(ResponseFlag.SUCCESS);
+                        else
+                            future.completeExceptionally(new RuntimeException("Sending password reset email failed " + task.getException()));
+                    });
+
+        } else
+            future.completeExceptionally(new RuntimeException("This email " + email + "is not registered in the system"));
+        return future;
     }
 
+    static CompletableFuture<ResponseFlag> confirmVerification(String resetCode, String newPassword) {
+        CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
+        // Get the reset code from the Intent (or deep link)
+//        resetCode = getIntent().getStringExtra("resetCode");
+        auth.confirmPasswordReset(resetCode, newPassword)
+                .addOnCompleteListener(task ->
+                {
+                    if (task.isSuccessful())
+                        future.complete(ResponseFlag.SUCCESS);
+                    else {
+                        future.completeExceptionally(new RuntimeException("Password reset Confirmation failed: " + task.getException()));
+                    }
+                });
+        return future;
+    }
 
-
-//    static ResponseFlag deleteAccount(User user, String entered_Pass) {
-//        if (!entered_Pass.isEmpty()) {//if entered password value is NOT empty
-//            if (!entered_Pass.equals(user.getPassword()))//entered password i.e. `password` doesn't equal user's password which is the stored in user_records
+//    static ResponseFlag deleteAccount(String email, String password) {
+//        CompletableFuture<ResponseFlag> future = new CompletableFuture<>();
+//        if (users_emails.containsKey(email)) {
+//            auth.
+//                    //..uncomplete
+//        }else
+//            future.completeExceptionally(new RuntimeException("This email " + email + "is not registered in the system"));
+//        if (!password.isEmpty()) {//if entered password value is NOT empty
+//            if (!password.equals(user.getPassword()))//entered password i.e. `password` doesn't equal user's password which is the stored in user_records
 //                return ResponseFlag.INCORRECT_CREDENTIALS;
 //            else {
 //                int records_length = user_records.size();
@@ -206,70 +236,4 @@ public abstract class Service {
 //        } else
 //            return ResponseFlag.PASSWORD_NOT_ENTERED;
 //    }
-
-    static String decodeToken(UUID uuid, String secretKey) {
-        try {
-            User user = user_records.get(uuid);
-            if (user != null) {
-                //Use the same algorithm used in during encoding/generating token with specified generated key.
-                Algorithm algorithm = Algorithm.HMAC256(secretKey);
-
-                //Apply the algorithm HMAC256 with the token issuer name & build it..
-                JWTVerifier verifier = JWT.require(algorithm)
-                        .withIssuer("Haircut")
-                        .build();
-
-                //Decode & verify the token by passing the original token associated with the user from the user object
-                DecodedJWT decodedJWT = verifier.verify(user.getToken());
-
-                //Retrieve the (embedded uuid, user_type, user_email, token expiration date) from the token
-                String embeddedUuid = decodedJWT.getSubject();
-                String user_type = decodedJWT.getClaim("user_type").asString();
-                String user_email = decodedJWT.getClaim("user_email").asString();
-                return String.format("user_id: %s\nuser_type: %s\nuser_email: %s\ntoken_expires_at: %s", embeddedUuid, user_type, user_email, decodedJWT.getExpiresAt());
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return "user id doesn't match or error";
-    }
-
-    static String generateToken(UUID userId, String secretKey) {
-        /**
-         * Token to identify the user consist of:
-         * Issuer: The one who issue the token which is our app in this case.
-         * IssuedAt: The date when the token was issued.
-         * WithExpiresAt: when does the token expire.
-         * withClaim: header & payload of the token which contains data specific to the user.
-         * secretKey: encryption key used to encrypted the previous data.
-         * sign: The algorithm used to sign the token with a secret key.
-         */
-        User user = user_records.get(userId);
-        if (user != null) {
-            Algorithm algorithm = Algorithm.HMAC256(secretKey);
-            Date now = new Date();
-            //1 hour expiration in milliseconds
-            Date expiryDate = new Date(now.getTime() + 3600 * 1000);
-            //returns the token
-            return JWT.create()
-                    .withIssuer("Haircut")
-                    .withIssuedAt(now)
-                    .withExpiresAt(expiryDate)
-                    .withClaim("user_id", userId.toString())
-                    .withClaim("user_email", user.getEmail())
-                    .withClaim("user_type", user.getUserType())
-                    .sign(algorithm);
-        } else {
-            return "user is null";
-        }
-    }
-
-    private static String generateSecretKey() {
-        byte[] key = new byte[32];
-
-        SecureRandom secureRandom = new SecureRandom();
-        secureRandom.nextBytes(key);
-
-        return Base64.encodeToString(key, Base64.NO_WRAP);
-    }
 }

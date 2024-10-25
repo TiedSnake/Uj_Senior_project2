@@ -89,15 +89,19 @@ public class Utility {
     public static boolean isValidEmailFormat(String email) {
         if (email == null) {
             return false;
+        } else {
+            Matcher matcher = EMAIL_PATTERN.matcher(email);
+            return matcher.matches(); //returns true/false
         }
-        Matcher matcher = EMAIL_PATTERN.matcher(email);
-        return matcher.matches(); //returns true/false
     }
 
-
-    static String signup(String _fname, String _lname, String _email, String _pwd, String user_type) {
+    /*
+    * The Method needs either to have a `userType` parameter or it must uses Intent.getStringExtra(userType).
+    * The userType must be passed to Service.signup()
+     */
+    static String signup(String _fname, String _lname, String _email, String _pwd, String userType) {
         if (Utility.isValidName(_fname) && Utility.isValidName(_lname) && Utility.isValidEmailFormat(_email) && Utility.isValidPassword(_pwd)) {//if entered values are valid fname & lname
-            return String.valueOf(Service.signup(_fname, _lname, _email, user_type, _pwd));
+            return String.valueOf(Service.signup(_fname, _lname, _email, _pwd, userType));
         } else {
             if (!Utility.isValidName(_fname))
                 return "Please enter a valid first name";
@@ -111,31 +115,20 @@ public class Utility {
             if (!Utility.isValidPassword(_pwd))
                 return "Please enter a valid password";
             //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-            return "There has been unexpected error";
+            return "This is unexpected error";
         }
     }
 
-    static String forgotPassword(String email, String password) {
-        if (isValidEmailFormat(email)) {
-            return String.valueOf(Service.reset_password(email));
-        }
-            if (!entered_email.isEmpty()) {
-                UUID uuid = users_emails.getOrDefault(entered_email, null);
-                User user = user_records.get(uuid);
-                if (user != null) {
-                    String token = generateToken(user.getUuid(), generateSecretKey());
-                    user.setToken(token);
-                    //Store the token in hash map
-                    users_keys.put(uuid, token);
-                    /*
-                     * Send email contains code verification to the user email.
-                     * forward the user to the code verification page along with the UUID of the user.
-                     */
-                    return Service.ResponseFlag.SUCCESS;
-                } else
-                    return Service.ResponseFlag.ERROR;// There's no account associated with this email.
-            } else
-                return Service.ResponseFlag.EMAIL_NOT_ENTERED;
+    protected static String login(String email, String password) {
+        if (isValidEmailFormat(email) && isValidPassword(password)) {
+            return String.valueOf(Service.login(email, password));
+        } else {
+            if (!isValidEmailFormat(email))
+                return "Please enter a valid email";
+            else if (!isValidPassword(password))
+                return "Please enter a valid password";
+            return "This is unexpected error";
         }
     }
+}
 

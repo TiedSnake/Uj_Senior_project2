@@ -52,9 +52,7 @@ dependencies {
 
     //JSON Web Token
     // https://mvnrepository.com/artifact/com.auth0/java-jwt
-    implementation(libs.java.jwt)
-
-
+//    implementation(libs.java.jwt)
 
     // JUnit 5 (JUnit Jupiter)
     testRuntimeOnly(libs.junit.jupiter.engine)

@@ -9,7 +9,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-//    private transient String password;
+    //    private transient String password;
     private boolean isLoggedIn;
     private Date dob;
     private String userType;
