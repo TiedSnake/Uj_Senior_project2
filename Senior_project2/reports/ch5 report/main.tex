@@ -1,33 +1,63 @@
 \documentclass{article}
-\usepackage{booktabs} % For better-looking tables
-\usepackage{graphicx}
-\usepackage{listings}
+\usepackage{fancyhdr} %For Header & footer Horizontal lines
+\pagestyle{fancy} %For Header & footer Horizontal lines
+\usepackage{booktabs} 
+\usepackage{lmodern} % To avoid the font size substition errors
+\usepackage[a4paper, left=0.5in, right=0.5in, top=0.5in, bottom=0.5in]{geometry} % Adjustments for the page margins
+\usepackage{graphicx} % For adding figueres to the document
+\usepackage{listings} % For adding external code attachment files
 \usepackage{xcolor}
+\usepackage{times} % using the times roman font
+\usepackage{float} % float values for some fonts
+\usepackage[absolute,overlay]{textpos}
+
+% Header and footer line thickness
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhfoffset[L,R]{0pt} % Removes header and footer side offsets
+
+
 \begin{document}
+
+\begin{figure}[ht]
+    \includegraphics[width=0.1\textwidth]{images/UOJ_Logo_Transparent.png}
+\end{figure}
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/HairCut.png}
-    \caption{HairCut application Icon}
-    \label{fig: App icon}
+    \includegraphics[width=0.2\textwidth]{images/Haircut_icon.png}
+    \caption{Haircut application Icon}
 \end{figure}
-\begin{table}[h] % Place the table "here" (h) on the page
-    \centering
-    \begin{tabular}{|c |c|} \hline  % Define the number of columns and their alignment
-        
-        Names& ID\\ \hline 
-        
-        Marwan Almehmadi& 1741630
+    \label{fig: App icon}
+    \begin{table}[h] 
+        \centering
+        \begingroup
+    \fontsize{15}{20}\selectfont
+    \begin{tabular}{|c |c|} \hline  
+        \textbf{\fontsize{18}{20}\selectfont Name(s)}& \textbf{\fontsize{18}{20}\selectfont ID(s)}\\ \hline         
+       Marwan Almehmadi& 1741630
 \\ \hline 
         Anas Aldhahri& 1845490\\ \hline 
         
  Waleed Aldhahri&2042395\\ \hline 
  Abdulrahman Maghrabi&2042791\\ \hline 
  Ali Abualwah&2140185\\ \hline 
- Sari Alblwi&2142407\\ \hline 
- Supervisor&Sakher Ghanem\\ \hline
+ Sari Alblwi&2142407\\ \hline
     \end{tabular}
     \caption{Names and IDs}
     \label{tab:yourtablelabel}
+
+    \vspace{1em}\begin{tabular}{|c |c|} \hline
+    \textbf{Supervisor}&Dr. Sakher Ghanem\\ \hline
+    \end{tabular}
+
+    \vspace{3em}\begin{tabular}{|c|} \hline
+        University of Jeddah \\
+        College of Computer Science and Engineering \\
+        Department of Computer Science\\
+        Academic Session: Autumn 2024 \\ \hline
+    \end{tabular}
+    \endgroup
 \end{table}
 \newpage
 {Chapter 5: Implementation}
@@ -37,7 +67,7 @@
 
 \item \textbf{Introduction:} An Introduction to the chapter.
 
-\item \textbf{Software Description:} Details of the used libraries , frameworks and IDE(s) in addition to design tools along with the used programming languages.
+\item \textbf{Software Description:} Details of the used libraries, frameworks, and IDE(s) in addition to design tools along with the used programming languages.
 
 \item \textbf{Hardware Description:} The required operating system of the mobile phone used in this project along the specification and version of the operating system.
 
@@ -48,7 +78,7 @@
 
 \item \subsection{Introduction:}
 
-In this chapter, we are going to discuss and describe software tools and IDEs that we are going to use in the project, hardware components needed for the project to function and work properly, and finally the details surrounding the implementation process, and how we implement the hardware and software elements together so the project functions as intended.
+In this chapter, we are going to discuss and describe the software tools and IDEs that we are going to use in the project, the hardware components needed for the project to function and work properly, and finally the details surrounding the implementation process, and how we implement the hardware and software elements together so the project functions as intended.
 \newpage
 \item \subsection{Software Description}
 \begin{figure}[ht]
@@ -57,7 +87,7 @@ In this chapter, we are going to discuss and describe software tools and IDEs th
     \caption{Android Studio Icon}
     \label{fig: android studio icon}
 \end{figure}
-In this section, we are going to describe the software tools and IDEs that we are going to use in this project, starting with Android studio, it is an IDE used for the development of mobile applications, It is based on JetBrains' IntelliJ IDEA software and tailored specifically for Android development. Android Studio offers a comprehensive set of tools for designing, building, and testing Android applications. 
+In this section, we are going to describe the software tools and IDEs that we are going to use in this project, starting with \textbf{Android Studio}, it is an IDE used for the development of mobile applications, It is based on JetBrains' IntelliJ IDEA software and tailored specifically for Android development. Android Studio offers a comprehensive set of tools for designing, building, and testing Android applications. 
 \newpage
 \begin{figure}[ht]
     \centering
@@ -66,7 +96,7 @@ In this section, we are going to describe the software tools and IDEs that we ar
     \label{fig: Kotlin icon}
 \end{figure}
 
-As for the programming language, we are going to use Kotlin, it is a programming language that runs on the Java Virtual Machine (JVM) and also compiles to JavaScript or native code. Developed by JetBrains, the creators of popular IDEs like IntelliJ IDEA Here are some key points about Kotlin:
+As for the programming language, we are going to use \textbf{Kotlin}, it is a programming language that runs on the Java Virtual Machine (JVM) and also compiles to JavaScript or native code. Developed by JetBrains, the creators of popular IDEs like IntelliJ IDEA Here are some key points about Kotlin:
 
 \textbf{Conciseness and Readability:} Kotlin is designed to be concise, reducing the amount of boilerplate code compared to Java.
 
@@ -78,16 +108,52 @@ Overall, Kotlin has gained popularity among developers for its modern features, 
 
 \newpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/java.png}
+    \caption{Java Icon}
+    \label{fig: Java icon}
+\end{figure}
+As for the other programming language for functionality, we're going to use \textbf{Java}, Java is a versatile, high-level, object-oriented programming language created by Sun Microsystems in 1995, Java supports various programming paradigms, such as object-oriented, concurrent, and functional programming, which makes it suitable for a wide range of applications. It's commonly used in web development, mobile apps (especially Android), enterprise software, and large-scale systems.
+Key features of Java include:
+
+\textbf{Portability:} Java code can run on any system with a JVM.
+
+\textbf{Security:} Java includes built-in security features, such as bytecode verification and runtime checks.
+
+\textbf{Robustness:} Strong memory management and exception handling minimize common programming errors.
+
+\textbf{Scalability:} Java is designed for performance, supporting multithreading and efficient memory use for large applications.
+
+Java's extensive libraries and frameworks, such as Spring and Hibernate, as well as its thriving community, have made it one of the most popular and enduring programming languages in software development.
+
+\newpage
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Gradle_transparent_icon.png}
+    \caption{Gradle Icon}
+    \label{fig: Gradle icon}
+\end{figure}
+\newpage
+                                                   
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/TOML_transparent_icon.png}
+    \caption{Toml Icon}
+    \label{fig: Toml icon}
+\end{figure}
+\newpage
+                                                   
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/Figma.png}
     \caption{Figma Icon}
-    \label{fig: exmaple}
+    \label{fig: Figma label}
 \end{figure}
 
-As for the \textbf{front end} design, we used the\textbf{\textit{ }figma} program/website to design the front end, including the User interfaces and such, figma is a cloud-based design tool used for interface design, prototyping, and collaboration. It was developed by Figma, Inc. Here are some key aspects of Figma:
+As for the \textbf{front end} design, we used the\textbf{\textit{ }Figma} program/website to design the front end, including the User interfaces and such, figma is a cloud-based design tool used for interface design, prototyping, and collaboration. It was developed by Figma, Inc. Here are some key aspects of Figma:
 
-\textbf{Cloud-Based Design Tool:} Figma is a web-based tool that allows designers to create, prototype, and collaborate on designs in real-time.
+\textbf{Cloud-Based Design Tool:} Figma is a web-based tool that allows designers to create, prototype, and collaborate on designs in real time.
 
  
 \textbf{Vector Graphics Editor:} Figma is equipped with powerful vector editing tools that enable designers to create and manipulate scalable vector graphics (SVG) for designing user interfaces, icons, illustrations, and more.
@@ -95,7 +161,29 @@ As for the \textbf{front end} design, we used the\textbf{\textit{ }figma} progra
  \textbf{Prototyping and Interaction Design:} Designers can create interactive prototypes in Figma by linking different frames and designing transitions, animations, and interactions.  
  Figma has become a go-to tool for many designers and design teams due to its user-friendly interface, collaborative capabilities, and comprehensive set of features that support the end-to-end design process. 
 \newpage
-\begin{figure}[h]
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Firebase.png}
+    \caption{Firebase Icon}
+    \label{fig: Firebase label}
+\end{figure}
+
+As for the \textbf{Database} cloud framework, we used the\textbf{\textit{ }Firebase} platform, Firebase is a comprehensive platform developed by Google for building and managing web and mobile applications. It offers a variety of tools and services that help developers streamline app development, backend infrastructure, and analytics, without the need to manage servers.
+
+Key features of Firebase include:
+
+\textbf{Realtime Database:} A NoSQL cloud database that synchronizes data across users in real-time.
+
+\textbf{Cloud Firestore:} A scalable, flexible cloud database for mobile, web, and server development.
+
+\textbf{Authentication:} Easy-to-implement authentication methods, including email, social logins (Google, Facebook), and phone number authentication.
+
+\textbf{Cloud Storage:} Secure file storage and sharing with powerful uploading and downloading capabilities.
+
+Firebase integrates seamlessly with other Google services like Google Cloud and provides features like push notifications (Firebase Cloud Messaging) and app performance monitoring.It is widely used for building dynamic, scalable apps, including real-time collaborative tools, chat apps, and content-driven apps.
+\newpage
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/Junit_icon.png}
     \caption{junit icon}
@@ -115,7 +203,7 @@ As for the \textbf{front end} design, we used the\textbf{\textit{ }figma} progra
 \newpage
 
 \item \subsection{Hardware Description}
-In this section we are going to describe the hardware components and the requirements and specifications needed for the app to run on the hardware without any issues, we are going to use Android pixel to run the application on, the required storage space would be at least 300 MB, and the RAM (Random Access Memory) needed is at least 4GB RAM for the app to run properly. The Android pixel device is a test device for the application, any other android device that meets the requirements will run the application without any issues.
+In this section we are going to describe the hardware components and the requirements and specifications needed for the app to run on the hardware without any issues, we are going to use Android pixel to run the application, and the required storage space will be at least 300 MB, and the RAM (Random Access Memory) needed is at least 4GB RAM for the app to run properly. The Android pixel device is a test device for the application, any other Android device that meets the requirements will run the application without any issues, also the device needs to have the Android version \textbf{8.1} called \textbf{"Oreo"} or above to work properly.
 
  \begin{figure}[ht]
     \centering
@@ -123,8 +211,16 @@ In this section we are going to describe the hardware components and the require
     \caption{Android platform chart of each platform's distribution}
     \label{fig: android platform chart}
 \end{figure}
+ \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Android 8.1.png}
+    \caption{Android version 8.1 Oreo Icon}
+    \label{fig: android 8.1 version label}
+\end{figure}
+\newpage
+
 \item \subsection{Details}
-In this section of the report we discuss the user interface in steps with description of each page and the present components
+In this section of the report, we discuss the user interface in steps with the description of each page and the present components
 in addition to the flow of the pages and the difference between each user. 
 
 \begin{figure}[ht]
@@ -134,7 +230,7 @@ in addition to the flow of the pages and the difference between each user.
     \label{fig: platform chart}
 \end{figure}
 \newpage
-Firstly, the application starts by the `welcome page' which displays several options of kind of users the application is going to serve
+Firstly, the application starts with the `welcome page' which displays several options of the kind of users the application is going to serve
 and the users are categorized as follows:
 \begin{figure}[ht]
     \centering
@@ -143,16 +239,23 @@ and the users are categorized as follows:
     \label{fig: User classification screen}
 \end{figure}
 
-\lstinputlisting[language=Java, caption=Welcome.java]{../../Project_Code/Haircut/app/src/main/java/com/example/haircut/welcome.java}
-\newpage
-\begin{itemize}
-    \item Customer
-    \item Barber
-    \item Admin
-\end{itemize}
-\newpage
 
-Secondly, after the user clicks on the suitable option another page asks the user whether they are trying to login or signup for the first time.
+\lstdefinestyle{javaCode}{
+    language=Java,
+    frame=single,
+    breaklines=true,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    showstringspaces=false,
+    tabsize=4
+}
+
+\lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/welcome.java}
+
+\newpage
+Secondly, after the user clicks on the suitable option another page asks the user whether they are trying to login or sign up for the first time.
 
 
 \begin{figure}[ht]
@@ -162,8 +265,9 @@ Secondly, after the user clicks on the suitable option another page asks the use
     \label{fig: signup or login page screen}
 \end{figure}
 
-\lstinputlisting[language=Java, caption=signup login.java]{../../Project_Code/Haircut/app/src/main/java/com/example/haircut/signup_login.java}
+\lstinputlisting[style=javaCode, language=Java, caption=signup login.java]{attachments/signup_login.java}
 \newpage
+If the user chooses the login option, they will be redirected to the login page, where the user enters the email and password and logs in to the app.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/login_page.png}
@@ -171,10 +275,10 @@ Secondly, after the user clicks on the suitable option another page asks the use
     \label{fig: login screen}
 \end{figure}
 
-\lstinputlisting[language=Java, caption=login.java]{../../Project_Code/Haircut/app/src/main/java/com/example/haircut/login.java}
+\lstinputlisting[style=javaCode, language=Java, caption=login.java]{attachments/login.java}
 
 \newpage
-If the user chooses the login option, they will be redirected to the login page, where the user enters the email and password and logs in to the app.
+If the user chooses the signup option, they will be redirected to the signup page, where the user needs to enter their credentials, and it includes their first name, last name, email, and password, after the user enters the credentials they press the signup button.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/signup_page.png}
@@ -182,36 +286,182 @@ If the user chooses the login option, they will be redirected to the login page,
     \label{fig: signup page screen}
 \end{figure}
 
-\lstinputlisting[language=Java, caption=signup.java]{../../Project_Code/Haircut/app/src/main/java/com/example/haircut/signup.java}
+\lstinputlisting[style=javaCode, language=Java, caption=signup.java]{attachments/signup.java}
 
 
 \newpage
-If the user chooses the signup option, they will be redirected to the signup page, where the user needs to enter their credentials, and it includes: First name, last name, email and password, after the user enters the credentials they press signup button.
+if the user forgets their password, they will be redirected to the forgot password page, where the user enters their email and clicks on recover password.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/forgot_password.png}
     \caption{forgot password page}
     \label{fig: forgot password page screen}
 \end{figure}
-\lstinputlisting[language=Java, caption="password reset"]{../../Project_Code/Haircut/app/src/main/java/com/example/haircut/password_reset.java}
+\lstinputlisting[style=javaCode, language=Java, caption="password reset"]{attachments/password_reset.java}
 
 \newpage
-if the user forgets their password, they will be redirected to the forgot password page, where the user enters their email and clicks on recover password.
-\newpage
+once the user clicks on the recover password button, they are redirected to the reset password page, where the user receives a verification code on their email, once they enter the verification code, the user clicks on send.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/reset_password.png}
     \caption{reset password recovery page}
     \label{fig: password recovery page screen}
 \end{figure}
-once the user clicks on recover password button, they are redirected to the reset password page, where the user receives a verification code on their email, once they enter the verification code, the user clicks on send.
 
-\lstinputlisting[language=Java, caption=code verification.java]{../../Project_Code/Haircut/app/src/main/java/com/example/haircut/code_verification.java}
 
+\lstinputlisting[style=javaCode, language=Java, caption=code verification.java]{attachments/code_verification.java}
+\newpage
+This page introduces Haircut, an app designed to modernize barbershops by simplifying appointments, enhancing customer experience, and empowering barbers with tech-driven solutions.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/about-us.png}
+    \caption{about us}
+    \label{fig: About us page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption="About us page java"]{attachments/fragment_about_us.java}
 \newpage
 
+
+here on the admin page, the admin can select either the barber or the customer and watch the rating and the reviews.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/admin_page.png}
+    \caption{admin page}
+    \label{fig: admin page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=admin.java]{attachments/admin.java}
+\newpage
+here's what the ratings and reviews look like.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/rating-and-reviews.png}
+    \caption{rating and reviews}
+    \label{fig: rating and reviews page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=view ratings admin java]{attachments/view_ratings.java}
+\newpage
+here is the home page for the barber  where he can check the incoming appointment and customer views and have access to the sidebar
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/home-barber.png}
+    \caption{home barber }
+    \label{fig: home barber page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Home Barber java]{attachments/barber.java}
+\newpage
+here the barber can check and update his information and return through the sidebar
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/profile_filled.png}
+    \caption{barber profile }
+    \label{fig: barber profile page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Profile barber java]{attachments/profile1.java}
+\newpage
+here are all the services that the barber provides in his shop and return through the sidebar
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/services_menu.png}
+    \caption{services menu }
+    \label{fig: services menu page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Services menu java]{attachments/menu.java}
+\newpage
+here that's how it will be shown the appointments page and return through the sidebar
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Appointments_barber.png}
+    \caption{Appointments barber }
+    \label{fig: Appointments barber page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Appointments barber java]{attachments/fragment_appointment.java}
+\newpage
+here is a sidebar menu where the user can access home, profile, service menu, appointments, reviews, and sign out
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/sidebar_menu.png}
+    \caption{sidebar menu }
+    \label{fig: sidebar menu page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Barber sidebar java]{attachments/barber.java}
+
+\newpage
+here barber can check all the customer reviews and return through the sidebar
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/reviews_barber.png}
+    \caption{reviews for the barber }
+    \label{fig: reviews for the barber page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Reviews of customers java]{attachments/fragment_reviews.java}
+\newpage
+here in the sidebar menu if the barber clicks on the sign-out he will be redirected to the welcome page
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/barber_signout.png}
+    \caption{barber sign out }
+    \label{fig: barber sign out page screen}
+\end{figure}
+
+
+\newpage
+Now for the customer page, we will display the home page, profile page,sidebar and calendar selection page for appointments. here's the home page of the customer:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/customer_home.png}
+    \caption{Home page of Customer}
+    \label{fig: Home page of Customer screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Home Customer page java]{attachments/fragment_home_customer.java}
+\newpage
+Here's the profile page of the customer, similar to the barber profile page, the customer can update his profile and return through the sidebar:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/profile_customer.png}
+    \caption{Profile page of Customer}
+    \label{fig: Profile page of Customer screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Profile customer java]{attachments/profile1.java}
+\newpage
+Here's the customer sidebar menu where the user can access then home, about us, profile, book appointment, chat with barber and sign out:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/customer_sidebar.png}
+    \caption{Sidebar of Customer}
+    \label{fig: Sidebar of Customer screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Customer sidebar java]{attachments/customer.java}
+\newpage
+Here's the calendar/book appointment page, where the user books an appointment by selecting a date and time:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/calendar.png}
+    \caption{Calendar/Book appointments page of Customer}
+    \label{fig: Calendar/Book appointments page of Customer screen}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/calendar2.png}
+    \caption{Calendar/Book appointments page of Customer 2}
+    \label{fig: Calendar/Book appointments page of Customer screen 2}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Calendar/Appointments java]{attachments/fragment_appointment_customer.java}
+\newpage
+Here's the Chat page, where the customer can chat with the barber and send messages and receive messages:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Chat_with_barber.png}
+    \caption{Chat with barber page of Customer}
+    \label{fig: Chat with barber page of Customer screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Chat with barber java]{attachments/fragment_chat_with_barber.java}
+\newpage
+
+
 \item \subsection{Conclusion}
-In this chapter, we discussed and described the software tools and IDEs that we used for the project, including Android studio, Kotlin, and Figma, and described the hardware needed for this project, in that case an Android pixel or an android mobile device with at least 300 MB of available storage space, and 4 GB RAM, and we went on to describe details related to the screens and the steps needed to properly use the app, starting with the welcome page, where the user chooses the type of user they are, and whether the user needs to either login or signup, to which when they choose the login, the user enters the email and password, if they choose signup, the user enters the required credentials, if the user forgets their password, they're redirected to the password recovery page, where the user enters the email, receives a verification code, and enters the code to be able to reset their password.
+In this chapter, we discussed and described the software tools and IDEs that we used for the project, including Android Studio, Kotlin, and Figma, and described the hardware needed for this project, in that case, an Android pixel or an Android mobile device with at least 300 MB of available storage space, and 4 GB RAM and we went on to describe details related to the screens and the steps needed to properly use the app, starting with the welcome page, where the user chooses the type of user they are, and whether the user needs to either login or signup, to which when they choose the login, the user enters the email and password, if they choose signup, the user enters the required credentials, if the user forgets their password, they're redirected to the password recovery page, where the user enters the email, receives a verification code, and enters the code to be able to reset their password.
 \end{itemize}
 
 \end{document}

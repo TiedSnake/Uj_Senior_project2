@@ -1,15 +1,23 @@
 \documentclass{article}
+\usepackage{fancyhdr} %For Header & footer Horizontal lines
+\pagestyle{fancy} %For Header & footer Horizontal lines
 \usepackage{lmodern}
 \usepackage{pdfpages}
 \usepackage{amsmath}
 \usepackage[a4paper, left=0.5in, right=0.5in, top=0.5in, bottom=0.5in]{geometry}
-\usepackage[utf8]{inputenc}
+% \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage{graphicx}
+\usepackage{times}
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{xurl}
 \usepackage{array} % For better column formatting
+
+% Header and footer line thickness
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhfoffset[L,R]{0pt} % Removes header and footer side offsets
+
 \begin{document}
 
 \begin{figure}
@@ -27,7 +35,7 @@
         \begingroup
     \fontsize{15}{20}\selectfont
     \begin{tabular}{|c |c|} \hline  % Define the number of columns and their alignment
-        \textbf{\fontsize{18}{20}\selectfont Students' Names}& \textbf{\fontsize{18}{20}\selectfont ID(s)}\\ \hline         
+        \textbf{\fontsize{18}{20}\selectfont Name(s)}& \textbf{\fontsize{18}{20}\selectfont ID(s)}\\ \hline         
        Marwan Almehmadi& 1741630
 \\ \hline 
         Anas Aldhahri& 1845490\\ \hline 
@@ -41,14 +49,14 @@
     \label{tab:yourtablelabel}
 
     \vspace{1em}\begin{tabular}{|c |c|} \hline
-    \textbf{Supervisor}&Sakher Ghanem\\ \hline
+    \textbf{Supervisor}&Dr. Sakher Ghanem\\ \hline
     \end{tabular}
 
     \vspace{3em}\begin{tabular}{|c|} \hline
         University of Jeddah \\
         College of Computer Science and Engineering \\
-        Department of Software Engineering \\
-        Academic Session: Winter 2024 \\ \hline
+        Department of Computer Science\\
+        Academic Session: Spring 2024 \\ \hline
     \end{tabular}
     \endgroup
 \end{table}
