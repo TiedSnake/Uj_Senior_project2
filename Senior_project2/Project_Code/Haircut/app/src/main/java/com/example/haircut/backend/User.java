@@ -1,6 +1,4 @@
-package com.example.haircut;
-import java.util.Date;
-import java.util.HashSet;
+package com.example.haircut.backend;
 
 public class User {
     private String firstName;

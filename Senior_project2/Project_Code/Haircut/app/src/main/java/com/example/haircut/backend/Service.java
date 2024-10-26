@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.backend;
 
 import java.util.HashMap;
 
@@ -32,7 +32,7 @@ public abstract class Service {
      * adding to the hashmap will return the user object we compare against Non-null
      * to force the function into return true if user added successfully & false if not.
      */
-    protected static boolean signup(User user) {
+    public static boolean signup(User user) {
         return user_records.put(user.getEmail(), user) != null;
     }
 
@@ -72,7 +72,7 @@ public abstract class Service {
         return false;
     }
 
-    static ResponseFlag forgotPassword(String entered_email) {
+    public static ResponseFlag forgotPassword(String entered_email) {
         if (!entered_email.isEmpty()) {
             User user = user_records.containsKey(entered_email) ? user_records.get(entered_email) : null;
             if (user != null) {

@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.haircut.backend.Service;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

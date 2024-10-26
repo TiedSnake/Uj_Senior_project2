@@ -1,14 +1,9 @@
-package com.example.haircut;
-
-import org.xbill.DNS.*;
-import org.xbill.DNS.Record;
+package com.example.haircut.backend;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-
-import java.util.Date;
 
 public class Utility {
     private String NAME_REGEX = "[A-Za-z]+";

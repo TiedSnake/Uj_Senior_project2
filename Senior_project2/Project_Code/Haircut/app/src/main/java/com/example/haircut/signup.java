@@ -8,6 +8,9 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.haircut.backend.Service;
+import com.example.haircut.backend.User;
+
 public class signup extends AppCompatActivity {
     EditText fname;
     EditText lname;

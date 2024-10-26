@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.backend;
 
 public class Review {
     private String customerName;

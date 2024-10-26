@@ -9,9 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import com.example.haircut.backend.Service;
 
 public class login extends AppCompatActivity {
     Button login_btn;
