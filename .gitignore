@@ -66,6 +66,12 @@ Thumbs.db
 # Generated Latex files
 # Source: https://github.com/github/gitignore/blob/main/TeX.gitignore
 # ========================================================================
+=======
+#=======================================================================
+# Generated Latex files
+# Source: https://github.com/github/gitignore/blob/main/TeX.gitignore
+# #=======================================================================
+>>>>>>> d186c92 (Updated The latex report to be the official report)
 # LaTeX generated files
 *.aux
 *.bbl
