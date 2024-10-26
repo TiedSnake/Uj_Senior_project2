@@ -73,10 +73,10 @@ public class fragment_barbershop_list extends Fragment {
 
     // Method to navigate to the appointments fragment
     private void navigateToAppointments() {
-        Fragment fragment = new fragment_appointment_customer(); // Replace with your appointments fragment class
+        Fragment fragment = new fragment_appointment_customer();
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, fragment) // Replace with the main container ID in your activity
+                .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null) // Optional, adds the transaction to the back stack
                 .commit();
     }
