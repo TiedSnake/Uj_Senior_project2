@@ -7,79 +7,50 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.material.navigation.NavigationView;
 import android.view.MenuItem;
 
 public class customer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_page); //getting layout needed
+        setContentView(R.layout.customer_page);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); //getting the toolbar (sidebar) of the page
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.open, R.string.close); // to handle open and close of toolbar(sidebar)
+                R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            // Default fragment when the app first opens (Home)
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_home_customer()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_home_customer()).commit();
             navigationView.setCheckedItem(R.id.sidebarOptionHome);
-            toolbar.setTitle(R.string.sidebar_headerText); // Set initial title to Home
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.sidebarOptionHome) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_home_customer()).commit();
-            toolbar.setTitle(R.string.sidebar_headerText); // Title for Home page (Header)
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_home_customer()).commit();
         } else if (item.getItemId() == R.id.sidebarOption1) { // About Us
-            // Avoid adding fragment multiple times by checking if it is already added
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-            // Replace the current fragment with the About Us fragment
-            transaction.replace(R.id.fragment_container, new fragment_about_us());
-
-            // Commit the transaction
-            transaction.addToBackStack(null);  // Optional, adds to back stack to allow back navigation
-            transaction.commit();
-        }
-         else if (item.getItemId() == R.id.sidebarOption2) { // Profile
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new profile1()).commit();
-            toolbar.setTitle(R.string.profile_customer);// Title for Profile page (Header)
-        } else if (item.getItemId() == R.id.sidebarOption3) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new fragment_barbershop_list()); // Book Appointment
-            // Commit the transaction
-            transaction.addToBackStack(null);  // Optional, adds to back stack to allow back navigation
-            transaction.commit();
-            toolbar.setTitle(R.string.book_an_appointment);// Title for Book Appointment page (Header)
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_about_us()).commit();
+        } else if (item.getItemId() == R.id.sidebarOption2) { // Profile
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new profile1()).commit();
+        } else if (item.getItemId() == R.id.sidebarOption3) { // Book Appointment
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_appointment_customer()).commit();
         } else if (item.getItemId() == R.id.sidebarOption4) { // Chat with Barber
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new fragment_chat_with_barber());
-            transaction.addToBackStack(null);  // Optional, adds to back stack to allow back navigation
-            transaction.commit();
-            toolbar.setTitle(R.string.chat_with_barber);// Title for Chat with Barber page (Header)
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_chat_with_barber()).commit();
         } else if (item.getItemId() == R.id.sidebarOption5) { // Sign Out
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new fragment_sign_out());
-            transaction.addToBackStack(null);  // Optional, adds to back stack to allow back navigation
-            transaction.commit();
-            toolbar.setTitle(R.string.sign_out_button_customer);// Title for sign out page (Header)
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_sign_out()).commit();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

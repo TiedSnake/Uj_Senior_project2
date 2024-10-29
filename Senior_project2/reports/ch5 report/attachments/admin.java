@@ -1,70 +1,93 @@
 package com.example.haircut;
 
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import com.google.android.material.navigation.NavigationView;
-import android.view.MenuItem;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class admin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.Arrays;
+import java.util.List;
 
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
+public class admin extends AppCompatActivity {
+
+    private RecyclerView rvBarbers;
+    private RecyclerView rvClients;
+    private boolean isBarbersVisible = false;  // Track visibility of Barber list
+    private boolean isClientsVisible = false;  // Track visibility of Client list
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_page); //getting layout needed
+        setContentView(R.layout.admin_page);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); // Set up the toolbar
+        // Find views by their IDs
+        Button btnViewRatings = findViewById(R.id.btnViewRatings);
+        Button btnSignOut = findViewById(R.id.btnSignOut);
+        Button tabBarber = findViewById(R.id.tabBarber);
+        Button tabClients = findViewById(R.id.tabClients);
+        rvBarbers = findViewById(R.id.rvBarbers);
+        rvClients = findViewById(R.id.rvClients);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this); // Set the listener
+        // Barber and client lists
+        List<String> barberList = Arrays.asList("Barber 1", "Barber 2", "Barber 3");
+        List<String> clientList = Arrays.asList("Client 1", "Client 2", "Client 3");
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.open, R.string.close); // Toggle for opening and closing the drawer
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        // Set up adapters
+        BarberAdapter barberAdapter = new BarberAdapter(barberList);
+        ClientAdapter clientAdapter = new ClientAdapter(clientList);
 
-        if (savedInstanceState == null) {
-            // Default fragment when the app first opens (Home)
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new fragment_home_admin()).commit();
-            navigationView.setCheckedItem(R.id.btnHome);
-            toolbar.setTitle(R.string.sidebar_headerText); // Set initial title to Home
-        }
-    }
+        rvBarbers.setAdapter(barberAdapter);
+        rvBarbers.setLayoutManager(new LinearLayoutManager(this));
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation item selection
-        if (item.getItemId() == R.id.btnHome) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new fragment_home_admin()).commit();
-            toolbar.setTitle(R.string.sidebar_headerText); // Title for Home page (Header)
-        } else if (item.getItemId() == R.id.btnProfile) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new profile1()).commit();
-            toolbar.setTitle(R.string.profile); // Title for Profile page (Header)
-        } else if (item.getItemId() == R.id.btnSignOut) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new fragment_sign_out()).commit();
-            toolbar.setTitle(R.string.sign_out_barber); // Title for Sign Out page (Header)
-        }
+        rvClients.setAdapter(clientAdapter);
+        rvClients.setLayoutManager(new LinearLayoutManager(this));
 
-        drawerLayout.closeDrawer(GravityCompat.START); // Close the drawer after selection
-        return true;
-    }
+        // Initially hide the RecyclerViews
+        rvBarbers.setVisibility(View.GONE);
+        rvClients.setVisibility(View.GONE);
 
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        // Barber button click listener
+        tabBarber.setOnClickListener(v -> {
+            // Toggle barber list visibility
+            isBarbersVisible = !isBarbersVisible;
+            rvBarbers.setVisibility(isBarbersVisible ? View.VISIBLE : View.GONE);
+
+            // Hide client list if visible
+            if (isClientsVisible) {
+                rvClients.setVisibility(View.GONE);
+                isClientsVisible = false;
+            }
+        });
+
+        // Client button click listener
+        tabClients.setOnClickListener(v -> {
+            // Toggle client list visibility
+            isClientsVisible = !isClientsVisible;
+            rvClients.setVisibility(isClientsVisible ? View.VISIBLE : View.GONE);
+
+            // Hide barber list if visible
+            if (isBarbersVisible) {
+                rvBarbers.setVisibility(View.GONE);
+                isBarbersVisible = false;
+            }
+        });
+
+        // View Ratings/Reviews button click listener
+        btnViewRatings.setOnClickListener(v -> {
+            Intent intent = new Intent(admin.this, view_ratings.class); // Example activity
+            startActivity(intent);
+        });
+
+        // Sign Out button click listener
+        btnSignOut.setOnClickListener(v -> {
+            Intent intent = new Intent(admin.this, welcome.class); // Example activity
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear activity stack
+            startActivity(intent);
+            finish(); // Close current activity
+        });
     }
 }
 

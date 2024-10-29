@@ -30,7 +30,7 @@ public class barber extends AppCompatActivity implements NavigationView.OnNaviga
         // Set the navigation icon for the Toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationIcon(R.drawable.ic_menu);
+            toolbar.setNavigationIcon(R.drawable.ic_menu); // Ensure you have the right icon resource
         }
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -52,39 +52,34 @@ public class barber extends AppCompatActivity implements NavigationView.OnNaviga
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        String title = "Home"; // Default title
-
         if (item.getItemId() == R.id.btnHome) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new Home()).commit();
-            title = "Home"; //Title for Home page (header)
         } else if (item.getItemId() == R.id.btnProfile) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new profile1()).commit();
-            title = "Profile"; //Title for profile page (header)
         } else if (item.getItemId() == R.id.btnMenu) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new menu()).commit();
-            title = "Menu"; //Title for services Menu page (header)
-        } else if (item.getItemId() == R.id.btnEditMenu) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_edit_service_menu()).commit();
-            title = "Edit Menu"; //Title for edit services Menu page (header)
         } else if (item.getItemId() == R.id.btnAppointments) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_appointment()).commit();
-            title = "Appointments"; //Title for Appointments page (header)
         } else if (item.getItemId() == R.id.btnReviews) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_reviews()).commit();
-            title = "Reviews"; //Title for Reviews page (header)
         } else if (item.getItemId() == R.id.btnSignOut) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_sign_out()).commit();
-            title = "Sign Out"; //Title for Sign out page (header)
+            // Handle sign-out: clear session, redirect to WelcomePage
+            signOut();
         }
-
-
-        // Update toolbar title based on selected item
-        toolbar.setTitle(title);
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    private void signOut() {
+        // Clear session data if necessary (e.g., shared preferences or any auth token)
+        // Then, navigate to the WelcomePage activity
+        Intent intent = new Intent(barber.this, welcome.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
+        startActivity(intent);
+        Toast.makeText(this, "Signed out successfully!", Toast.LENGTH_SHORT).show();
+        finish(); // Close current activity
+    }
 
     @Override
     public void onBackPressed() {
