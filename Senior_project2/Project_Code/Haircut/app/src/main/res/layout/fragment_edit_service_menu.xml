@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".menu">
+
+    <TextView
+        android:id="@+id/menu_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="@string/menu_label"
+        android:textAlignment="center"
+        android:textSize="50sp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <!-- First row -->
+        <TableRow>
+            <EditText
+                android:id="@+id/service_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Regular Haircut" />
+            <EditText
+                android:id="@+id/service_price1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 SAR"
+                android:textSize="25dp"/>
+        </TableRow>
+
+        <!-- Second row -->
+        <TableRow>
+            <EditText
+                android:id="@+id/service_name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Haircut + Beard"
+                android:textStyle="bold"
+                android:textSize="25dp"/>
+            <EditText
+                android:id="@+id/service_price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40 SAR"
+                android:textSize="25dp"/>
+        </TableRow>
+
+        <!-- Third row -->
+        <TableRow>
+            <EditText
+                android:id="@+id/service_name3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Beard Trim/Shave" />
+            <EditText
+                android:id="@+id/service_price3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 SAR"
+                android:textSize="25dp"/>
+        </TableRow>
+
+        <!-- Fourth row -->
+        <TableRow>
+            <EditText
+                android:id="@+id/service_name4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Hair Tint" />
+            <EditText
+                android:id="@+id/service_price4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="70 SAR"
+                android:textSize="25dp"/>
+        </TableRow>
+
+        <!-- Fifth row -->
+        <TableRow>
+            <EditText
+                android:id="@+id/service_name5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Hair nourisher" />
+            <EditText
+                android:id="@+id/service_price5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40 SAR"
+                android:textSize="25dp"/>
+        </TableRow>
+
+        <!-- Sixth row -->
+        <TableRow>
+            <EditText
+                android:id="@+id/service_name6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Face Cleansing" />
+            <EditText
+                android:id="@+id/service_price6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30 SAR"
+                android:textSize="25dp"/>
+        </TableRow>
+
+        <!-- Seventh row -->
+        <TableRow>
+            <EditText
+                android:id="@+id/service_name7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Face Mask" />
+            <EditText
+                android:id="@+id/service_price7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="80 SAR"
+                android:textSize="25dp"/>
+        </TableRow>
+    </TableLayout>
+
+    <!-- Update Menu Button -->
+    <Button
+        android:id="@+id/update_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="40dp"
+        android:text="Update Menu"
+        android:textSize="18sp" />
+
+</FrameLayout>

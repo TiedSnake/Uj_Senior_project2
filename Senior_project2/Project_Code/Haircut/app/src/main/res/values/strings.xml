@@ -79,6 +79,7 @@
     <string name="first_reviewer">John Doe</string>
     <string name="go_back_button">Go back</string>
     <string name="ratings_and_reviews">Ratings and Reviews</string>
+    <string name="sign_out_button_customer">Sign out</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="signout_message">Are you sure you want to sign out?</string>
@@ -108,6 +109,11 @@
     <string name="king_of_shaves_salon">King of shaves Salon</string>
     <string name="maria_salon">Maria Salon</string>
     <string name="_90_seconds_salon">90 seconds Salon</string>
+    <string name="edit_services_menu">Edit Services Menu</string>
+    <string name="admin1">Admin</string>
+    <string name="view_user">View User</string>
+    <string name="block_user">Block User</string>
+    <string name="delete_user">Delete User</string>
 
 
 <!--    Debug values-->

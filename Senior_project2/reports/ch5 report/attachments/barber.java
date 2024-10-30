@@ -58,6 +58,8 @@ public class barber extends AppCompatActivity implements NavigationView.OnNaviga
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new profile1()).commit();
         } else if (item.getItemId() == R.id.btnMenu) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new menu()).commit();
+        } else if (item.getItemId() == R.id.btnEditMenu) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_edit_service_menu()).commit();
         } else if (item.getItemId() == R.id.btnAppointments) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_appointment()).commit();
         } else if (item.getItemId() == R.id.btnReviews) {

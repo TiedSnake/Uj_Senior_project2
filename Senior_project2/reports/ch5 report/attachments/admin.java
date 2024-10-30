@@ -1,93 +1,78 @@
 package com.example.haircut;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Arrays;
-import java.util.List;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import com.google.android.material.navigation.NavigationView;
 
 public class admin extends AppCompatActivity {
 
-    private RecyclerView rvBarbers;
-    private RecyclerView rvClients;
-    private boolean isBarbersVisible = false;  // Track visibility of Barber list
-    private boolean isClientsVisible = false;  // Track visibility of Client list
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_page);
+        setContentView(R.layout.admin_page);  // Make sure to reference your XML layout
 
-        // Find views by their IDs
-        Button btnViewRatings = findViewById(R.id.btnViewRatings);
-        Button btnSignOut = findViewById(R.id.btnSignOut);
-        Button tabBarber = findViewById(R.id.tabBarber);
-        Button tabClients = findViewById(R.id.tabClients);
-        rvBarbers = findViewById(R.id.rvBarbers);
-        rvClients = findViewById(R.id.rvClients);
+        // Set up the toolbar and make it the action bar
+        Toolbar toolbar = findViewById(R.id.toolbar);  // Make sure this ID matches the one in admin_page.xml
+        setSupportActionBar(toolbar);
 
-        // Barber and client lists
-        List<String> barberList = Arrays.asList("Barber 1", "Barber 2", "Barber 3");
-        List<String> clientList = Arrays.asList("Client 1", "Client 2", "Client 3");
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
-        // Set up adapters
-        BarberAdapter barberAdapter = new BarberAdapter(barberList);
-        ClientAdapter clientAdapter = new ClientAdapter(clientList);
+        // Set up the toggle for the navigation drawer with the toolbar
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-        rvBarbers.setAdapter(barberAdapter);
-        rvBarbers.setLayoutManager(new LinearLayoutManager(this));
+        // Set the initial fragment to display (optional)
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new fragment_home_admin()).commit();
+            navigationView.setCheckedItem(R.id.btnHome);  // Make sure this ID exists in your menu XML
+        }
 
-        rvClients.setAdapter(clientAdapter);
-        rvClients.setLayoutManager(new LinearLayoutManager(this));
+        // Set up navigation item selection listener
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
 
-        // Initially hide the RecyclerViews
-        rvBarbers.setVisibility(View.GONE);
-        rvClients.setVisibility(View.GONE);
+                // Use if-else statements for navigation
+                if (item.getItemId() == R.id.btnHome) {
+                    selectedFragment = new fragment_home_admin();
+                } else if (item.getItemId() == R.id.btnProfile) {
+                    selectedFragment = new profile1();
+                } else if (item.getItemId() == R.id.btnSignOut) {
+                    selectedFragment = new fragment_sign_out();
+                }
 
-        // Barber button click listener
-        tabBarber.setOnClickListener(v -> {
-            // Toggle barber list visibility
-            isBarbersVisible = !isBarbersVisible;
-            rvBarbers.setVisibility(isBarbersVisible ? View.VISIBLE : View.GONE);
+                // Replace the current fragment with the selected one
+                if (selectedFragment != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, selectedFragment).commit();
+                }
 
-            // Hide client list if visible
-            if (isClientsVisible) {
-                rvClients.setVisibility(View.GONE);
-                isClientsVisible = false;
+                // Close the drawer after item selection
+                drawerLayout.closeDrawers();
+                return true;
             }
         });
+    }
 
-        // Client button click listener
-        tabClients.setOnClickListener(v -> {
-            // Toggle client list visibility
-            isClientsVisible = !isClientsVisible;
-            rvClients.setVisibility(isClientsVisible ? View.VISIBLE : View.GONE);
-
-            // Hide barber list if visible
-            if (isBarbersVisible) {
-                rvBarbers.setVisibility(View.GONE);
-                isBarbersVisible = false;
-            }
-        });
-
-        // View Ratings/Reviews button click listener
-        btnViewRatings.setOnClickListener(v -> {
-            Intent intent = new Intent(admin.this, view_ratings.class); // Example activity
-            startActivity(intent);
-        });
-
-        // Sign Out button click listener
-        btnSignOut.setOnClickListener(v -> {
-            Intent intent = new Intent(admin.this, welcome.class); // Example activity
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear activity stack
-            startActivity(intent);
-            finish(); // Close current activity
-        });
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle action bar item clicks
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

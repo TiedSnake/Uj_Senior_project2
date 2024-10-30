@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view"
     >
-
     <group android:checkableBehavior="single">
         <!-- Home Button -->
         <item
@@ -12,40 +11,12 @@
             android:title="@string/sidebar_headerText"
             android:checked="true"
             android:layout_height="wrap_content" />
-
         <!-- Profile Button -->
         <item
             android:id="@+id/btnProfile"
             android:icon="@drawable/baseline_account_circle_24"
             android:title="@string/profile"
             android:layout_height="wrap_content" />
-
-        <!-- Menu Button -->
-        <item
-            android:id="@+id/btnMenu"
-            android:icon="@drawable/ic_menu"
-            android:title="@string/menu_button"
-            android:layout_height="wrap_content" />
-        <!-- Edit Menu Button -->
-        <item
-            android:id="@+id/btnEditMenu"
-            android:icon="@drawable/ic_menu"
-            android:title="@string/edit_services_menu"
-            android:layout_height="wrap_content" />
-        <!-- Appointments Button -->
-        <item
-            android:id="@+id/btnAppointments"
-            android:icon="@drawable/appointment"
-            android:title="@string/appointments_button"
-            android:layout_height="wrap_content" />
-
-        <!-- Reviews Button -->
-        <item
-            android:id="@+id/btnReviews"
-            android:icon="@drawable/baseline_reviews_24"
-            android:title="@string/check_reviews_barber"
-            android:layout_height="wrap_content" />
-
         <!-- Sign Out Button -->
         <item
             android:id="@+id/btnSignOut"
