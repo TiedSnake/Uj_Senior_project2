@@ -1,10 +1,12 @@
 package com.example.haircut.frontend;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,20 +14,50 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.haircut.R;
+import com.example.haircut.backend.FLAGS;
 import com.example.haircut.backend.Service;
+import com.example.haircut.backend.User;
+import com.example.haircut.backend.Utility;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
 
 public class LoginPage extends AppCompatActivity {
+    private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
     Button login_btn;
     EditText email;
     EditText pwd;
     TextView loginToSignup;
+    ProgressBar progressBar;
 
     //Onclick method to send user from login to signup page
     public void LoginToSignup(View view) {
         loginToSignup = findViewById(R.id.login_to_signup);
         startActivity(new Intent(getApplicationContext(), SignupPage.class));
+    }
+
+    public static CompletableFuture<FLAGS> login(String email, String password, User.UserType userType) {
+        if (!Utility.isValidEmailFormat(email)) {
+            return CompletableFuture.completedFuture(FLAGS.INVALID_EMAIL);
+        }
+        if (!Utility.isValidPassword(password)) {
+            return CompletableFuture.completedFuture(FLAGS.INVALID_PASSWORD);
+        }
+        if (!Utility.isValidUser(userType)) {
+            return CompletableFuture.completedFuture(FLAGS.INVALID_USER);
+        }
+        return Service.login(email, password, userType).thenApply(user -> {
+            if (user == null)
+                return FLAGS.ERROR;
+            else {
+                return FLAGS.SUCCESS;
+            }
+        }).exceptionally(ex -> {
+            System.out.println("Exception during login: " + ex.getMessage());
+            return FLAGS.ERROR;
+        });
     }
 
     @Override
@@ -35,45 +67,47 @@ public class LoginPage extends AppCompatActivity {
         login_btn = findViewById(R.id.login_button);
         email = findViewById(R.id.email_field);
         pwd = findViewById(R.id.pwd_field);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
+        email.setText(getString(R.string.default_email));
+        pwd.setText(getString(R.string.default_password));
+
         login_btn.setOnClickListener(view -> {
             String _email = email.getText().toString();
             String _pwd = pwd.getText().toString();
-            try {
-                CompletableFuture<Service.ResponseFlag> response = Service.login(_email, _pwd);
-                String flag = response.get().name();
-                switch (flag) {
-                    case "EMAIL_NOT_ENTERED":
-                        Toast.makeText(LoginPage.this, "Please enter the email", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "PASSWORD_NOT_ENTERED":
-                        Toast.makeText(LoginPage.this, "Please enter the password", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "EMAIL_NOT_REGISTERED":
-                        Toast.makeText(LoginPage.this, "This email isn't registered", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "INCORRECT_CREDENTIALS":
-                        Toast.makeText(LoginPage.this, "email or password is invalid", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "SUCCESS":
-                        Toast.makeText(LoginPage.this, "Access granted", Toast.LENGTH_SHORT).show();
-                        String user = getIntent().getStringExtra("user_type");
-                        Intent intent = null;
-                        if (user != null) {
-                            if (user.equals("customer"))
-                                intent = new Intent(LoginPage.this, CustomerPage.class);
-                            if (user.equals("barber"))
-                                intent = new Intent(LoginPage.this, BarberPage.class);
-                            if (user.equals("admin"))
-                                intent = new Intent(LoginPage.this, AdminPage.class);
-                            if (intent != null)
-                                startActivity(intent);
-                        }
-                        break;
-                }
+            progressBar.setVisibility(View.VISIBLE);
 
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            User.UserType userType = User.UserType.valueOf(prefs.getString("USER_TYPE", User.UserType.GUEST.name()));
+
+            CompletableFuture<FLAGS> response = login(_email, _pwd, userType);
+            login(_email, _pwd, userType).thenAccept(flags -> {
+                switch (flags) {
+                    case INVALID_EMAIL:
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(LoginPage.this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
+                        break;
+                    case INVALID_PASSWORD:
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(LoginPage.this, "Please enter a valid password", Toast.LENGTH_SHORT).show();
+                        break;
+                    case INVALID_USER:
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(LoginPage.this, "Unexpected error: the user type is unidentified!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case SUCCESS:
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(LoginPage.this, "Signup succeeded!", Toast.LENGTH_SHORT).show();
+                        Intent forward = new Intent(LoginPage.this, CustomerPage.class);
+                        startActivity(forward);
+                        finish();
+                        break;
+                    default:
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(LoginPage.this, "This is unexpected error", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 }

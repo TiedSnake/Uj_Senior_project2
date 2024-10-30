@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.haircut.R;
+import com.example.haircut.backend.FLAGS;
 import com.example.haircut.backend.Service;
 import com.example.haircut.backend.User;
 import com.example.haircut.backend.Utility;
@@ -31,9 +32,6 @@ public class SignupPage extends AppCompatActivity {
     ProgressBar progressBar;
     TextView signupToLogin;
 
-    public enum FLAGS {
-        SUCCESS, INVALID_FNAME, INVALID_LNAME, INVALID_EMAIL, INVALID_PASSWORD, INVALID_USER, ERROR
-    }
 
     public static CompletableFuture<FLAGS> signup(String fName, String lName, String email, String pwd, User.UserType userType) {
         if (!Utility.isValidName(fName))
@@ -47,7 +45,7 @@ public class SignupPage extends AppCompatActivity {
         if (!Utility.isValidUser(userType))
             return CompletableFuture.completedFuture(FLAGS.INVALID_USER);
         return Service.signup(fName, lName, email, pwd, userType).thenApply(responseFlag -> {
-            if (responseFlag == Service.ResponseFlag.SUCCESS) return FLAGS.SUCCESS;
+            if (responseFlag == FLAGS.SUCCESS) return FLAGS.SUCCESS;
             else return FLAGS.ERROR;
         }).exceptionally(ex -> {
             System.out.println("Exception during signup: " + ex.getMessage());

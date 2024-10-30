@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.haircut.R;
+import com.example.haircut.backend.FLAGS;
 import com.example.haircut.backend.Service;
 
 import android.util.Log;
@@ -42,7 +43,7 @@ public class fragment_sign_out extends Fragment {
 
         Intent intent = new Intent(getActivity(), WelcomePage.class);
         Service.signout().thenAccept(responseFlag -> {
-            if (responseFlag.equals(Service.ResponseFlag.SUCCESS)) {
+            if (responseFlag.equals(FLAGS.SUCCESS)) {
                 Log.i(TAG, "user signed out successfully");
             }else
             {

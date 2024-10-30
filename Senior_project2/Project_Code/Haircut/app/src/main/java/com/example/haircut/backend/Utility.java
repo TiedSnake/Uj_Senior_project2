@@ -95,18 +95,5 @@ public class Utility {
             return matcher.matches(); //returns true/false
         }
     }
-
-
-    protected static String login(String email, String password) {
-        if (isValidEmailFormat(email) && isValidPassword(password)) {
-            return String.valueOf(Service.login(email, password));
-        } else {
-            if (!isValidEmailFormat(email))
-                return "Please enter a valid email";
-            else if (!isValidPassword(password))
-                return "Please enter a valid password";
-            return "This is unexpected error";
-        }
-    }
 }
 

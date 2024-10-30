@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.haircut.R;
+import com.example.haircut.backend.FLAGS;
 import com.example.haircut.backend.Service;
 
 import java.io.BufferedWriter;
@@ -47,7 +48,7 @@ public class PasswordResetPage extends AppCompatActivity {
             public void onClick(View view) {
                 String email = email_field.getText().toString();
                 try {
-                    CompletableFuture<Service.ResponseFlag> response = Service.sendPasswordResetEmail(email);
+                    CompletableFuture<FLAGS> response = Service.sendPasswordResetEmail(email);
                     String flag = response.get().name();
                     switch (flag) {
                         case "EMAIL_NOT_ENTERED":
