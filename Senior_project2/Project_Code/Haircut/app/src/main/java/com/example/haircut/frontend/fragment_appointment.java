@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.haircut.R;
 import com.example.haircut.backend.Appointment;
 
 import java.util.ArrayList;
@@ -17,9 +18,7 @@ import java.util.List;
 
 public class fragment_appointment extends Fragment {
 
-    private RecyclerView appointmentsRecyclerView;
     private AppointmentsAdapter appointmentsAdapter;
-    private List<Appointment> appointmentList;
 
     @Nullable
     @Override
@@ -28,13 +27,13 @@ public class fragment_appointment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_appointment, container, false);
 
         // Initialize the RecyclerView
-        appointmentsRecyclerView = view.findViewById(R.id.appointments_recycler_view);
+        RecyclerView appointmentsRecyclerView = view.findViewById(R.id.appointments_recycler_view);
 
         // Set the LayoutManager (LinearLayout in this case)
         appointmentsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize the list of appointments (you might retrieve this from a database or API)
-        appointmentList = new ArrayList<>();
+        List<AppointmentRecord> appointmentList = new ArrayList<>();
         loadAppointments();  // Method to load appointments into the list
 
         // Set the Adapter

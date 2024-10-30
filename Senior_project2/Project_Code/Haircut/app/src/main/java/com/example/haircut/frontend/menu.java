@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,16 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.haircut.R;
+
 public class menu extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
         // Any additional setup can be done here (if needed)
 
-        return view;
+        return inflater.inflate(R.layout.fragment_menu, container, false);
     }
 }

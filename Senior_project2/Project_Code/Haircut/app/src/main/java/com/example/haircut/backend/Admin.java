@@ -1,16 +1,14 @@
 package com.example.haircut.backend;
 
-import com.example.haircut.Review;
-
 import java.util.HashSet;
 
 public class Admin extends User {
     private final HashSet<User> users_blacklist;
-    private final HashSet<com.example.haircut.Review> reviews_list;
+    private final HashSet<Review> reviews_list;
 
-    public Admin(String firstName, String lastName, String email, String password) {
+    public Admin(String firstName, String lastName, String email) {
         //Pass the user type optionally upon Admin object creation.
-        super(firstName, lastName, email, password, Admin.class.getName());
+        super(firstName, lastName, email, UserType.ADMIN);
         this.users_blacklist = new HashSet<>();
         this.reviews_list = new HashSet<>();
     }
@@ -32,7 +30,7 @@ public class Admin extends User {
 
     public String viewReviewList() {
         StringBuilder sb = new StringBuilder();
-        for (com.example.haircut.Review review : this.reviews_list)
+        for (Review review : this.reviews_list)
             sb.append(review.getUuid().toString()).append("\n");
         return sb.toString();
     }

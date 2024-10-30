@@ -105,4 +105,11 @@
     <string name="king_of_shaves_salon">King of shaves Salon</string>
     <string name="maria_salon">Maria Salon</string>
     <string name="_90_seconds_salon">90 seconds Salon</string>
+
+
+<!--    Debug values-->
+    <string name="default_email">example@example.com</string>
+    <string name="default_first_name">John</string>
+    <string name="default_last_name">Doe</string>
+    <string name="default_password">Rgjsi1252</string>
 </resources>

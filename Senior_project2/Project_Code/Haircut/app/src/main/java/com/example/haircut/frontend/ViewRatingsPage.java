@@ -1,11 +1,13 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class view_ratings extends AppCompatActivity {
+import com.example.haircut.R;
+
+public class ViewRatingsPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +20,7 @@ public class view_ratings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle back button press
-//                finish(); // Finish the current activity and go back to the previous one
+                finish(); // Finish the current activity and go back to the previous one
             }
         });
     }

@@ -13,63 +13,44 @@
         android:theme="@style/Theme.Haircut"
         tools:targetApi="31">
         <activity
-            android:name=".welcome"
+            android:name=".frontend.WelcomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signup_login">
+        <activity android:name=".frontend.SignupAndLoginPage">
 
         </activity>
-        <activity android:name=".customer"
+        <activity android:name=".frontend.CustomerPage"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".frontend.LoginPage">
 
         </activity>
-        <activity android:name=".login">
-
-        </activity>
-        <activity android:name=".signup">
+        <activity android:name=".frontend.SignupPage">
         </activity>
 
-    <activity android:name=".barber"
+    <activity android:name=".frontend.BarberPage"
         android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
     </activity>
 
-        <activity android:name=".admin"
+        <activity android:name=".frontend.AdminPage"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
 
-        <activity android:name=".fragment_about_us"
+        <activity android:name=".frontend.fragment_about_us"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".profile" />
+        <activity android:name=".frontend.Profile" />
         <!-- Add the new chat activity -->
-        <activity android:name=".fragment_chat_with_barber"
+        <activity android:name=".frontend.fragment_chat_with_barber"
             android:label="Chat with Barber"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".fragment_appointment_customer"> </activity>
-        <activity android:name=".view_ratings" />
-        <activity android:name=".fragment_home_customer" />
+        <activity android:name=".frontend.fragment_appointment_customer"> </activity>
+        <activity android:name=".frontend.ViewRatingsPage" />
+        <activity android:name=".frontend.fragment_home_customer" />
 
 
     </application>

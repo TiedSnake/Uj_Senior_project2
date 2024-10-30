@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 
 import android.content.Intent;
@@ -7,12 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class fragment_sign_out extends Fragment {
+import com.example.haircut.R;
+import com.example.haircut.backend.Service;
 
+import android.util.Log;
+
+public class fragment_sign_out extends Fragment {
+    private final static String TAG = "fragment_sign_out.java";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,8 +39,17 @@ public class fragment_sign_out extends Fragment {
     private void signOutUser() {
         // Perform sign out logic, such as clearing shared preferences or user session
         // After signing out, redirect to the Welcome Page (assuming it's an Activity)
-//        Intent intent = new Intent(getActivity(), welcome.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
+
+        Intent intent = new Intent(getActivity(), WelcomePage.class);
+        Service.signout().thenAccept(responseFlag -> {
+            if (responseFlag.equals(Service.ResponseFlag.SUCCESS)) {
+                Log.i(TAG, "user signed out successfully");
+            }else
+            {
+                Log.e(TAG, "error while signing out");
+            }
+        });
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

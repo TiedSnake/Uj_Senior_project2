@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.haircut.backend.Appointment;
-import com.example.haircut.backend.Review;
+import com.example.haircut.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends Fragment {
-
-    private RecyclerView appointmentsRecyclerView;
-    private RecyclerView reviewsRecyclerView;
-    private AppointmentsAdapter appointmentsAdapter;
-    private ReviewsAdapter reviewsAdapter;
 
     @Nullable
     @Override
@@ -30,35 +24,34 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home2, container, false);
 
         // Setup RecyclerView for Incoming Appointments
-        appointmentsRecyclerView = view.findViewById(R.id.incomingAppointmentsRecyclerView);
+        RecyclerView appointmentsRecyclerView = view.findViewById(R.id.incomingAppointmentsRecyclerView);
         appointmentsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        appointmentsAdapter = new AppointmentsAdapter(getIncomingAppointments());
+        AppointmentsAdapter appointmentsAdapter = new AppointmentsAdapter(getIncomingAppointments());
         appointmentsRecyclerView.setAdapter(appointmentsAdapter);
 
         // Setup RecyclerView for Customer Reviews
-        reviewsRecyclerView = view.findViewById(R.id.customerReviewsRecyclerView);
+        RecyclerView reviewsRecyclerView = view.findViewById(R.id.customerReviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        reviewsAdapter = new ReviewsAdapter(getCustomerReviews());
+        ReviewsAdapter reviewsAdapter = new ReviewsAdapter(getCustomerReviews());
         reviewsRecyclerView.setAdapter(reviewsAdapter);
 
         return view;
     }
 
     // Mock method to get incoming appointments (replace with real data source)
-    private List<Appointment> getIncomingAppointments() {
-        List<Appointment> appointments = new ArrayList<>();
+    private List<AppointmentRecord> getIncomingAppointments() {
         // Add sample appointments with 4 arguments: name, service, date, and time
 //        appointments.add(new Appointment("John Doe", "Haircut", "10/18/2024", "12:30 PM"));
 //        appointments.add(new Appointment("Jane Smith", "Beard Trim", "10/19/2024", "2:00 PM"));
-        return appointments;
+        return new ArrayList<>();
     }
 
     // Mock method to get customer reviews (replace with real data source)
-    private List<Review> getCustomerReviews() {
-        List<Review> reviews = new ArrayList<>();
+    private List<ReviewRecord> getCustomerReviews() {
+        List<ReviewRecord> reviews = new ArrayList<>();
         // Add sample reviews
-        reviews.add(new Review("John Doe", "Great haircut!", 5));
-        reviews.add(new Review("Jane Smith", "Very professional.", 4));
+        reviews.add(new ReviewRecord("John Doe", "Great haircut!", 5));
+        reviews.add(new ReviewRecord("Jane Smith", "Very professional.", 4));
         return reviews;
     }
 }

@@ -1,44 +1,46 @@
 package com.example.haircut.backend;
+
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.UUID;
 
 public class User {
-    private UUID uuid;
-    private String token;
+    private String uuid;
     private String firstName;
     private String lastName;
     private String email;
-    //    private transient String password;
     private boolean isLoggedIn;
-    private Date dob;
-    private String userType;
+    private UserType userType;
 
-    public User(String firstName, String lastName, String email, String... userType) {
-//        this.uuid = UUID.randomUUID();
+    public enum UserType {
+        CUSTOMER,
+        BARBER,
+        ADMIN,
+        GUEST
+    }
+
+    public static final EnumSet<UserType> validUserTypes = EnumSet.allOf(UserType.class);
+
+    //Default constructor to give firebase the ability to serialize the user object
+    public User() {
+    }
+
+    //Parameterized constructor to give firebase the ability to serialize the user object effectively.
+    public User(String firstName, String lastName, String email, UserType userType) {
+//        this.uuid = String.randomString();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
 //        this.password = password;
-        //Pass the user type optionally upon user object creation.
-        if (userType.length > 0)
-            this.userType = userType[0];
+        this.userType = userType;
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getFirstName() {
@@ -57,29 +59,17 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setLoggedIn(boolean loggedIn) {
-        isLoggedIn = loggedIn;
+    public boolean isLoggedIn() {
+        return isLoggedIn;
     }
 
-    public Date getDob() {
-        return dob;
+    public void setIsLoggedIn(boolean status) {
+        this.isLoggedIn = status;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getUserType() {
+    public UserType getUserType() {
         return userType;
     }
-
-    /*public String getPassword() {
-        return password;
-    }*/
-
-    /*public void setPassword(String password) {
-        this.password = password;
-    }*/
 
     public String getEmail() {
         return email;
@@ -87,14 +77,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setIsLoggedIn(boolean status) {
-        this.isLoggedIn = status;
-    }
-
-    public boolean isLoggedIn() {
-        return isLoggedIn;
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.haircut.backend.Review;
+import com.example.haircut.R;
 
 import java.util.List;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
-    private List<Review> reviewsList;
+    private final List<ReviewRecord> reviewsList;
 
-    public ReviewsAdapter(List<Review> reviewsList) {
+    public ReviewsAdapter(List<ReviewRecord> reviewsList) {
         this.reviewsList = reviewsList;
     }
 
@@ -29,10 +29,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Review review = reviewsList.get(position);
-        holder.customerName.setText(review.getCustomerName());
-        holder.reviewText.setText(review.getReviewText());
-        holder.ratingBar.setRating(review.getRating());
+        ReviewRecord ReviewRecord = reviewsList.get(position);
+        holder.customerName.setText(ReviewRecord.customerName());
+        holder.reviewText.setText(ReviewRecord.reviewText());
+        holder.ratingBar.setRating(ReviewRecord.rating());
     }
 
     @Override

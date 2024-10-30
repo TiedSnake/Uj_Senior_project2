@@ -1,18 +1,10 @@
 package com.example.haircut.backend;
 
-import android.util.Base64;
+import com.example.haircut.frontend.WelcomePage;
 
-import androidx.annotation.NonNull;
-
-import java.security.SecureRandom;
-import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-
-import java.util.Date;
 
 public class Utility {
     //Needs more work
@@ -35,14 +27,23 @@ public class Utility {
 //                    + "(?=.*[@#$%^&+=])"
                     + "(?=\\S+$).{8,}$";
 
-    static boolean isValidName(String fName) {
+    public static boolean isValidName(String fName) {
         if (fName == null)
             return false;
         else
             return fName.length() < 20 && fName.matches(NAME_REGEX);
     }
 
-    static boolean isValidPassword(String pass) {
+    //Checks whether user type is part of the enum set in WelcomePage {CUSTOMER, BARBER, ADMIN}
+    public static boolean isValidUser(User.UserType user) {
+        try {
+            return User.validUserTypes.contains(user);
+        } catch (IllegalArgumentException e) {
+            return false; // Not a valid enum constant
+        }
+    }
+
+    public static boolean isValidPassword(String pass) {
         if (pass == null)
             return false;
         else
@@ -95,29 +96,6 @@ public class Utility {
         }
     }
 
-    /*
-    * The Method needs either to have a `userType` parameter or it must uses Intent.getStringExtra(userType).
-    * The userType must be passed to Service.signup()
-     */
-    static String signup(String _fname, String _lname, String _email, String _pwd, String userType) {
-        if (Utility.isValidName(_fname) && Utility.isValidName(_lname) && Utility.isValidEmailFormat(_email) && Utility.isValidPassword(_pwd)) {//if entered values are valid fname & lname
-            return String.valueOf(Service.signup(_fname, _lname, _email, _pwd, userType));
-        } else {
-            if (!Utility.isValidName(_fname))
-                return "Please enter a valid first name";
-            //                Toast.makeText(signup.this, "Please enter a valid first name", Toast.LENGTH_SHORT).show();
-            if (!Utility.isValidName(_lname))
-                return "Please enter a valid last name";
-            //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-            if (!Utility.isValidEmailFormat(_email))
-                return "Please enter a valid email";
-            //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-            if (!Utility.isValidPassword(_pwd))
-                return "Please enter a valid password";
-            //                Toast.makeText(signup.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-            return "This is unexpected error";
-        }
-    }
 
     protected static String login(String email, String password) {
         if (isValidEmailFormat(email) && isValidPassword(password)) {

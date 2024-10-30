@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,18 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.haircut.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class fragment_appointment_customer extends Fragment {
 
-    private CalendarView calendarView;
     private TextView selectedDate;
     private LinearLayout timeSlotsContainer;
-    private Button bookAppointmentButton;
     private TextView confirmationMessage;
-    private FrameLayout overlayFrame; // Added FrameLayout for future content
     private String selectedTimeSlot; // Variable to hold the selected time slot
 
     @Nullable
@@ -33,12 +32,13 @@ public class fragment_appointment_customer extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointment_customer, container, false);
 
-        calendarView = view.findViewById(R.id.calendar_view);
+        CalendarView calendarView = view.findViewById(R.id.calendar_view);
         selectedDate = view.findViewById(R.id.selected_date);
         timeSlotsContainer = view.findViewById(R.id.time_slots_container);
-        bookAppointmentButton = view.findViewById(R.id.book_appointment_button);
+        Button bookAppointmentButton = view.findViewById(R.id.book_appointment_button);
         confirmationMessage = view.findViewById(R.id.confirmation_message);
-        overlayFrame = view.findViewById(R.id.overlay_frame); // Initialize FrameLayout
+        // Added FrameLayout for future content
+        FrameLayout overlayFrame = view.findViewById(R.id.overlay_frame); // Initialize FrameLayout
 
         // Set up calendar listener
         calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    // Add the Google services Gradle plugin
+    // Adds the Google services Gradle plugin
     id("com.google.gms.google-services")
 }
 
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.example.haircut"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -28,6 +28,26 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            applicationIdSuffix =  ".debug"
+            versionNameSuffix = "-debug"
+            isDebuggable = true
+        }
+//        getByName("debug") {
+//            applicationIdSuffix = ".debug"
+//            isDebuggable = true
+//        }
+//
+//        /**
+//         * The `initWith` property lets you copy configurations from other build types,
+//         * then configure only the settings you want to change. This one copies the debug build
+//         * type, and then changes the manifest placeholder and application ID.
+//         */
+//        create("staging") {
+//            initWith(getByName("debug"))
+//            manifestPlaceholders["hostName"] = "internal.example.com"
+//            applicationIdSuffix = ".debugStaging"
+//        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -49,6 +69,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.database)
 
     //JSON Web Token
     // https://mvnrepository.com/artifact/com.auth0/java-jwt
@@ -70,6 +91,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/dnsjava/dnsjava
     implementation(libs.dnsjava)
+
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-android
+    implementation(libs.slf4j.android)
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation(libs.slf4j.simple)

@@ -66,30 +66,16 @@ class UtilityTest {
     })
     void isValidPassword() {
     }
-    @ParameterizedTest
-    @CsvSource({
-            "Mike, ssga, something@something.com, t24oth2owT", "customer", //valid data
-            "Mi3ke, ssga, something@something.com, t24oth2owT", "customer",//invalid first name
-            "Mike, ss$ga, something@something.com, t24oth2owT", "customer",//invalid last name
-            "Mike, ssga, somethingsomething.com, t24oth2owT", "customer",//invalid email
-            "Mike, ssga, something@something.com, t24oth2owt", "customer",//invalid password
-    })
-    void signupTest(String fname, String lname, String email, String password, String userType) {
-        String result = Utility.signup( fname, lname, email, password, userType);
-        Assertions.assertEquals("-1", result);
-    }
-
-    //validates an email by checking if its domain has "mail-exchange"(MX) record.
 //    @ParameterizedTest
-//    @ValueSource(strings ={
-//            "gowirhgoirhv.com",
-//            "gmail.com",
-//            "outlook.com",
-//            "uj.edu.sa",
-//            "yahoo.com"
-//
+//    @CsvSource({
+//            "Mike, ssga, something@something.com, t24oth2owT", "customer", //valid data
+//            "Mi3ke, ssga, something@something.com, t24oth2owT", "customer",//invalid first name
+//            "Mike, ss$ga, something@something.com, t24oth2owT", "customer",//invalid last name
+//            "Mike, ssga, somethingsomething.com, t24oth2owT", "customer",//invalid email
+//            "Mike, ssga, something@something.com, t24oth2owt", "customer",//invalid password
 //    })
-//    void validateMX(String domain) {
-//        System.out.println("MX/A validation for " + domain + ": " + Utility.validateMX(domain));
+//    void signupTest(String fname, String lname, String email, String password, String userType) {
+//        String result = com.example.haircut.backend.Utility.signup( fname, lname, email, password, userType);
+//        Assertions.assertEquals("-1", result);
 //    }
 }

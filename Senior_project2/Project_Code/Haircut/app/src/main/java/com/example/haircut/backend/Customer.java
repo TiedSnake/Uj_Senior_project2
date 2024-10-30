@@ -47,8 +47,8 @@ public class Customer extends User {
          */
     }
 
-    public Customer(String firstName, String lastName, String email, String password) {
-        super(firstName, lastName, email, password, Customer.class.getName());
+    public Customer(String firstName, String lastName, String email) {
+        super(firstName, lastName, email,  UserType.CUSTOMER);
         this.appointments = new ArrayList<Appointment>();
     }
 

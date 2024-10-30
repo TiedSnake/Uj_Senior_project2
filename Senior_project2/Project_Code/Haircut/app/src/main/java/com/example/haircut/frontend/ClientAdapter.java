@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.example.haircut.frontend;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,11 +6,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.haircut.R;
+
 import java.util.List;
 
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> {
 
-    private List<String> clientList;
+    private final List<String> clientList;
 
     public ClientAdapter(List<String> clientList) {
         this.clientList = clientList;

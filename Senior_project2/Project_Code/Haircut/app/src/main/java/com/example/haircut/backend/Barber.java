@@ -1,14 +1,12 @@
 package com.example.haircut.backend;
 
-import com.example.haircut.Review;
-
 import java.util.HashSet;
 
 public class Barber extends User {
-    private final HashSet<com.example.haircut.Review> reviews;
-    private final HashSet<com.example.haircut.backend.Appointment> appointments;
+    private final HashSet<Review> reviews;
+    private final HashSet<Appointment> appointments;
 
-    public boolean acceptAppointment(com.example.haircut.backend.Appointment appointment) {
+    public boolean acceptAppointment(Appointment appointment) {
         /*
          * Modifies the status variable in the passed appointment object to accepted & adds it to the appointment set
          */
@@ -16,7 +14,7 @@ public class Barber extends User {
         return appointments.add(appointment);
     }
 
-    public boolean rejectAppointment(com.example.haircut.backend.Appointment appointment) {
+    public boolean rejectAppointment(Appointment appointment) {
         /*
          * Modifies the status variable in the passed appointment object to rejected & adds it to the appointment set
          */
@@ -25,13 +23,13 @@ public class Barber extends User {
     }
     public String viewReviewList() {
         StringBuilder sb = new StringBuilder();
-        for (com.example.haircut.Review review : this.reviews)
+        for (Review review : this.reviews)
             sb.append(review.getUuid().toString()).append("\n");
         return sb.toString();
     }
 
-    public Barber(String firstName, String lastName, String email, String password) {
-        super(firstName, lastName, email, password, Barber.class.getName());
+    public Barber(String firstName, String lastName, String email) {
+        super(firstName, lastName, email, UserType.BARBER);
         this.reviews = new HashSet<Review>();
         this.appointments = new HashSet<Appointment>();
     }
