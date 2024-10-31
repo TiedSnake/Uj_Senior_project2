@@ -12,6 +12,7 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private List<UserDataModel2> userList;
+    private int selectedPosition = RecyclerView.NO_POSITION;
 
     public UserAdapter(List<UserDataModel2> userList) {
         this.userList = userList;
@@ -38,7 +39,35 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.btnBlock.setText(user.getBlockAction());
         holder.btnDelete.setText(user.getDeleteAction());
 
-        // Implement button actions here if needed
+        // Set buttons' visibility based on the selected position
+        if (position == selectedPosition) {
+            holder.btnView.setVisibility(View.VISIBLE);
+            holder.btnBlock.setVisibility(View.VISIBLE);
+            holder.btnDelete.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnView.setVisibility(View.INVISIBLE);
+            holder.btnBlock.setVisibility(View.INVISIBLE);
+            holder.btnDelete.setVisibility(View.INVISIBLE);
+        }
+
+        // Toggle visibility on item click
+        holder.itemView.setOnClickListener(v -> {
+            selectedPosition = (position == selectedPosition) ? RecyclerView.NO_POSITION : position;
+            notifyDataSetChanged();
+        });
+
+        // Implement button actions if needed
+        holder.btnView.setOnClickListener(v -> {
+            // Handle "View" action
+        });
+
+        holder.btnBlock.setOnClickListener(v -> {
+            // Handle "Block" action
+        });
+
+        holder.btnDelete.setOnClickListener(v -> {
+            // Handle "Delete" action
+        });
     }
 
     @Override
@@ -56,6 +85,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             btnView = itemView.findViewById(R.id.btnView);
             btnBlock = itemView.findViewById(R.id.btnBlock);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+
+            // Set buttons to be initially invisible
+            btnView.setVisibility(View.INVISIBLE);
+            btnBlock.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.INVISIBLE);
         }
     }
 }

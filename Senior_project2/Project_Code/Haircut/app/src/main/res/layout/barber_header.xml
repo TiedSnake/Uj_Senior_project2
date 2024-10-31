@@ -14,6 +14,7 @@
 
 
     <ImageView
+        android:importantForAccessibility="no"
         android:src="@drawable/haircut_app_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
@@ -29,17 +30,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sidebar_headerText"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/barber"
-                android:layout_marginTop="2dp"
-                android:textSize="11sp"
+                android:textSize="15sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
 
