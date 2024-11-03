@@ -234,6 +234,61 @@ Firebase integrates seamlessly with other Google services like Google Cloud and 
 \textbf{JUnit 5} offers a powerful, flexible, and modern testing framework for Java programming language. Its modular architecture, new features, and improved annotations make it a significant advancement over previous versions. Whether you’re writing simple unit tests or complex integration tests, JUnit 5 provides the tools needed to ensure code quality and reliability.
 \newpage
 
+\begin{figure}
+            \centering
+            \includegraphics[width=0.5\linewidth]{attachments/image.png}
+         \label{fig:enter-label}
+               \caption{npm icon}
+        \end{figure}
+
+    \textbf{npm }or Node Package Manager , is the biggest software registry in the world. JavaScript, which is frequently used with Node.js, has a package manager. The following are important basic facts to be aware of:
+
+The npm package registry contains thousands of code packages that developers can utilize to construct their applications. Using npm commands, these packages are simple to install and manage.
+Dependency Management: npm facilitates the management of dependencies. To guarantee that everything functions as a whole, npm makes sure that all required dependencies are installed along with the package.
+\textbf{Version Control:} By enabling developers to define version ranges for their dependencies, npm guarantees project stability and compatibility.
+\textbf{Automation and Scripts:} npm may also be used to define and execute scripts for tasks like as application development, testing, and deployment.
+
+Since npm is bundled with Node.js, you must have it installed on your machine in order to use it. You can begin controlling the dependencies in your project and expediting the development process with a few easy commands.
+
+The command for installing Firebase tools in npm is:
+npm install -g firebase-tools
+
+The context is:
+ the verification code page is displayed to the user when:
+ Logging into the system for the first time.
+ Requesting a password reset.
+Npm: is package manager for installing Firebase-tools package
+    
+\newpage
+
+
+\begin{figure}
+                \centering
+                \includegraphics[width=0.5\linewidth]{image.png}
+                \caption{node.js icon}
+                \label{fig:enter-label}
+         
+        \end{figure}
+        \label{fig:enter-label}
+        \newpage
+
+   \textbf{Node.js} is a cross-platform, open-source JavaScript runtime environment. It is a widely used tool for nearly all types of projects
+Outside of the browser,Node.js powers Google Chrome's V8 JavaScript engine. This enables the high performance of Node.js.
+Instead of starting a new thread for each request, a Node.js application operates in a single process. Because Node.js libraries are typically designed using non-blocking paradigms, blocking behavior is the exception rather than the rule. Additionally, Node.js's standard library includes a set of asynchronous I/O primitives that prevent JavaScript code from blocking.
+Rather of stalling the thread and waste CPU cycles waiting, Node.js will resume after it completes an I/O activity, such as reading from the network, accessing a database, or the filesystem.the procedures after the response is received.
+This eliminates the need to manage thread concurrency, which might be a major source of errors, and enables Node.js to manage thousands of concurrent connections with a single server.
+Millions of frontend developers who write JavaScript for the browser can now create server-side code in addition to client-side code without having to learn a new language, which is a unique feature of Node.js.   
+\newpage
+
+
+
+
+
+
+
+
+
+
 \item \subsection{Hardware Description}
 In this section we are going to describe the hardware components and the requirements and specifications needed for the app to run on the hardware without any issues, we are going to use Android pixel to run the application, and the required storage space will be at least 300 MB, and the RAM (Random Access Memory) needed is at least 4GB RAM for the app to run properly. The Android pixel device is a test device for the application, any other Android device that meets the requirements will run the application without any issues, also the device needs to have the Android version \textbf{8.1} called \textbf{"Oreo"} or above to work properly.
 
@@ -355,12 +410,12 @@ This page introduces Haircut, an app designed to modernize barbershops by simpli
 \newpage
 
 
-here on the admin page, the admin can select either the barber or the customer and watch the rating and the reviews.
+here on the admin page, the admin can select either the barber or the customer and view the rating and the reviews,and when the admin clicks on either barber or customer, a list containing all the users will be shown, with three options next to each user:view,block or delete.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/admin_page.png}
-    \caption{admin page}
+    \includegraphics[width=0.5\textwidth]{images/adminHomePage.png}
+    \caption{admin home page}
     \label{fig: admin page screen}
 \end{figure}
 \lstinputlisting[style=javaCode, language=Java, caption=admin.java]{attachments/admin.java}
@@ -373,7 +428,34 @@ here's what the ratings and reviews look like.
     \caption{rating and reviews}
     \label{fig: rating and reviews page screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption=view ratings admin java]{attachments/view_ratings.java}
+\lstinputlisting[style=javaCode, language=Java, caption=view ratings admin java]{attachments/fragment_view_ratings.java}
+\newpage
+here's the admin sidebar, where the admin can navigate to the home, profile,or sign out page:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/admin sidebar.png}
+    \caption{Admin profile}
+    \label{fig: Admin sidebar screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=admin sidebar java]{attachments/admin.java}
+\newpage
+when the admin clicks on the profile option from the sidebar, he will be directed to the profile page of admin:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Admin profile.png}
+    \caption{Admin profile}
+    \label{fig: Admin profile screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=admin profile java]{attachments/profile1.java}
+\newpage
+when the admin clicks on sign out option on the sidebar, he is redirected to a page where he clicks sign out button, to which he'll be redirected to the welcome page:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/signOut.png}
+    \caption{Admin sign out}
+    \label{fig: Admin signout screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=admin sign out java]{attachments/profile1.java}
 \newpage
 here is the home page for the barber  where he can check the incoming appointment and customer views and have access to the sidebar
 \begin{figure}[ht]
@@ -402,6 +484,15 @@ here are all the services that the barber provides in his shop and return throug
 \end{figure}
 \lstinputlisting[style=javaCode, language=Java, caption=Services menu java]{attachments/menu.java}
 \newpage
+here when the barber chooses edit services menu, he will be redirected to the edit service menu page, where he can edit his provided services for customers:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/edit services menu.png}
+    \caption{edit services menu}
+    \label{fig:edit services menu page screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=Edit Services menu java]{attachments/fragment_edit_service_menu.java}
+\newpage
 here that's how it will be shown the appointments page and return through the sidebar
 \begin{figure}[ht]
     \centering
@@ -411,10 +502,10 @@ here that's how it will be shown the appointments page and return through the si
 \end{figure}
 \lstinputlisting[style=javaCode, language=Java, caption=Appointments barber java]{attachments/fragment_appointment.java}
 \newpage
-here is a sidebar menu where the user can access home, profile, service menu, appointments, reviews, and sign out
+here is a sidebar menu where the user can access home, profile, service menu, edit services menu, appointments, reviews, and sign out
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/sidebar_menu.png}
+    \includegraphics[width=0.5\textwidth]{images/sidebar_barber.png}
     \caption{sidebar menu }
     \label{fig: sidebar menu page screen}
 \end{figure}
@@ -490,6 +581,14 @@ Here's the Chat page, where the customer can chat with the barber and send messa
     \label{fig: Chat with barber page of Customer screen}
 \end{figure}
 \lstinputlisting[style=javaCode, language=Java, caption=Chat with barber java]{attachments/fragment_chat_with_barber.java}
+\newpage
+when the customer clicks on sign out option, he will be redirected to the sign out page where there is a sign out button, when he clicks the sign out button, he will be redirected to the welcome page:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/signOut.png}
+    \caption{sign out page of Customer}
+    \label{fig: sign out page of Customer screen}
+\end{figure}
 \newpage
 
 
