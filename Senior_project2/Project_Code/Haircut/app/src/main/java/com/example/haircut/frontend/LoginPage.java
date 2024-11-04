@@ -26,12 +26,21 @@ import java.util.concurrent.CompletableFuture;
 
 public class LoginPage extends AppCompatActivity {
     private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
-    Button login_btn;
+    Button loginBtn;
     EditText email;
     EditText pwd;
     TextView loginToSignup;
     ProgressBar progressBar;
 
+    //User type may help in user lookup in the system
+    SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+    User.UserType userType = User.UserType.valueOf(prefs.getString("USER_TYPE", User.UserType.GUEST.name()));
+
+    //Onclick method to send user from login to password reset page
+    public void passwordReset(View view) {
+        loginToSignup = findViewById(R.id.reset_password);
+        startActivity(new Intent(getApplicationContext(), PasswordResetPage.class));
+    }
     //Onclick method to send user from login to signup page
     public void LoginToSignup(View view) {
         loginToSignup = findViewById(R.id.login_to_signup);
@@ -64,7 +73,7 @@ public class LoginPage extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
-        login_btn = findViewById(R.id.login_button);
+        loginBtn = findViewById(R.id.login_button);
         email = findViewById(R.id.email_field);
         pwd = findViewById(R.id.pwd_field);
         progressBar = findViewById(R.id.progressBar);
@@ -73,15 +82,12 @@ public class LoginPage extends AppCompatActivity {
         email.setText(getString(R.string.default_email));
         pwd.setText(getString(R.string.default_password));
 
-        login_btn.setOnClickListener(view -> {
+        loginBtn.setOnClickListener(view -> {
             String _email = email.getText().toString();
             String _pwd = pwd.getText().toString();
             progressBar.setVisibility(View.VISIBLE);
 
-            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-            User.UserType userType = User.UserType.valueOf(prefs.getString("USER_TYPE", User.UserType.GUEST.name()));
 
-            CompletableFuture<FLAGS> response = login(_email, _pwd, userType);
             login(_email, _pwd, userType).thenAccept(flags -> {
                 switch (flags) {
                     case INVALID_EMAIL:
@@ -95,6 +101,10 @@ public class LoginPage extends AppCompatActivity {
                     case INVALID_USER:
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(LoginPage.this, "Unexpected error: the user type is unidentified!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case ERROR: //Needs to be completed
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(LoginPage.this, "Please aenter a valid email", Toast.LENGTH_SHORT).show();
                         break;
                     case SUCCESS:
                         progressBar.setVisibility(View.INVISIBLE);

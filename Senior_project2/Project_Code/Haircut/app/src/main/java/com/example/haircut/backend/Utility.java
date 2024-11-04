@@ -95,5 +95,15 @@ public class Utility {
             return matcher.matches(); //returns true/false
         }
     }
+
+    //Needs to be completed, the regex needs to be modified based on Firebase verification codes pattern.
+    public static boolean isValidVerificationCode(String code) {
+        if (code == null) {
+            return false;
+        } else {
+            Matcher matcher = EMAIL_PATTERN.matcher(code);
+            return matcher.matches(); //returns true/false
+        }
+    }
 }
 

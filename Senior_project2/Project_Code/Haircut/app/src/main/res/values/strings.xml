@@ -27,7 +27,6 @@
     <string name="last_name">Last name</string>
     <string name="email1">Email</string>
     <string name="log_in1">Log In</string>
-    <string name="signup2">Signup</string>
     <string name="signup">Signup</string>
     <string name="login_signup">Login/signup</string>
     <string name="email_label">Email</string>
@@ -61,10 +60,10 @@
     <string name="menu_cus_page">menu customer page</string>
     <string name="nearby_cus_page">nearby</string>
     <string name="email">Email</string>
-    <string name="verification_code">Verification Code</string>
+    <string name="verification_code">Code Verification</string>
     <string name="verification_code_hint">Enter Verification code</string>
     <string name="send_verification_code">Send</string>
-    <string name="verify_btn">Verify</string>
+    <string name="reset">Reset</string>
     <string name="admin_welcome_page">Admin</string>
     <string name="side_menu_button_customer">Menu Button</string>
     <string name="About_us">About us</string>
