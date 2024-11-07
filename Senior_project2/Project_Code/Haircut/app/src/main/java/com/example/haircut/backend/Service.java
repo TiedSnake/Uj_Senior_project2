@@ -2,12 +2,7 @@ package com.example.haircut.backend;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.appcheck.FirebaseAppCheck;
-import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
-import com.google.firebase.auth.ActionCodeSettings;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -16,23 +11,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
 
-import android.app.Application;
-import android.support.v4.os.IResultReceiver;
 import android.util.Log;
 
-import java.io.FileInputStream;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 
-public abstract class Service extends Application {
+public abstract class Service {
     /**
      * Simulating a database Key-->email_username, value--> (User{fname, lname, email, password})
      * [username]@[domain_name].tld
@@ -46,19 +33,19 @@ public abstract class Service extends Application {
      * Log.v: verbose
      */
 
-    private final static HashMap<String, User> user_records = new HashMap<>();
-    private final static HashMap<String, String> users_emails = new HashMap<>();
+    private static final FirebaseDatabase database = FirebaseDatabase.getInstance("http://127.0.0.1:9002/?ns=haircut-508fa");
     private final static FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final static DatabaseReference databaseRef;
+    private final static FirebaseFunctions functions = FirebaseFunctions.getInstance();
     private static User user;
     //Initialize a reference to realtime database.
-    private final static DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://haircut-508fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("schema");
+//    private final static DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://haircut-508fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("schema");
 
-
-    {
-        //May need to be adjusted so that the context is passed to this class from a main activity to avoid memory leaks.
-        FirebaseApp.initializeApp(this);
-        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
-        firebaseAppCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance());
+     static {
+        database.useEmulator("10.0.2.2", 9002);
+        auth.useEmulator("10.0.2.2", 9099);
+        functions.useEmulator("10.0.2.2", 5001);
+        databaseRef = database.getReference("schema");
     }
 
     //Saves|persist a user in the database
@@ -179,13 +166,12 @@ public abstract class Service extends Application {
         databaseRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) future.complete(true);
-                else future.complete(false);
+                future.complete(snapshot.exists());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                future.completeExceptionally(new RuntimeException("Error when checking existence of the user in the system"));
+                future.completeExceptionally(new RuntimeException("Error when checking existence of the user in the system" +error.getMessage()));
             }
         });
         return future;
@@ -234,29 +220,21 @@ public abstract class Service extends Application {
         CompletableFuture<FLAGS> future = new CompletableFuture<>();
         FirebaseUser firebaseUser = auth.getCurrentUser();
         if (firebaseUser == null) {
+            Log.e(TAG, "Error: Sending email verification process failed due to firebaseUser object being null");
             future.completeExceptionally(new NullPointerException("User error: the Firebase user object is null"));
             return future;
-        }
-        return generateCustomToken(firebaseUser.getUid()).thenCompose(token -> {
-            if (token == null || token.isEmpty()) {
-                future.completeExceptionally(new RuntimeException("Token error: Custom token generation returned an empty token."));
-                return future;
+        } else firebaseUser.sendEmailVerification().addOnCompleteListener(verificationTask -> {
+            if (verificationTask.isSuccessful()) //sending succeed
+            {
+                Log.i(TAG, "verification email has been sent successfully!");
+                future.complete(FLAGS.SUCCESS);
+            } else //sending failed{
+            {
+                Log.e(TAG, String.format("Error: failed to send verification\n%s", verificationTask.getException()));
+                future.completeExceptionally(verificationTask.getException()); //propagate exception
             }
-            String url = String.format("https://appname.firebaseapp.com/verify?token=%s&context=%s", token, "emailVerification");
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(url).setHandleCodeInApp(true).build();
-            firebaseUser.sendEmailVerification(actionCodeSettings).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Log.i(TAG, "verification email has been sent successfully!");
-                    future.complete(FLAGS.SUCCESS);
-                } else {
-                    Log.e(TAG, String.format("Error: failed to send verification\n%s", task.getException()));
-                    future.completeExceptionally(task.getException()); //propagate exception
-                }
-            });
-            return future;
-        }).exceptionally(ex -> {
-            throw new CompletionException(ex);
         });
+        return future;
     }
 
     public static CompletableFuture<FLAGS> signup(String firstName, String lastName, String email, String password, User.UserType userType) {
@@ -324,7 +302,7 @@ public abstract class Service extends Application {
     //This method could use more improvements i.e. custom exceptions
     public static CompletableFuture<User> login(String email, String password, User.UserType userType) {
         return userExist(email).thenCompose(exists -> {
-            if (exists) {
+            if (exists.equals(FLAGS.SUCCESS)) {
                 Log.i(TAG, String.format("This email %s is registered in the system with a user", email));
                 return authenticateUser(email, password).thenCompose(firebaseUser -> {
                     if (firebaseUser != null) {
@@ -352,27 +330,17 @@ public abstract class Service extends Application {
         });
     }
 
-    static CompletableFuture<FLAGS> codeVerification(String uid, String code) {
+    public static CompletableFuture<FLAGS> verifyCode(String code, User.UserType userType) {
         CompletableFuture<FLAGS> future = new CompletableFuture<>();
-        FirebaseFunctions functions = FirebaseFunctions.getInstance();
-        FirebaseUser firebaseUser = auth.getCurrentUser();
-        Map<String, String> data = new HashMap<>() {{
-            put("verificationCode", code);
-            put("uid", uid);
-        }};
-        ActionCodeSettings actionCodeSettings
-        functions.getHttpsCallable("validateToken").call(data).addOnCompleteListener(task -> {
-            if (task.isSuccessful() && task.getResult()!=null) {
-                String resetLink = (String) task.getResult().getData();
-
-            }
-        });
-        auth.verifyPasswordResetCode(code).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                future.complete(FLAGS.SUCCESS);
-            } else
-                future.completeExceptionally(new RuntimeException("Invalid verification code or it has expired " + task.getException()));
-        });
+        if (user.getUserType().equals(userType)) {
+            auth.verifyPasswordResetCode(code).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    future.complete(FLAGS.SUCCESS);
+                } else
+                    future.completeExceptionally(new RuntimeException("Invalid verification code or it has expired " + task.getException()));
+            });
+        } else
+            future.completeExceptionally(new Exceptions.UserMismatchException(String.format("Usertype from frontend %s doesn't match UserType from the database %s for this user ", userType, user.getUserType())));
         return future;
     }
 
@@ -402,9 +370,9 @@ public abstract class Service extends Application {
         return userExist(email).thenCompose(exists -> {
             if (!exists) {
                 future.completeExceptionally(new Exception("This user does not exist in the database"));
-                return future; //to avoid mismatch between boolean type in completeExceptionally method & the flags type in this method.
+                return future;
             } else return sendPasswordResetEmail(email);
-        }).thenApply(flag -> {//computing the result from `sendPasswordResetEmail`
+        }).thenApply(flag -> {
             if (flag.equals(FLAGS.SUCCESS)) {
                 Log.i(TAG, String.format("Password reset email sent successfully to %s", email));
                 return FLAGS.SUCCESS;
@@ -426,24 +394,13 @@ public abstract class Service extends Application {
         FirebaseUser firebaseUser = auth.getCurrentUser();
         if (firebaseUser == null) {
             future.completeExceptionally(new NullPointerException("User error: the Firebase user object is null"));
-            return future; //to avoid mismatch between boolean type in completeExceptionally method & the flags type in this method.
-        }
-        return generateCustomToken(firebaseUser.getUid()).thenCompose(token -> {
-            if (token == null || token.isEmpty()) {
-                future.completeExceptionally(new RuntimeException("Token error: Custom token generation returned an empty token."));
-                return future; //to avoid mismatch between boolean type in completeExceptionally method & the flags type in this method.
-            }
-            String url = String.format("https://appname.firebaseapp.com/verify?token=%s&context=%s", token, "passwordReset");
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(url).setHandleCodeInApp(true).build();
-            auth.sendPasswordResetEmail(email, actionCodeSettings).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) future.complete(FLAGS.SUCCESS);
-                else
-                    future.completeExceptionally(new RuntimeException("Password Reset Error: Failed to send password reset email due to\n" + task.getException()));
-            });
             return future;
-        }).exceptionally(ex -> {//Propagate the exceptions coming from generateCustomToken method
-            throw new CompletionException(ex);
+        } else auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) future.complete(FLAGS.SUCCESS);
+            else
+                future.completeExceptionally(new RuntimeException("Password Reset Error: Failed to send password reset email due to\n" + task.getException()));
         });
+        return future;
     }
 
     /**
@@ -485,14 +442,14 @@ public abstract class Service extends Application {
      * 4. If the token matches another cloud funciton should return the `successful verification` static html file.
      * 5. If not, then the cloud Typescript function would return the `verification failed` static html file.
      */
-    public static CompletableFuture<String> generateCustomToken(String uid) {
-        CompletableFuture<String> future = new CompletableFuture<>();
-        FirebaseFunctions functions = FirebaseFunctions.getInstance();
+    public static CompletableFuture<String[]> generateCustomToken(String uid) {
+        CompletableFuture<String[]> future = new CompletableFuture<>();
         //Calling Typescript function from remote cloud functions.
         functions.getHttpsCallable("generateCustomToken").call(Collections.singletonMap("uid", uid)).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                String token = (String) task.getResult().getData();
-                future.complete(token);
+                String[] result = (String[]) task.getResult().getData();
+                if (result != null && result.length > 1) //result is not empty & contains more than 1 element i.e. result[0]=customToken, result[1]=code
+                    future.complete(result);
             } else {
                 // Handle error
                 Exception e = task.getException();

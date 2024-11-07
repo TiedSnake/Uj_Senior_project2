@@ -14,15 +14,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.haircut.R;
+import com.example.haircut.backend.Exceptions;
 import com.example.haircut.backend.FLAGS;
 import com.example.haircut.backend.Service;
 import com.example.haircut.backend.User;
 import com.example.haircut.backend.Utility;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class CodeVerification extends AppCompatActivity {
     EditText verificationCodeField;
+    TextView verificationCodeLabel;
     TextView newPasswordLabel;
     TextView retypedPasswordLabel;
     EditText newPasswordField;
@@ -34,6 +37,14 @@ public class CodeVerification extends AppCompatActivity {
     //User type may help in user lookup in the system
     SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
     User.UserType userType = User.UserType.valueOf(prefs.getString("USER_TYPE", User.UserType.GUEST.name()));
+
+    public static CompletableFuture<FLAGS> verifyCode(String resetCode, User.UserType userType) {
+        if (!Utility.isValidUser(userType))
+            return CompletableFuture.completedFuture(FLAGS.INVALID_USER);
+        return Service.verifyCode(resetCode, userType).thenApply(flag -> flag).exceptionally(ex -> {
+            throw new CompletionException(ex);
+        });
+    }
 
     public static CompletableFuture<FLAGS> confirmVerificationCode(String resetCode, String newPassword, String retypedPassword, User.UserType userType) {
         if (!Utility.isValidUser(userType))
@@ -60,6 +71,7 @@ public class CodeVerification extends AppCompatActivity {
         setContentView(R.layout.verification_page);
 
         verificationCodeField = findViewById(R.id.verification_code_field);
+        verificationCodeLabel = findViewById(R.id.verification_code_label);
         newPasswordLabel = findViewById(R.id.new_password_label);
         newPasswordField = findViewById(R.id.new_password_field);
         retypedPasswordField = findViewById(R.id.verify_new_password_field);
@@ -68,12 +80,12 @@ public class CodeVerification extends AppCompatActivity {
         verifyBtn = findViewById(R.id.verify_btn);
         progressBar = findViewById(R.id.progressBar);
 
-        verifyBtn.setVisibility(View.INVISIBLE);
+        resetButton.setVisibility(View.INVISIBLE);
         newPasswordLabel.setVisibility(View.INVISIBLE);
         newPasswordField.setVisibility(View.INVISIBLE);
         retypedPasswordLabel.setVisibility(View.INVISIBLE);
         retypedPasswordField.setVisibility(View.INVISIBLE);
-        verificationCodeField.setVisibility(View.INVISIBLE);
+//        verificationCodeField.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
         //Can't assign default values in here. must verify manually.
 
@@ -81,10 +93,12 @@ public class CodeVerification extends AppCompatActivity {
         String code = verificationCodeField.toString();
 
         //Must see what kind of verification code Firebase sends in here so I could compose a Regex to verify whether entered verification code matches it.
-        resetButton.setOnClickListener(view -> {
+        verifyBtn.setOnClickListener(view -> {
             if (Utility.isValidVerificationCode(code)) {
+                resetButton.setVisibility(View.VISIBLE);
+                verifyBtn.setVisibility(View.INVISIBLE);
                 verificationCodeField.setVisibility(View.INVISIBLE);
-                verifyBtn.setVisibility(View.VISIBLE);
+
                 newPasswordLabel.setVisibility(View.VISIBLE);
                 newPasswordField.setVisibility(View.VISIBLE);
                 retypedPasswordLabel.setVisibility(View.VISIBLE);
@@ -96,6 +110,25 @@ public class CodeVerification extends AppCompatActivity {
             String newPassword = newPasswordField.toString();
             String retypedPassword = retypedPasswordField.toString();
             progressBar.setVisibility(View.VISIBLE);
+            verifyCode(code, userType).thenAccept(flag -> {
+                switch (flag) {
+                    case INVALID_USER:
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(CodeVerification.this, "Unexpected error: the user type is unidentified!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case SUCCESS:
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(CodeVerification.this, "Signup succeeded!", Toast.LENGTH_SHORT).show();
+                        Intent forward = new Intent(CodeVerification.this, CustomerPage.class);
+                        startActivity(forward);
+                        finish();
+                        break;
+                }
+            }).exceptionally(ex -> {
+                if (ex instanceof Exceptions.UserMismatchException)
+                    Toast.makeText(CodeVerification.this, "error: the chosen user type doesn't match the user type in database", Toast.LENGTH_SHORT).show();
+                return null;
+            });
             confirmVerificationCode(code, newPassword, retypedPassword, userType).thenAccept(flags -> {
                 switch (flags) {
                     case INVALID_USER:

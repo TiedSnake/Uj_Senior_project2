@@ -62,11 +62,8 @@ android {
 }
 
 dependencies {
-
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.functions)
-    implementation(libs.google.firebase.admin);
-    implementation(libs.firebase.appcheck.playintegrity)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.analytics)
     implementation(libs.androidx.core.ktx)
@@ -75,6 +72,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.database)
+    implementation(libs.google.services)
+
 
     //JSON Web Token
     // https://mvnrepository.com/artifact/com.auth0/java-jwt

@@ -60,8 +60,8 @@
     <string name="menu_cus_page">menu customer page</string>
     <string name="nearby_cus_page">nearby</string>
     <string name="email">Email</string>
-    <string name="verification_code">Code Verification</string>
-    <string name="verification_code_hint">Enter Verification code</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verification_code_hint">Enter verification code</string>
     <string name="send_verification_code">Send</string>
     <string name="reset">Reset</string>
     <string name="admin_welcome_page">Admin</string>
