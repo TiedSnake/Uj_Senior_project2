@@ -119,8 +119,9 @@
     <string name="appointment_time">Appointment Time</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="google_maps_api_key">AIzaSyDkjclvFuCZBIxcEarf0WNtF3Veesh2wHs</string>
 
-<!--    Debug values-->
+    <!--    Debug values-->
     <string name="default_email">example@example.com</string>
     <string name="default_first_name">John</string>
     <string name="default_last_name">Doe</string>

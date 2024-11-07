@@ -7,16 +7,17 @@ plugins {
 
 android {
     namespace = "com.haircut"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.haircut"
-        minSdk = 26
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -35,6 +36,8 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+
 }
 
 dependencies {
@@ -60,16 +63,23 @@ dependencies {
 
 
 
+    implementation("com.google.android.gms:play-services-maps:18.1.0") // Ensure this is the latest version
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+//    implementation(libs.androidx.activity)
+//    implementation(libs.androidx.constraintlayout)
 
+    androidTestImplementation(libs.androidx.espresso.core)
     //Junit 4 cannot be replaced with Junit jupiter in this case because of the Android instrumentation testing is included in 4 only
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-}
 
-//tasks.withType<Test> {
-//    useJUnitPlatform()
-//}
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    testImplementation(libs.slf4j.simple)
+
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
+}

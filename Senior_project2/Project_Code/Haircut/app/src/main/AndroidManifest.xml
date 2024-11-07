@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Haircut"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDkjclvFuCZBIxcEarf0WNtF3Veesh2wHs"/>
+        <activity android:name=".frontend.MapsActivity"
+            android:exported="true"/>
         <activity
             android:name=".frontend.WelcomePage"
             android:exported="true">
@@ -39,13 +46,16 @@
     <activity android:name=".frontend.BarberPage">
     </activity>
 
-        <activity android:name=".frontend.AdminPage">
+        <activity android:name=".frontend.fragment_about_us">
         </activity>
-
         <activity android:name=".frontend.Profile" />
+        <!-- Add the new chat activity -->
+        <activity android:name=".frontend.fragment_chat_with_barber"
+            android:label="Chat with Barber"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".frontend.fragment_appointment_customer"> </activity>
         <activity android:name=".frontend.ViewRatingsPage" />
-
-
+        <activity android:name=".frontend.fragment_home_customer" />
     </application>
 
 </manifest>
