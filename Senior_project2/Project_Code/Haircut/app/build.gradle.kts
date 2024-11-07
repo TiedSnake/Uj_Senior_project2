@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("com.google.android.gms:play-services-maps:18.1.0") // Ensure this is the latest version
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
@@ -67,9 +68,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+
     implementation("com.google.android.libraries.places:places:3.1.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.firebase:firebase-core:21.1.0")
+
 
     androidTestImplementation(libs.androidx.espresso.core)
     //Junit 4 cannot be replaced with Junit jupiter in this case because of the Android instrumentation testing is included in 4 only
