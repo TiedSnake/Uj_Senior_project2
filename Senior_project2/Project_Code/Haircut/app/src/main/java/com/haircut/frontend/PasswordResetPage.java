@@ -18,6 +18,7 @@ import com.haircut.backend.Service;
 import com.haircut.backend.Utility;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class PasswordResetPage extends AppCompatActivity {
     Button passwordResetBtn;
@@ -53,11 +54,15 @@ public class PasswordResetPage extends AppCompatActivity {
             return CompletableFuture.completedFuture(FLAGS.INVALID_EMAIL);
         }
         return Service.resetPassword(email).thenApply(flag -> {
-            if (flag)
+            if (flag.equals(FLAGS.SUCCESS))
                 return FLAGS.SUCCESS;
             else {
                 return FLAGS.ERROR;
             }
+        }).exceptionally(ex -> {
+            throw new CompletionException(ex);
+//            System.out.println("Exception during login: " + ex.getMessage());
+//            return FLAGS.ERROR;
         });
     }
 
@@ -109,6 +114,9 @@ public class PasswordResetPage extends AppCompatActivity {
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(PasswordResetPage.this, "This is unexpected error", Toast.LENGTH_SHORT).show();
                 }
+            }).exceptionally(ex -> {
+                Toast.makeText(PasswordResetPage.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                return null;
             });
         });
     }

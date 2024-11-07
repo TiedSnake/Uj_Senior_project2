@@ -10,6 +10,7 @@
     <string name="recover_password_btn">recover password</string>
     <string name="password_recovery">Password recovery</string>
     <string name="reset_password_label">Reset Password</string>
+    <string name="reset">Reset</string>
     <string name="barber">Barber</string>
     <string name="admin">Ali</string>
     <string name="customer">Customer</string>

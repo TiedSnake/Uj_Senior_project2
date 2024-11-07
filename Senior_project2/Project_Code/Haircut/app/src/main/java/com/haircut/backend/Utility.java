@@ -95,5 +95,15 @@ public class Utility {
             return matcher.matches(); //returns true/false
         }
     }
+
+    // FIXME: 11/30/24 pattern needs to match 6 digits number
+    public static boolean isValidVerificationCode(String code) {
+        if (code == null) {
+            return false;
+        } else {
+            Matcher matcher = EMAIL_PATTERN.matcher(code);
+            return matcher.matches(); //returns true/false
+        }
+    }
 }
 
