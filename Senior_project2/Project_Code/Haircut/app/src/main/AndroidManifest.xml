@@ -40,17 +40,8 @@
             android:exported="true">
         </activity>
 
-        <activity android:name=".frontend.fragment_about_us"
-            android:exported="true">
-        </activity>
         <activity android:name=".frontend.Profile" />
-        <!-- Add the new chat activity -->
-        <activity android:name=".frontend.fragment_chat_with_barber"
-            android:label="Chat with Barber"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".frontend.fragment_appointment_customer"> </activity>
         <activity android:name=".frontend.ViewRatingsPage" />
-        <activity android:name=".frontend.fragment_home_customer" />
 
 
     </application>
