@@ -1,0 +1,113 @@
+<!-- fragment_barbershop_profile.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- LinearLayout inside ScrollView to maintain the structure of the content -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!-- Barbershop Image -->
+        <ImageView
+            android:id="@+id/barbershop_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/haircut_app_icon"
+            android:scaleType="centerInside" />
+
+        <!-- Background Banner -->
+        <ImageView
+            android:id="@+id/banner_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Barbershop Name -->
+        <TextView
+            android:id="@+id/barbershop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Barbershop Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Barbershop Rating -->
+        <RatingBar
+            android:id="@+id/barbershop_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="0.5"
+            android:progressTint="@color/quantum_yellow"
+            android:progressBackgroundTint="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Numeric Rating -->
+        <TextView
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.5/5"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- See Appointments Button -->
+
+        <!-- Customer Comments Section -->
+
+        <Button
+            android:id="@+id/see_appointments_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="See Appointments" />
+
+        <TextView
+            android:id="@+id/comments_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Comments"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- List of Comments (Example with TextViews for now) -->
+        <LinearLayout
+            android:id="@+id/comments_section"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <!-- Example comment -->
+            <TextView
+                android:id="@+id/comment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Great service! Highly recommend."
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/comment2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friendly staff and clean environment."
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <!-- More comments can be added dynamically -->
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

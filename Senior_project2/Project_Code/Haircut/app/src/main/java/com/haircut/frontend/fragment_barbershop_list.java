@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,18 +39,6 @@ public class fragment_barbershop_list extends Fragment {
         barbershop5.setOnClickListener(barbershopClickListener);
         barbershop6.setOnClickListener(barbershopClickListener);
 
-        // Initialize "See Appointments" button
-        Button seeAppointmentsButton = view.findViewById(R.id.see_appointments_button);
-        seeAppointmentsButton.setOnClickListener(v -> {
-            if (selectedBarbershop != null) {
-                // Navigate to the appointments fragment
-                navigateToAppointments();
-            } else {
-                // Show a message if no barbershop is selected
-//                Toast.makeText(getActivity(), "Please select a barbershop first.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         return view;
     }
 
@@ -68,17 +54,30 @@ public class fragment_barbershop_list extends Fragment {
             // Set the clicked barbershop as the selected one and highlight it
             selectedBarbershop = (TextView) v;
             selectedBarbershop.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.teal_200)); // Highlight color
+
+            // Get the barbershop name
+            String barbershopName = ((TextView) v).getText().toString();
+
+            // Navigate to the profile page of the selected barbershop
+            navigateToProfile(barbershopName);
         }
     };
 
-    // Method to navigate to the appointments fragment
-    private void navigateToAppointments() {
-        Fragment fragment = new fragment_appointment_customer();
+    // Method to navigate to the profile of the selected barbershop
+    private void navigateToProfile(String barbershopName) {
+        // Pass the barbershop name to the profile fragment
+        Bundle bundle = new Bundle();
+        bundle.putString("barbershop_name", barbershopName);
+
+        Fragment fragment = new BarbershopProfileFragment();
+        fragment.setArguments(bundle);
+
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null) // Optional, adds the transaction to the back stack
+                .addToBackStack(null)
                 .commit();
     }
+
 
 }

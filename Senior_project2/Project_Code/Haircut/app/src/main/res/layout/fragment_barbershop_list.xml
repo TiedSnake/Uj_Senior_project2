@@ -68,7 +68,6 @@
                     android:clickable="true" />
             </LinearLayout>
 
-            <!-- Repeat the same structure for barbershop 3 to 6 -->
             <!-- Barbershop 3 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,6 +94,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true" />
             </LinearLayout>
+
             <!-- Barbershop 4 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,6 +121,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true" />
             </LinearLayout>
+
             <!-- Barbershop 5 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -147,7 +148,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true" />
             </LinearLayout>
-            <!-- Barbershop 4 -->
+
+            <!-- Barbershop 6 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -173,16 +175,6 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true" />
             </LinearLayout>
-            <!-- See Appointments Button -->
-            <Button
-                android:id="@+id/see_appointments_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/see_appointments_text"
-                android:layout_marginTop="24dp"
-                android:background="@color/design_default_color_primary"
-                android:textColor="@android:color/white" />
-
 
         </LinearLayout>
     </ScrollView>
