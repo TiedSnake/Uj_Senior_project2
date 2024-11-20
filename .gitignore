@@ -2,6 +2,12 @@
 *.docx
 *.jar
 
+#Ignoring firebase configuration file
+**/google-services.json
+
+
+#Ignore everything inside the firebase backup directory
+**/backup-directory/**
 # ========================================================================
 # Generated Android Studio Files
 # Source: https://github.com/github/gitignore/blob/main/Android.gitignore

@@ -1,11 +1,1 @@
 /build
-
-**/local.properties
-
-# Ignore all .gz, .log, .fls, .fdb_latexmk, .aux files
-*.gz
-*.log
-*.fls
-*.fdb_latexmk
-*.aux
-
