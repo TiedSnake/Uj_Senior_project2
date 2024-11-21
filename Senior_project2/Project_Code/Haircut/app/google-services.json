@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "104042263727",
+    "firebase_url": "https://quick-filament-440920-c2-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "quick-filament-440920-c2",
+    "storage_bucket": "quick-filament-440920-c2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104042263727:android:0b97c839fe02b89001505a",
+        "android_client_info": {
+          "package_name": "com.example.haircut"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkjclvFuCZBIxcEarf0WNtF3Veesh2wHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
