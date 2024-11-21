@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".frontend.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,6 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Haircut"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notifications" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/quantum_yellow" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDkjclvFuCZBIxcEarf0WNtF3Veesh2wHs"/>
@@ -53,6 +62,12 @@
         <activity android:name=".frontend.ViewRatingsPage" />
         <activity android:name=".frontend.fragment_home_customer" />
 <activity android:name=".fragment_barbershop_list"/>
+
+
+<activity android:name=".MainActivity"
+    android:exported="true"/>
+        <activity android:name=".MapActivity2"
+            android:exported="true"/>
     </application>
 
 </manifest>
