@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".frontend.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,7 +27,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDkjclvFuCZBIxcEarf0WNtF3Veesh2wHs"/>
-        <activity android:name=".MapsActivity"
+        <activity android:name=".frontend.MapsActivity"
             android:exported="true"/>
         <activity
             android:name=".frontend.WelcomePage"
@@ -40,7 +40,7 @@
         <activity android:name=".frontend.SignupAndLoginPage"/>
         <activity android:name=".frontend.CustomerSidebar"/>
 
-        <activity android:name=".frontend.PasswordResetPage">
+        <activity android:name=".frontend.PasswordResetPage"/>
 
 
         <activity android:name=".frontend.LoginPage"/>
@@ -61,12 +61,12 @@
         <activity android:name=".frontend.fragment_appointment_customer"> </activity>
         <activity android:name=".frontend.ViewRatingsPage" />
         <activity android:name=".frontend.fragment_home_customer" />
-<activity android:name=".fragment_barbershop_list"/>
+<activity android:name=".frontend.fragment_barbershop_list"/>
 
 
-<activity android:name=".MainActivity"
+<activity android:name=".frontend.MainActivity"
     android:exported="true"/>
-        <activity android:name=".MapActivity2"
+        <activity android:name=".frontend.MapActivity2"
             android:exported="true"/>
     </application>
 

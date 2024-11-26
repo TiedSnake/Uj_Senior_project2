@@ -1,7 +1,5 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -31,10 +29,8 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback {
 

@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;

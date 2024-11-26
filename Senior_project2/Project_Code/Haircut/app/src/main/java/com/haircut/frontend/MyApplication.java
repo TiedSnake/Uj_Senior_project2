@@ -1,7 +1,7 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 import android.app.Application;
-import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.FirebaseApp;
 
 public class MyApplication extends Application {

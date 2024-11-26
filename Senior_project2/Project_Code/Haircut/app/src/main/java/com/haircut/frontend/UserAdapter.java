@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 import android.view.LayoutInflater;
 import android.view.View;

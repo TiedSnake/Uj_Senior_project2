@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;

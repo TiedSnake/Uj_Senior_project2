@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     id("com.google.gms.google-services") version "4.4.2" apply false
 }
-
+// FIXME: below code can be replaced with the new version
 buildscript {
     repositories {
         google()
@@ -13,7 +13,7 @@ buildscript {
 
     dependencies {
         // Add the classpath for Google services here
-        classpath("com.google.gms:google-services:4.3.15")
+        classpath("com.google.gms:google-services:4.4.2")
     }
 }
 

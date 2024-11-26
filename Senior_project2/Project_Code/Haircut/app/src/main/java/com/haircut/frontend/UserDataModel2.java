@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 class UserDataModel2 {
     private String name, viewAction, blockAction, deleteAction;
