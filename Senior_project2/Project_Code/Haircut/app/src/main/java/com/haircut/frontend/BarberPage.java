@@ -46,7 +46,7 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
 
         // Load default fragment
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new Home()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new BarberHome()).commit();
             navigationView.setCheckedItem(R.id.btnHome);
         }
     }
@@ -54,9 +54,9 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnHome) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new Home()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new BarberHome()).commit();
         } else if (item.getItemId() == R.id.btnProfile) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new profile1()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new UpdateProfile()).commit();
         } else if (item.getItemId() == R.id.btnMenu) {
             getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new menu()).commit();
         } else if (item.getItemId() == R.id.btnAppointments) {

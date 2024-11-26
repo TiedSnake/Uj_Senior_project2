@@ -15,13 +15,13 @@ import com.haircut.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Home extends Fragment {
+public class BarberHome extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the fragment layout
-        View view = inflater.inflate(R.layout.fragment_home2, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_barber, container, false);
 
         // Setup RecyclerView for Incoming Appointments
         RecyclerView appointmentsRecyclerView = view.findViewById(R.id.incomingAppointmentsRecyclerView);

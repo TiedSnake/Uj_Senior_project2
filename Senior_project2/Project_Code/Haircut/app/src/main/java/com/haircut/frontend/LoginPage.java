@@ -105,7 +105,7 @@ public class LoginPage extends AppCompatActivity {
                     case SUCCESS:
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(LoginPage.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                        Intent forward = new Intent(LoginPage.this, CustomerSidebar.class);
+                        Intent forward = new Intent(LoginPage.this, CustomerPage.class);
                         //FLAG_ACTIVITY_CLEAR_TASK: This flag clears any existing task that would be associated with the new activity, effectively clearing the back stack.
                         //FLAG_ACTIVITY_NEW_TASK: This flag starts the activity in a new task.
                         forward.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

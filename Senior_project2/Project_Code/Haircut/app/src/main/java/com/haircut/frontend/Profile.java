@@ -40,7 +40,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to navigate back to the customer activity
-                Intent intent = new Intent(Profile.this, CustomerSidebar.class);
+                Intent intent = new Intent(Profile.this, CustomerPage.class);
                 startActivity(intent);
                 finish();  // Optional: close the current activity
             }

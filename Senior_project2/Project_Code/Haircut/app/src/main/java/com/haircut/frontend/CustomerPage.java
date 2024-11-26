@@ -48,7 +48,7 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
         } else if (item.getItemId() == R.id.sidebar_option_about_us) { // About Us
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
         } else if (item.getItemId() == R.id.sidebar_option_profile) { // Profile
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new profile1()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UpdateProfile()).commit();
         } else if (item.getItemId() == R.id.sidebar_option_appointment) { // Book Appointment
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_barbershop_list()).commit();
         } else if (item.getItemId() == R.id.sidebar_option_chat) { // Chat with Barber

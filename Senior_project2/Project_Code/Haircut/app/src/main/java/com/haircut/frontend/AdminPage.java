@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,11 +24,10 @@ public class AdminPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_page);  // Make sure this is your actual layout
+        setContentView(R.layout.fragment_home_admin);  // Make sure this is your actual layout
 
         // Find views by their IDs
         Button btnViewRatings = findViewById(R.id.btnViewRatings);
-        Button btnSignOut = findViewById(R.id.btnSignOut);
         Button tabBarber = findViewById(R.id.tabBarber);
         Button tabClients = findViewById(R.id.tabClients);
         rvBarbers = findViewById(R.id.rvBarbers);
@@ -79,16 +79,8 @@ public class AdminPage extends AppCompatActivity {
 
         // View Ratings/Reviews button click listener
         btnViewRatings.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminPage.this, ViewRatingsPage.class); // Example activity
+            Intent intent = new Intent(AdminPage.this, fragment_view_ratings.class); // Example activity
             startActivity(intent);
-        });
-
-        // Sign Out button click listener
-        btnSignOut.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminPage.this, WelcomePage.class); // Example activity
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear activity stack
-            startActivity(intent);
-            finish(); // Close current activity
         });
     }
 }

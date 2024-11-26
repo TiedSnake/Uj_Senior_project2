@@ -119,7 +119,7 @@ public class SignupPage extends AppCompatActivity {
                     case SUCCESS:
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(SignupPage.this, "Signup succeeded!", Toast.LENGTH_SHORT).show();
-                        Intent forward = new Intent(SignupPage.this, CustomerSidebar.class);
+                        Intent forward = new Intent(SignupPage.this, CustomerPage.class);
                         startActivity(forward);
                         finish();
                         break;

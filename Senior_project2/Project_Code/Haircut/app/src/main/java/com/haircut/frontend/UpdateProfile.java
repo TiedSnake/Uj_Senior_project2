@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -16,13 +14,13 @@ import androidx.fragment.app.Fragment;
 
 import com.haircut.R;
 
-public class profile1 extends Fragment {
+public class UpdateProfile extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the fragment layout
-        View view = inflater.inflate(R.layout.fragment_profile1, container, false);
+        View view = inflater.inflate(R.layout.fragment_update_profile, container, false);
         Toolbar toolbar=requireActivity().findViewById(R.id.signup_label);
         if (toolbar != null) {
             toolbar.setTitle("Profile");
