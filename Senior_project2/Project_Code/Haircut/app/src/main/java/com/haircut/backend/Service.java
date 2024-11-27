@@ -1,9 +1,9 @@
 package com.haircut.backend;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
-//import com.google.firebase.appcheck.FirebaseAppCheck;
-//import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -12,16 +12,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.haircut.backend.Exceptions.UserAlreadyExistsException;
-import com.haircut.backend.Exceptions.UserExistenceCheckException;
-import com.haircut.backend.Exceptions.UserPersistenceException;
-import com.haircut.backend.Exceptions.UserCreationException;
-import com.haircut.backend.Exceptions.UnregisteredUserException;
+import com.google.firebase.functions.FirebaseFunctions;
 import com.haircut.backend.Exceptions.DataFetchException;
 import com.haircut.backend.Exceptions.EmailVerificationException;
-import com.google.firebase.functions.FirebaseFunctions;
-
-import android.util.Log;
+import com.haircut.backend.Exceptions.UnregisteredUserException;
+import com.haircut.backend.Exceptions.UserAlreadyExistsException;
+import com.haircut.backend.Exceptions.UserCreationException;
+import com.haircut.backend.Exceptions.UserExistenceCheckException;
+import com.haircut.backend.Exceptions.UserPersistenceException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +30,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -41,12 +38,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
 
 public abstract class Service {
     static final int DATABASE_PORT = 9000, AUTH_PORT = 9099, FUNCTIONS_PORT = 5001;
+    static final String IP_ADDRESS = "192.168.8.100", PROJECT_ID = "haircut-93a44";
     /**
      * Simulating a database Key-->email_username, value--> (User{fname, lname, email, password})
      * [username]@[domain_name].tld
@@ -65,10 +62,8 @@ public abstract class Service {
     private final static DatabaseReference databaseRef;
     private final static HashMap<String, User> user_records = new HashMap<>();
     private final static HashMap<String, String> users_emails = new HashMap<>();
+    private static final String CUSTOM_TOKEN_CLOUD_FUNCTION_URL = String.format(Locale.ENGLISH, "http://%s:%d/%s/us-central1/verify", IP_ADDRESS, FUNCTIONS_PORT, PROJECT_ID);
     private static FirebaseUser fUser;
-    static final String IP_ADDRESS = "192.168.8.100", PROJECT_ID = "haircut-93a44";
-    private static final String CUSTOM_TOKEN_CLOUD_FUNCTION_URL = String.format(Locale.ENGLISH, "http://%s:%d/%s/us-central1/generateCustomToken", IP_ADDRESS, FUNCTIONS_PORT, PROJECT_ID);
-
     //Initialize a reference to realtime database. {old project}
 //    private final static DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://haircut-508fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("schema");
     private static User user;
@@ -91,6 +86,7 @@ public abstract class Service {
         functions.useEmulator(IP_ADDRESS, FUNCTIONS_PORT);
         databaseRef = database.getReference("schema");
     }
+
     public static boolean isLoggedIn() {
         if (user != null) return user.isLoggedIn();
         else return false;
@@ -192,15 +188,6 @@ public abstract class Service {
                 else {
                     String userId = fUser.getUid();
                     user.setUuid(userId);
-                    fUser.getIdToken(true).addOnCompleteListener(fetchUserTask ->{
-                        if (fetchUserTask.isSuccessful())
-                        {
-                            generateCustomToken(fetchUserTask.getResult().getToken());
-                        }else
-                        {
-                            Log.e(TAG, "Failed to get ID token", fetchUserTask.getException());
-                        }
-                    });
                     future.complete(user);
                 }
             } else//if user object creation failed propagate the exception.
@@ -226,9 +213,8 @@ public abstract class Service {
     private static CompletableFuture<Boolean> sendVerificationEmail(String token) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         if (fUser != null) {
-            // FIXME: 11/19/24 Needs to point to the decode token cloud function in Firebase
-            String url = String.format(Locale.ENGLISH, "http://%s:%d/%s/us-central1/generateCustomToken?token=%s&context=email_verification", IP_ADDRESS, FUNCTIONS_PORT, PROJECT_ID, token);
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(url).setHandleCodeInApp(true).build();
+            String url = CUSTOM_TOKEN_CLOUD_FUNCTION_URL+ String.format("?token=%s", token);
+            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(url).setHandleCodeInApp(false).build();
             fUser.sendEmailVerification(actionCodeSettings).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) //sending succeed
                 {
@@ -247,6 +233,24 @@ public abstract class Service {
         return future;
     }
 
+    public static CompletableFuture<String> fetchUserToken() {
+        CompletableFuture<String> future = new CompletableFuture<>();
+        if (fUser != null) {
+            fUser.getIdToken(true).addOnCompleteListener(fetchUserTask -> {
+                if (fetchUserTask.isSuccessful()) {
+                    future.complete(fetchUserTask.getResult().getToken());
+                } else {
+                    future.completeExceptionally(new RuntimeException("Failed to fetch the Firebase user token due to:\n", fetchUserTask.getException()));
+                    Log.e(TAG, "Failed to get ID token", fetchUserTask.getException());
+                }
+            });
+        } else {
+            Log.e(TAG, "Failed to fetch the Firebase user token due to the user object being null");
+            future.completeExceptionally(new NullPointerException("Failed to fetch the Firebase user token due to the user object being null"));
+        }
+        return future;
+    }
+
     public static CompletableFuture<User> signup(String firstName, String lastName, String email, String password, User.UserType userType) {
         return userExist(email).thenCompose(userExists -> {
             if (userExists) {
@@ -261,13 +265,12 @@ public abstract class Service {
                 };
                 return createUserInFirebase(user, password);
             }
-        }).thenCompose(user -> {
-            return generateCustomToken(user.getUuid());
-        }).thenCompose(Service::sendVerificationEmail).thenCompose(isSent -> {
+        }).thenCompose(createdUser -> fetchUserToken().thenCompose(Service::sendVerificationEmail)).thenCompose(isSent -> {
             user.setIsLoggedIn(true);
             return persistUser(user);
-        }).thenApply(isSent -> user);
+        }).thenApply(isPersisted -> user);
     }
+
 
     /**
      * @param uuid       user's uid
@@ -402,8 +405,8 @@ public abstract class Service {
     /**
      * <ul>
      * <li>{@code Service.user = user} Initializing the user object so the method {@link #buildToken(String)} ()} can proceed.
-     * <li>Once the result comes from {@link #generateCustomToken(String)} it will be substituted in {@link #buildToken(String)} directly & the value will returned true if successful or exception if not</li>
-     * <li>{@code exceptionally} block will handle exceptions coming from {@link #userExist(String)}, {@link #fetchUserById(String)}, {@link #generateCustomToken(String)} and {@link #buildToken(String)}
+     * <li>Once the result comes from {@link} it will be substituted in {@link #buildToken(String)} directly & the value will returned true if successful or exception if not</li>
+     * <li>{@code exceptionally} block will handle exceptions coming from {@link #userExist(String)}, {@link #fetchUserById(String)}, {@link } and {@link #buildToken(String)}
      * </ul>
      */
     public static CompletableFuture<Boolean> resetPassword(String email) {
@@ -414,7 +417,8 @@ public abstract class Service {
                 return fetchUserByEmail(email).thenCompose(user -> {
                     if (user != null) {
                         Service.user = user;
-                        return generateCustomToken(user.getUuid()).thenCompose(Service::buildToken);
+
+//                        return generateCustomToken(user.getUuid()).thenCompose(Service::buildToken);
                     }
                     return null;
                 });
@@ -422,10 +426,11 @@ public abstract class Service {
                 Log.e(TAG, String.format("This email %s is not registered in the system", email));
                 throw new UnregisteredUserException(String.format("The entered email %s is not registered in the system", email));
             }
-        }).exceptionally(ex -> {
-            Log.e(TAG, "Error occurred while resetting password: ", ex);
-            throw new CompletionException(ex);
         });
+//                .exceptionally(ex -> {
+//            Log.e(TAG, "Error occurred while resetting password: ", ex);
+//            throw new CompletionException(ex);
+//        });
     }
 
     /**
@@ -465,23 +470,24 @@ public abstract class Service {
      * </ol>
      */
     @NonNull
-    public static CompletableFuture<String> generateCustomToken(String userToken) {
+    public static CompletableFuture<String> generateCustomToken(String userToken, String context) {
         CompletableFuture<String> future = new CompletableFuture<>();
         try {
             URL url = new URL(CUSTOM_TOKEN_CLOUD_FUNCTION_URL);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Content-Type", "application/json"); //Sets the request header.
 
-            String functionRequestToken = String.valueOf(UUID.randomUUID());
-            long createdAt = System.currentTimeMillis(), expiresAt = System.currentTimeMillis()+(1000*60); //expires after minute
+            long createdAt = System.currentTimeMillis(), expiresAt = System.currentTimeMillis() + (1000 * 60); //expires after minute
 
             urlConnection.setDoOutput(true);
             JSONObject jsonParam = new JSONObject();
 
+            urlConnection.setRequestProperty("authorization token:", userToken); //Sets the request header.
+            urlConnection.setRequestProperty("context:", context); //Sets the request header.
 
+//            jsonParam.put("userToken", userToken);
 
-            jsonParam.put("userToken", userToken);
             jsonParam.put("createdAt", createdAt);
             jsonParam.put("expiresAt", expiresAt);
 
@@ -500,7 +506,7 @@ public abstract class Service {
             } else {
                 future.completeExceptionally(new RuntimeException("Error: " + code));
             }
-        } catch (IOException | JSONException e) {
+        } catch (JSONException | IOException e) {
             future.completeExceptionally(new RuntimeException(e));
         }
         return future;
@@ -536,7 +542,6 @@ public abstract class Service {
         });
         return future;
     }
-
 
 
 //    static FLAGS deleteAccount(String email, String password) {
