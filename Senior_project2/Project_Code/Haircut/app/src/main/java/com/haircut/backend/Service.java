@@ -39,7 +39,7 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class Service {
     static final int DATABASE_PORT = 9000, AUTH_PORT = 9099, FUNCTIONS_PORT = 5001;
-    static final String IP_ADDRESS = "192.168.8.101", PROJECT_ID = "haircut-93a44";
+    static final String IP_ADDRESS = "10.0.2.2", PROJECT_ID = "haircut-93a44";
     /**
      * Simulating a database Key-->email_username, value--> (User{fname, lname, email, password})
      * [username]@[domain_name].tld
@@ -536,7 +536,19 @@ public abstract class Service {
         });
         return future;
     }
-
+    public static CompletableFuture<Boolean> persistReview(Review review) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        databaseRef.child("reviews").child(review.getUuid().toString()).setValue(review).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.i(TAG, String.format("Review for %s saved successfully in the database", review.getReviewee().getUuid()));
+                future.complete(true);
+            } else {
+                Log.e(TAG, "DatabaseError: Error saving review to database", task.getException());
+                future.completeExceptionally(new RuntimeException("Failed to persist review", task.getException()));
+            }
+        });
+        return future;
+    }
 
 //    static FLAGS deleteAccount(String email, String password) {
 //        CompletableFuture<FLAGS> future = new CompletableFuture<>();

@@ -1,7 +1,10 @@
 package com.haircut.frontend;
 
+import static com.haircut.backend.Service.persistReview;
+
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +19,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.haircut.R;
+import com.haircut.backend.Review;
+import com.haircut.backend.User;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class fragment_rate_barbershop extends Fragment {
 
-    private TextView barbershopNameTextView; // TextView to display barbershop name
+    private static final String TAG = "fragment_rate_barbershop";
+    private TextView barbershopNameTextView;
     private RatingBar ratingBar;
     private EditText reviewEditText;
     private Button submitButton;
     private String selectedBarbershopName;
 
-    // Updated list of barbershops in order
     private final String[] barbershopNames = {
             "Sheraton Barbershop",
             "Capo Salon",
@@ -38,59 +46,62 @@ public class fragment_rate_barbershop extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the fragment_rate_barbershop.xml layout
         View view = inflater.inflate(R.layout.fragment_rate_barbershop, container, false);
 
-        // Initialize views
         barbershopNameTextView = view.findViewById(R.id.barbershopNameTextView);
         ratingBar = view.findViewById(R.id.ratingBar);
         reviewEditText = view.findViewById(R.id.editTextReview);
         submitButton = view.findViewById(R.id.buttonSubmit);
 
-        // Prompt user to select a barbershop initially
         selectBarbershop();
 
-        // Set up submit button
         submitButton.setOnClickListener(v -> {
             if (selectedBarbershopName == null) {
                 Toast.makeText(getContext(), "Please select a barbershop first.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Get rating and review
             float rating = ratingBar.getRating();
-            String review = reviewEditText.getText().toString();
+            String reviewContent = reviewEditText.getText().toString();
 
-            if (review.isEmpty()) {
+            if (reviewContent.isEmpty()) {
                 Toast.makeText(getContext(), "Please write a review.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Simulate saving the rating and review (replace with database logic)
-            Toast.makeText(getContext(), "Review submitted for " + selectedBarbershopName, Toast.LENGTH_SHORT).show();
+            // Create a mock reviewer and reviewee for demonstration
+            User reviewer = new User("reviewer@example.com", "John Doe", "UUID123"); // Replace with actual data
+            User reviewee = new User("reviewee@example.com", selectedBarbershopName, "UUID456"); // Replace with actual data
 
-            // Display the review
-            barbershopNameTextView.setText("Barbershop: " + selectedBarbershopName + "\nRating: " + rating + " stars\nReview: " + review);
+            Review review = new Review(reviewContent, String.valueOf(rating), reviewer, reviewee);
 
-            // Reset inputs
+            persistReview(review).thenAccept(isSaved -> {
+                if (isSaved) {
+                    Toast.makeText(getContext(), "Review submitted successfully!", Toast.LENGTH_SHORT).show();
+                }
+            }).exceptionally(ex -> {
+                Throwable rootCause = ex.getCause();
+                Log.e(TAG, "Error: failed to submit review due to: " + rootCause.getMessage());
+                getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error submitting review. Please try again.", Toast.LENGTH_LONG).show());
+                return null;
+            });
+
             ratingBar.setRating(0);
             reviewEditText.setText("");
+            barbershopNameTextView.setText("Select a Barbershop");
+            selectedBarbershopName = null;
         });
 
         return view;
     }
 
-    // Method to prompt the user to select a barbershop
     private void selectBarbershop() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Select a Barbershop");
-
         builder.setItems(barbershopNames, (dialog, which) -> {
-            // Update the selected barbershop
             selectedBarbershopName = barbershopNames[which];
             barbershopNameTextView.setText(selectedBarbershopName);
         });
-
         builder.setCancelable(false);
         builder.show();
     }
