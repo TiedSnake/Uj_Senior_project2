@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 
 public abstract class Service {
     static final int DATABASE_PORT = 9000, AUTH_PORT = 9099, FUNCTIONS_PORT = 5001;
-    static final String IP_ADDRESS = "192.168.8.100", PROJECT_ID = "haircut-93a44";
+    static final String IP_ADDRESS = "192.168.8.101", PROJECT_ID = "haircut-93a44";
     /**
      * Simulating a database Key-->email_username, value--> (User{fname, lname, email, password})
      * [username]@[domain_name].tld
@@ -213,8 +213,8 @@ public abstract class Service {
     private static CompletableFuture<Boolean> sendVerificationEmail(String token) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         if (fUser != null) {
-            String url = CUSTOM_TOKEN_CLOUD_FUNCTION_URL+ String.format("?token=%s", token);
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(url).setHandleCodeInApp(false).build();
+//            String url = CUSTOM_TOKEN_CLOUD_FUNCTION_URL+ String.format("?token=%s", token);
+            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(CUSTOM_TOKEN_CLOUD_FUNCTION_URL).setHandleCodeInApp(false).build();
             fUser.sendEmailVerification(actionCodeSettings).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) //sending succeed
                 {
@@ -465,12 +465,12 @@ public abstract class Service {
      * <li> Store the token in the database in relation to the user who requested it.</li>
      * <li> After successfully storing it, append the token to the verification link(cloud function) sent to the user in the email.</li>
      * <li> There should be a cloud function which takes this token & verifies it against the token present in the database.</li>
-     * <li> If the token matches another cloud funciton should return the `successful verification` static html file.</li>
+     * <li> If the token matches another cloud function should return the `successful verification` static html file.</li>
      * <li> If not, then the cloud Typescript function would return the `verification failed` static html file.</li>
      * </ol>
      */
     @NonNull
-    public static CompletableFuture<String> generateCustomToken(String userToken, String context) {
+    public static CompletableFuture<String> sendVerification(String userToken, String context) {
         CompletableFuture<String> future = new CompletableFuture<>();
         try {
             URL url = new URL(CUSTOM_TOKEN_CLOUD_FUNCTION_URL);
