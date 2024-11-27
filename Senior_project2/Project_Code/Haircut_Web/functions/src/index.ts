@@ -1,13 +1,10 @@
 // import { Request, Response } from "express";
 import { config } from "dotenv"
-import { randomInt } from "crypto";
 import { https } from "firebase-functions";
-import * as logger from "firebase-functions/logger";
+// import * as logger from "firebase-functions/logger";
 import { initializeApp } from "firebase-admin/app";
 import { auth, firestore } from "firebase-admin";
-import { readFile } from "fs";
-import { getDatabase } from "firebase-admin/database";
-import path = require("node:path/win32");
+// import { getDatabase } from "firebase-admin/database";
 
 // Load environment variables from .env file
 config();
@@ -27,113 +24,190 @@ config();
 // const isLocal = process.env.EMULATOR_LOCAL_IP_ADDRESS ? true : false;
 
 // Initialize Firebase app
-const app = initializeApp();
-const db = getDatabase(app);
+initializeApp();
+// const db = getDatabase(app);
 
-//if the local emulator value is specified then run the cloud functions in the emulator.
+// if the local emulator value is specified then run the cloud functions in the emulator.
 // if (isLocal && process.env.EMULATOR_LOCAL_IP_ADDRESS) {
 //   const emulatorHost = process.env.EMULATOR_LOCAL_IP_ADDRESS.split(":");
 //   const host = emulatorHost[0];
 //   const port = parseInt(emulatorHost[1], 10);
-
 //   // Connect to the Realtime Database emulator
 //   db.useEmulator(host, port);
 // }
 
+interface VerificationRequest {
+  email: string;
+  createdAt: string; // ISO or timestamp
+  expiresAt: string; // ISO or timestamp
+}
 
-exports.generateCustomToken = https.onRequest(async (req, res) => {
+enum VerificationContext {
+  EmailVerification = "emailVerification",
+  ResetPassword = "resetPassword",
+}
+
+export const verify = https.onRequest(async (req, res) => {
   if (req.method !== "POST") {
     res.status(405).send("Method not allowed");
-    return
-  }
-
-  const uid = req.body.uid;
-  if (!uid) {
-    res.status(401).send("Request must be authenticated.");
     return;
   }
 
-  try {
-    // Generate a unique verification code (e.g., a 6-digit numeric code)
-    const verificationCode = randomInt(100000, 999999).toString();
+  const userToken = req.headers["token"] as string;
+  const context = req.headers["context"] as string;
 
-    // Create the custom token
-    const customToken = await auth().createCustomToken(uid); // expires in 15 minutes 15*60=900sec
-
-    // Store the custom token and verification code in the database
-
-    await db.ref(`verificationTokens/${uid}/${customToken}`).set({
-      uid: uid,
-      verificationCode: verificationCode,
-      valid: true,
-      createdAt: Date.now(), // for expiration purposes
-      expiresAt: (Date.now() + (15 * 60 * 1000)),
-    });
-
-    // Return =the token
-    res.status(200).json({ customToken, verificationCode });
-  } catch (error) {
-    console.error("Error generating token: ", error);
-    res.status(500).send("Unable to generate token");
-  }
-});
-
-const sendHtmlFile = (filePath: string, verificaitonCode: string, res: any) => {
-  readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      logger.error("Error reading HTML file: ", err);
-      return res.status(500).send("Internal Server Error");
-    }
-    const responseHtml = data.replace("{{verificationCode}}", verificaitonCode);
-    res.setHeader("Content-Type", "text/html");
-    res.send(responseHtml);
+  if (!userToken || !context) {
+    res.status(400).send("Missing headers: token or context");
     return;
-  });
-};
+  }
 
-exports.verify = https.onRequest(async (req, res) => {
-  const userToken = req.query.token as string;
-  // const context = req.query.context as string;
-  if (!userToken ) {
-    res.status(400).send("missing token or context");
-    return
+  const { email, createdAt, expiresAt } = req.body as VerificationRequest;
+  if (!email || !createdAt || !expiresAt) {
+    res.status(400).send("Missing required fields");
+    return;
   }
 
   try {
     const decodedToken = await auth().verifyIdToken(userToken);
-    const userId = decodedToken.uid;
-    const verificationCode = randomInt(100000, 999999).toString();
+    console.log(`Verified user: ${decodedToken.email}`);
 
-    //Persist verification code in Firestore
-    await firestore().collection("verifications").doc(userId).set({
-      verificationNumber: verificationCode,
-      createAt: firestore.FieldValue.serverTimestamp(),
-    });
+    const verificationCode = Math.floor(Math.random() * 900000 + 100000).toString();
+    let actionCodeSettings: { url: string; handleCodeInApp: boolean };
 
-    //Determine which HTML file to forward the user to
-    // const file = context === "emailVerification" ? "verification.html" :
-    //   context === "resetPassword" ? "passwordReset.html" : null;
-      const file = "verification.html";
-    if (!file) {
-      res.status(400).send("error: unknwon context");
-      return;
+    switch (context) {
+      case VerificationContext.EmailVerification:
+        actionCodeSettings = {
+          url: `http://192.168.8.101:5001/verification.html?verificationCode=${verificationCode}`,
+          handleCodeInApp: false,
+        };
+        break;
+      case VerificationContext.ResetPassword:
+        actionCodeSettings = {
+          url: `http://192.168.8.101:5001/passwordReset.html?verificationCode=${verificationCode}`,
+          handleCodeInApp: false,
+        };
+        break;
+      default:
+        res.status(400).send("Invalid context");
+        return;
     }
-    const filePath = path.resolve(__dirname, "public", file);
-    // const filePath = join(process.cwd(), "../public", file);
-    sendHtmlFile(filePath, verificationCode, res);
 
-    //Clean expired codes from Firestore
-    const expireTime = new Date();
-    expireTime.setMinutes(expireTime.getMinutes() - 10); // Expire after 10 minutes
+    const link = await auth().generateEmailVerificationLink(email, actionCodeSettings);
+    console.log(`Verification link for ${email}: ${link}`);
 
+    const tokenObject = {
+      user_email: email,
+      userId: decodedToken.uid,
+      userToken,
+      createdAt: new Date(createdAt).toISOString(),
+      expiresAt: new Date(expiresAt).toISOString(),
+    };
+
+    await firestore().collection("verifications").add(tokenObject);
+
+    // Firestore cleanup
     const snapshot = await firestore()
       .collection("verifications")
-      .where("createAt", "<", expireTime)
+      .where("createAt", ">", expiresAt)
       .get();
+    const batch = firestore().batch();
+    snapshot.forEach(doc => batch.delete(doc.ref));
+    await batch.commit();
 
-    snapshot.forEach(doc => doc.ref.delete());
+    res.status(200).send({ link, verificationCode });
   } catch (error) {
-    console.error("Error generating verification number: ", error);
-    res.status(500).send("Unable to generate verification number");
+    console.error("Error generating verification link:", error);
+    res.status(500).send({ error: "Failed to generate verification link" });
   }
-})
+});
+
+
+
+
+
+
+// exports.verify = https.onRequest(async (req, res) => {
+//   if (req.method !== "POST") {
+//     res.status(400).send("Unauthorized access");
+//     return
+//   }
+
+//   const userToken = req.headers.token as string;
+//   if (!userToken) {
+//     res.status(400).send("missing token or context");
+//     return
+//   }
+//   const context = req.headers.context as string;
+//   if (!context) {
+//     res.status(400).send("missing context");
+//     return
+//   }
+//   const email = req.body.email as string;
+//   if (!email) {
+//     res.status(400).send("missing user email");
+//     return
+//   }
+//   const createAt = req.body.createAt as Date;
+//   if (!createAt) {
+//     res.status(400).send("missing user created date");
+//     return
+//   }
+//   const expiresAt = req.body.expiresAt as Date;
+//   if (!expiresAt) {
+//     res.status(400).send("missing user created date");
+//     return
+//   }
+//   try {
+//     const decodedToken = await auth().verifyIdToken(userToken);
+//     console.log(`Verified user: ${decodedToken.email}`);
+
+//     const userId = decodedToken.uid;
+//     const verificationCode = randomInt(100000, 999999).toString();
+
+//     let actionCodeSettings;
+
+//     if (context === "emailVerification") {
+//       actionCodeSettings = {
+//         url: `http://192.168.8.101:5001/verification.html?verificationCode=${verificationCode}`,
+//         handleCodeInApp: false,
+//       };
+//     } else if (context === "resetPassword") {
+//       actionCodeSettings = {
+//         url: `http://192.168.8.101:5001/passwordReset.html?verificationCode=${verificationCode}`,
+//         handleCodeInApp: false,
+//       };
+//     } else {
+//       res.status(400).send("Unknown context specified");
+//     }
+//     const link = await auth().generateEmailVerificationLink(email, actionCodeSettings)
+
+//     console.log(`Verification link for ${email}: ${link}`);
+
+//     const tokenObject = {
+//       user_email: email,
+//       userId: userId,
+//       userToken: userToken,
+//       createdAt: createAt,
+//       expiresAt: expiresAt
+//     }
+//     await firestore().collection("verifications").add(tokenObject)
+
+//     await auth().generateEmailVerificationLink
+//     const snapshot = await firestore()
+//       .collection("verifications")
+//       .where("createAt", ">", expiresAt)
+//       .get();
+//     snapshot.forEach(doc => doc.ref.delete());
+//   } catch (error) {
+//     console.error("Error generating verification number: ", error);
+//     res.status(500).send("Unable to generate verification number");
+//   }
+// })
+
+//Persist verification code in Firestore
+// await firestore().collection("verifications").doc(userId).set({
+//   verificationNumber: verificationCode,
+//   createAt: firestore.FieldValue.serverTimestamp(),
+// });
+
+//Determine which HTML file to forward the user to

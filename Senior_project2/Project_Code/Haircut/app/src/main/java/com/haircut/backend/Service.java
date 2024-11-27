@@ -24,10 +24,7 @@ import com.haircut.backend.Exceptions.UserPersistenceException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -38,7 +35,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 
 public abstract class Service {
@@ -265,10 +261,12 @@ public abstract class Service {
                 };
                 return createUserInFirebase(user, password);
             }
-        }).thenCompose(createdUser -> fetchUserToken().thenCompose(Service::sendVerificationEmail)).thenCompose(isSent -> {
+        }).thenCompose(createdUser -> fetchUserToken().thenCompose(userToken -> {
+            return sendVerification(user.getEmail(), userToken, "emailVerification");
+        }).thenCompose(isSent -> {
             user.setIsLoggedIn(true);
             return persistUser(user);
-        }).thenApply(isPersisted -> user);
+        }).thenApply(isPersisted -> user));
     }
 
 
@@ -470,8 +468,8 @@ public abstract class Service {
      * </ol>
      */
     @NonNull
-    public static CompletableFuture<String> sendVerification(String userToken, String context) {
-        CompletableFuture<String> future = new CompletableFuture<>();
+    public static CompletableFuture<Boolean> sendVerification(String email, String userToken, String context) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
         try {
             URL url = new URL(CUSTOM_TOKEN_CLOUD_FUNCTION_URL);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -483,14 +481,14 @@ public abstract class Service {
             urlConnection.setDoOutput(true);
             JSONObject jsonParam = new JSONObject();
 
-            urlConnection.setRequestProperty("authorization token:", userToken); //Sets the request header.
-            urlConnection.setRequestProperty("context:", context); //Sets the request header.
+            urlConnection.setRequestProperty("authorization-token", userToken); //Sets the request header.
+            urlConnection.setRequestProperty("context", context); //Sets the request header.
 
 //            jsonParam.put("userToken", userToken);
 
             jsonParam.put("createdAt", createdAt);
             jsonParam.put("expiresAt", expiresAt);
-
+            jsonParam.put("email", email);
 
             try (OutputStream os = urlConnection.getOutputStream()) {
                 byte[] input = jsonParam.toString().getBytes(StandardCharsets.UTF_8);
@@ -498,11 +496,7 @@ public abstract class Service {
             }
             int code = urlConnection.getResponseCode();
             if (code == HttpURLConnection.HTTP_OK) {
-                InputStream responseStream = urlConnection.getInputStream();
-                String result = new BufferedReader(new InputStreamReader(responseStream)).lines().collect(Collectors.joining("\n"));
-                JSONObject jsonResponse = new JSONObject(result);
-                String token = jsonResponse.getString("token");
-                future.complete(token);
+                future.complete(true);
             } else {
                 future.completeExceptionally(new RuntimeException("Error: " + code));
             }

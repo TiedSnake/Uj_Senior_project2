@@ -3,7 +3,9 @@ package com.haircut.frontend;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -65,7 +67,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView customerName, date, time;
-
+        Button btnAccept, btnReject;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             customerName = itemView.findViewById(R.id.customerName);
