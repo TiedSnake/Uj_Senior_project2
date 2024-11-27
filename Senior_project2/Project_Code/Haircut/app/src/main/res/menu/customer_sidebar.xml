@@ -39,12 +39,18 @@
             android:icon="@drawable/baseline_chat_24"
             android:title="@string/chat_with_barber"
             android:layout_height="wrap_content" />
-
+        <!-- Rate barbershop Button -->
+        <item
+            android:id="@+id/sidebar_option_rate"
+            android:icon="@drawable/baseline_rate_review_24"
+            android:title="@string/rate_and_review_barbershop"
+            android:layout_height="wrap_content" />
         <!-- Sign Out Button -->
         <item
             android:id="@+id/sidebar_option_signout"
             android:icon="@drawable/baseline_logout_24"
             android:title="@string/signout"
             android:layout_height="wrap_content" />
+
     </group>
 </menu>

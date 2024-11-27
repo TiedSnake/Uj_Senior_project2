@@ -16,6 +16,10 @@ import com.haircut.R;
 public class fragment_barbershop_list extends Fragment {
 
     private TextView selectedBarbershop; // To track the selected barbershop
+    private final int[] barbershopIds = {
+            R.id.barbershop1, R.id.barbershop2, R.id.barbershop3,
+            R.id.barbershop4, R.id.barbershop5, R.id.barbershop6
+    };
 
     @Nullable
     @Override
@@ -23,21 +27,11 @@ public class fragment_barbershop_list extends Fragment {
         // Inflate the fragment_barbershop_list.xml layout
         View view = inflater.inflate(R.layout.fragment_barbershop_list, container, false);
 
-        // Initialize all TextViews (Barbershop names)
-        TextView barbershop1 = view.findViewById(R.id.barbershop1);
-        TextView barbershop2 = view.findViewById(R.id.barbershop2);
-        TextView barbershop3 = view.findViewById(R.id.barbershop3);
-        TextView barbershop4 = view.findViewById(R.id.barbershop4);
-        TextView barbershop5 = view.findViewById(R.id.barbershop5);
-        TextView barbershop6 = view.findViewById(R.id.barbershop6);
-
-        // Set click listeners for barbershop names
-        barbershop1.setOnClickListener(barbershopClickListener);
-        barbershop2.setOnClickListener(barbershopClickListener);
-        barbershop3.setOnClickListener(barbershopClickListener);
-        barbershop4.setOnClickListener(barbershopClickListener);
-        barbershop5.setOnClickListener(barbershopClickListener);
-        barbershop6.setOnClickListener(barbershopClickListener);
+        // Loop through all barbershop TextView IDs and set listeners
+        for (int id : barbershopIds) {
+            TextView barbershop = view.findViewById(id);
+            barbershop.setOnClickListener(barbershopClickListener);
+        }
 
         return view;
     }
@@ -65,19 +59,22 @@ public class fragment_barbershop_list extends Fragment {
 
     // Method to navigate to the profile of the selected barbershop
     private void navigateToProfile(String barbershopName) {
-        // Pass the barbershop name to the profile fragment
-        Bundle bundle = new Bundle();
-        bundle.putString("barbershop_name", barbershopName);
+        try {
+            // Pass the barbershop name to the profile fragment
+            Bundle bundle = new Bundle();
+            bundle.putString("barbershop_name", barbershopName);
 
-        Fragment fragment = new BarbershopProfileFragment();
-        fragment.setArguments(bundle);
+            Fragment fragment = new BarbershopProfileFragment();
+            fragment.setArguments(bundle);
 
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Consider displaying an error message or logging the issue
+        }
     }
-
-
 }

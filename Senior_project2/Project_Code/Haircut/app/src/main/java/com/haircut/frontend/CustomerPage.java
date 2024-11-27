@@ -53,8 +53,11 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_barbershop_list()).commit();
         } else if (item.getItemId() == R.id.sidebar_option_chat) { // Chat with Barber
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_chat_with_barber()).commit();
+        } else if (item.getItemId() == R.id.sidebar_option_rate) { //Rate barbershop
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_rate_barbershop()).commit();
         } else if (item.getItemId() == R.id.sidebar_option_signout) { // Sign Out
             new FragmentSignOutDialog().show(getSupportFragmentManager(), "SignOutDialog");
+
 //            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentSignOutDialog()).commit();
         }
 

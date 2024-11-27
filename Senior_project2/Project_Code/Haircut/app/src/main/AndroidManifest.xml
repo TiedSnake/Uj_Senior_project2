@@ -41,7 +41,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".frontend.SignupAndLoginPage" />
-        <activity android:name=".frontend.CustomerPage" />
+        <activity android:name=".frontend.CustomerPage"
+            android:exported="true"
+                />
 
         <activity android:name=".frontend.PasswordResetPage" />
 
