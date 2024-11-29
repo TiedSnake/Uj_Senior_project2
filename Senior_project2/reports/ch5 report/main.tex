@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{subcaption}
 \usepackage{fancyhdr} %For Header & footer Horizontal lines
 \pagestyle{fancy} %For Header & footer Horizontal lines
 \usepackage{booktabs} 
@@ -167,11 +168,13 @@ Gradle builds are used to specify the tasks and scope of a project. The project'
 
 Key/Value pairs in TOML must map to one of the following types.
 
-String,Basic,Multiline,Literal,Multiline Literal,Integer,Standard,Standard with underscores,Hexadecimal,Octal,Binary,Float,Fractional,Exponent,'inf', infinity,'nan', Not,Number (undefined),Boolean,Offset,Date-Time,RFC 3339 formatted. Excellent visualization here,Local Date-Time,Local Date,Local Time,Array,Inline Table.
+String, Basic, Multiline, Literal, Multiline Literal, Integer, Standard, Standard with underscores, Hexadecimal,
+Octal, Binary, Float, Fractional, Exponent, 'inf',  infinity, 'nan',  Not, Number (undefined), Boolean, Offset, 
+Date-Time, RFC 3339 formatted. Excellent visualization here, Local Date-Time, Local Date, Local Time, Array, Inline Table.
 
 \textbf {What is the structure of TOML}
 
-Key/Value pairs are the foundation of TOML. Similar to JSON and YAML, tables can then be used to organize and group the pairings into a hierarchy. The concept is that any computer language may readily turn a TOML file into a table, map, or dictionary. Lists of values or additional nest arrays and tables can be stored in TOML's arrays. Tables can be shown inline in a JSON-like style or as their own structure, just like in YAML.
+Key/Value pairs are the foundation of TOML. Similar to JSON and YAML,  tables can then be used to organize and group the pairings into a hierarchy. The concept is that any computer language may readily turn a TOML file into a table, map, or dictionary. Lists of values or additional nest arrays and tables can be stored in TOML's arrays. Tables can be shown inline in a JSON-like style or as their own structure, just like in YAML.
 
 
 \newpage
@@ -269,7 +272,6 @@ Npm: is package manager for installing Firebase-tools package
  \label{fig:node.js icon label}
          
 \end{figure}
- \newpage
 
    \textbf{Node.js} is a cross-platform, open-source JavaScript runtime environment. It is a widely used tool for nearly all types of projects
 Outside of the browser,Node.js powers Google Chrome's V8 JavaScript engine. This enables the high performance of Node.js.
@@ -404,7 +406,7 @@ This page introduces Haircut, an app designed to modernize barbershops by simpli
     \includegraphics[width=0.5\textwidth]{images/about-us.png}
     \caption{about us}
     \label{fig: About us page screen}
-\end{figure}
+\end{figure}Admin
 \lstinputlisting[style=javaCode, language=Java, caption="About us page java"]{attachments/fragment_about_us.java}
 \newpage
 
@@ -417,10 +419,10 @@ here on the admin page, the admin can select either the barber or the customer a
     \caption{admin home page}
     \label{fig: admin page screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption=admin.java]{attachments/admin.java}
+% \lstinputlisting[style=javaCode, language=Java, caption=admin.java]{attachments/fragment_home_admin.java}
 \newpage
-here's what the ratings and reviews look like.
 
+here's what the ratings and reviews look like.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/rating-and-reviews.png}
@@ -436,6 +438,7 @@ here's the admin sidebar, where the admin can navigate to the home, profile,or s
     \caption{Admin profile}
     \label{fig: Admin sidebar screen}
 \end{figure}
+% The admin name changed to AdminPage.java
 \lstinputlisting[style=javaCode, language=Java, caption=admin sidebar java]{attachments/admin.java}
 \newpage
 when the admin clicks on the profile option from the sidebar, he will be directed to the profile page of admin:
@@ -445,6 +448,7 @@ when the admin clicks on the profile option from the sidebar, he will be directe
     \caption{Admin profile}
     \label{fig: Admin profile screen}
 \end{figure}
+% profile1 Changed to UpdateProfile
 \lstinputlisting[style=javaCode, language=Java, caption=admin profile java]{attachments/profile1.java}
 \newpage
 when the admin clicks on sign out option on the sidebar, he is redirected to a page where he clicks sign out button, to which he'll be redirected to the welcome page:
@@ -454,7 +458,8 @@ when the admin clicks on sign out option on the sidebar, he is redirected to a p
     \caption{Admin sign out}
     \label{fig: Admin signout screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption=admin sign out java]{attachments/profile1.java}
+% The code needs to be fetched from Github
+% \lstinputlisting[style=javaCode, language=Java, caption=admin sign out java]{attachments/FragmentSignOutDialog.java}
 \newpage
 here is the home page for the barber  where he can check the incoming appointment and customer views and have access to the sidebar
 \begin{figure}[ht]
@@ -463,7 +468,8 @@ here is the home page for the barber  where he can check the incoming appointmen
     \caption{home barber }
     \label{fig: home barber page screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption=Home Barber java]{attachments/barber.java}
+% changed from barber to BarberHome
+% \lstinputlisting[style=javaCode, language=Java, caption=Home Barber java]{attachments/BarberHome.java}
 \newpage
 here the barber can check and update his information and return through the sidebar
 \begin{figure}[ht]
@@ -472,7 +478,8 @@ here the barber can check and update his information and return through the side
     \caption{barber profile }
     \label{fig: barber profile page screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption=Profile barber java]{attachments/profile1.java}
+% profile1  changed to UpdateProfile
+% \lstinputlisting[style=javaCode, language=Java, caption=Profile barber java]{attachments/profile1.java}
 \newpage
 here are all the services that the barber provides in his shop and return through the sidebar
 \begin{figure}[ht]
@@ -508,6 +515,7 @@ here is a sidebar menu where the user can access home, profile, service menu, ed
     \caption{sidebar menu }
     \label{fig: sidebar menu page screen}
 \end{figure}
+% changed from  barber.java  to "BarberPage.java"
 \lstinputlisting[style=javaCode, language=Java, caption=Barber sidebar java]{attachments/barber.java}
 
 \newpage
@@ -527,7 +535,7 @@ here in the sidebar menu if the barber clicks on the sign-out he will be redirec
     \caption{barber sign out }
     \label{fig: barber sign out page screen}
 \end{figure}
-
+% needs to be grouped with signout code
 
 \newpage
 Now for the customer page, we will display the home page, profile page,sidebar and calendar selection page for appointments. here's the home page of the customer:
@@ -546,6 +554,7 @@ Here's the profile page of the customer, similar to the barber profile page, the
     \caption{Profile page of Customer}
     \label{fig: Profile page of Customer screen}
 \end{figure}
+% needs to be changed from profile1 to UpdateProfile
 \lstinputlisting[style=javaCode, language=Java, caption=Profile customer java]{attachments/profile1.java}
 \newpage
 Here's the customer sidebar menu where the user can access then home, about us, profile, book appointment, chat with barber, rate and review barbershop,find barbershops and sign out:
@@ -555,21 +564,29 @@ Here's the customer sidebar menu where the user can access then home, about us, 
     \caption{Sidebar of Customer}
     \label{fig: Sidebar of Customer screen}
 \end{figure}
+
 \lstinputlisting[style=javaCode, language=Java, caption=Customer sidebar java]{attachments/CustomerPage.java}
 \newpage
-Here's the calendar/book appointment page, where the user books an appointment by selecting a date and time:
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/calendar.png}
-    \caption{Calendar/Book appointments page of Customer}
-    \label{fig: Calendar/Book appointments page of Customer screen}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/calendar.png}
+        \caption{Calendar/Book appointments page of Customer}
+        \label{fig: Calendar/Book appointments page of Customer screen}
+    \end{subfigure}
+    \hspace{0.05\textwidth} % Add some space between the figures
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/calendar2.png}
+        \caption{Calendar/Book appointments page of Customer 2}
+        \label{fig: Calendar/Book appointments page of Customer screen 2}
+    \end{subfigure}
+    \caption{Side-by-side images of Calendar/Book appointments pages.}
+    \label{fig: side-by-side-calendar}
 \end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/calendar2.png}
-    \caption{Calendar/Book appointments page of Customer 2}
-    \label{fig: Calendar/Book appointments page of Customer screen 2}
-\end{figure}
+
 \lstinputlisting[style=javaCode, language=Java, caption=Calendar/Appointments java]{attachments/fragment_appointment_customer.java}
 \newpage
 Here's the Chat page, where the customer can chat with the barber and send messages and receive messages:
@@ -582,55 +599,72 @@ Here's the Chat page, where the customer can chat with the barber and send messa
 \lstinputlisting[style=javaCode, language=Java, caption=Chat with barber java]{attachments/fragment_chat_with_barber.java}
 \newpage
 Here's the rate and review barbershop page, when the clicks on it, a pop-up page appears with message "Select a barbershop", after user selects barbershop, they'll be directed ti the rating page, where they can rate and review barbershop and submit their review:
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/Rate_barbershop1.png}
-    \caption{Rate barbershop page of Customer}
-    \label{fig: Rate barbershop page of Customer screen}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/Rate_barbershop2.png}
-    \caption{Rate barbershop page of Customer}
-    \label{fig: Rate barbershop page2 of Customer screen}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Rate_barbershop1.png}
+        \caption{Choose a barbershop profile to rate}
+        \label{fig: barbershops profiles}
+    \end{subfigure}
+    \hspace{0.05\textwidth} % Add some space between the figures
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Rate_barbershop2.png}
+        \caption{write a review for a barbershop profile}
+        \label{fig: Review Page}
+    \end{subfigure}
 \end{figure}
 \lstinputlisting[style=javaCode, language=Java, caption=rate barbershop java]{attachments/fragment_rate_barbershop.java}
 \newpage
 Here's the find barbershops page, it is a map that shows barbershops across the city, in this case Jeddah,where when a user searches for a barbershop and clicks on its name, it will be pinned, when th user clicks on the pin, it displays the shop name, and on the bottom left there is a directions and and open in google maps buttons, and it also has a filter in which if the selected place or the place user searches for isn't a barbershop, it displays a message telling the user that the place isn't a barbershop:
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/find_barbershops1.png}
-    \caption{Find barbershops page of Customer}
-    \label{fig: Find barbershops page of Customer screen}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/find_barbershops2.png}
-    \caption{Find barbershops page of Customer}
-    \label{fig:Find barbershops page3 of Customer screen}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/find_barbershops3.png}
-    \caption{Find barbershops page of Customer}
-    \label{fig: Find barbershops page 3of Customer screen}
-\end{figure}
-\newpage
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/find_barbershops4.png}
-    \caption{Find barbershops page of Customer}
-    \label{fig: Find barbershops page4 of Customer screen}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/find_barbershops1.png}
+        \caption{Find barbershops page of Customer 1}
+        \label{fig: Find barbershops page of Customer screen 1}
+    \end{subfigure}
+    \hspace{0.05\textwidth} % Add some space between the figures
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/find_barbershops2.png}
+        \caption{Find barbershops page of Customer 2}
+        \label{fig: Find barbershops page of Customer screen 2}
+    \end{subfigure}
 \end{figure}
 \newpage
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/find_barbershops5.png}
-    \caption{Find barbershops page of Customer}
-    \label{fig: Find barbershops page5 of Customer screen}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/find_barbershops3.png}
+        \caption{Find barbershops page of Customer 3}
+        \label{fig: Find barbershops page of Customer screen 3}
+    \end{subfigure}
+    \hspace{0.05\textwidth} % Add some space between the figures
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/find_barbershops4.png}
+        \caption{Find barbershops page of Customer 4}
+        \label{fig: Find barbershops page of Customer screen 4}
+    \end{subfigure}
+    \hspace{0.05\textwidth} % Add some space between the figures
 \end{figure}
-% \lstinputlisting[style=javaCode, language=Java, caption=rate barbershop java]{attachments/MapsActivity.java}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/find_barbershops5.png}
+    \caption{Find barbershops page of Customer 5}
+    \label{fig: Find barbershops page of Customer screen 5}
+\end{figure}
+
 \newpage
+\lstinputlisting[style=javaCode, language=Java, caption=rate barbershop java]{attachments/MapsActivity.java}
+
 when the customer clicks on sign out option, he will be redirected to the sign out page where there is a sign out button, when he clicks the sign out button, he will be redirected to the welcome page:
 \begin{figure}[ht]
     \centering

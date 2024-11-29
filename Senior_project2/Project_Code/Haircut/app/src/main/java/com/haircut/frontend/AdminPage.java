@@ -1,28 +1,28 @@
 package com.haircut.frontend;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.navigation.NavigationView;
 import com.haircut.R;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class AdminPage extends AppCompatActivity {
 
-    private RecyclerView rvBarbers;
-    private RecyclerView rvClients;
-    private boolean isBarbersVisible = false;  // Track visibility of Barber list
-    private boolean isClientsVisible = false;  // Track visibility of Client list
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // FIXME: 11/29/24 The first admin page should point to the `admin_page.xml` file same as the `customer` & `barber`. & this code should point to another `admin_page`
+
         //        super.onCreate(savedInstanceState);
 //        // FIXME: 11/28/24 Needs to point to the admin siderbar like customer & barber pages.
 //        setContentView(R.layout.admin_page);
@@ -51,63 +51,59 @@ public class AdminPage extends AppCompatActivity {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new BarberHome()).commit();
 //            navigationView.setCheckedItem(R.id.btnHome);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home_admin);
+        setContentView(R.layout.admin_page);  // Make sure to reference your XML layout
 
-        // Find views by their IDs
-        Button btnViewRatings = findViewById(R.id.btnViewRatings);
-        Button tabBarber = findViewById(R.id.tabBarber);
-        Button tabClients = findViewById(R.id.tabClients);
-        rvBarbers = findViewById(R.id.rvBarbers);
-        rvClients = findViewById(R.id.rvClients);
+        // Set up the toolbar and make it the action bar
+        Toolbar toolbar = findViewById(R.id.admin_toolbar);  // Make sure this ID matches the one in admin_page.xml
+        setSupportActionBar(toolbar);
 
-        // Barber and client lists
-        List<String> barberList = Arrays.asList("Barber 1", "Barber 2", "Barber 3");
-        List<String> clientList = Arrays.asList("Client 1", "Client 2", "Client 3");
+        drawerLayout = findViewById(R.id.admin_drawer_layout);
+        navigationView = findViewById(R.id.admin_nav_view);
 
-        // Set up adapters
-        BarberAdapter barberAdapter = new BarberAdapter(barberList);
-        ClientAdapter clientAdapter = new ClientAdapter(clientList);
+        // Set up the toggle for the navigation drawer with the toolbar
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-        rvBarbers.setAdapter(barberAdapter);
-        rvBarbers.setLayoutManager(new LinearLayoutManager(this));
+        // Set the initial fragment to display (optional)
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new fragment_home_admin()).commit();
+            navigationView.setCheckedItem(R.id.btnHome);  // Make sure this ID exists in your menu XML
+        }
 
-        rvClients.setAdapter(clientAdapter);
-        rvClients.setLayoutManager(new LinearLayoutManager(this));
+        // Set up navigation item selection listener
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
 
-        // Initially hide the RecyclerViews
-        rvBarbers.setVisibility(View.GONE);
-        rvClients.setVisibility(View.GONE);
+                // Use if-else statements for navigation
+                if (item.getItemId() == R.id.btnHome) {
+                    selectedFragment = new fragment_home_admin();
+                } else if (item.getItemId() == R.id.btnProfile) {
+                    selectedFragment = new UpdateProfile();
+                } else if (item.getItemId() == R.id.btnSignOut) {
+                    selectedFragment = new FragmentSignOutDialog();
+                }
 
-        // Barber button click listener
-        tabBarber.setOnClickListener(v -> {
-            // Toggle barber list visibility
-            isBarbersVisible = !isBarbersVisible;
-            rvBarbers.setVisibility(isBarbersVisible ? View.VISIBLE : View.GONE);
+                // Replace the current fragment with the selected one
+                if (selectedFragment != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, selectedFragment).commit();
+                }
 
-            // Hide client list if visible
-            if (isClientsVisible) {
-                rvClients.setVisibility(View.GONE);
-                isClientsVisible = false;
+                // Close the drawer after item selection
+                drawerLayout.closeDrawers();
+                return true;
             }
         });
+    }
 
-        // Client button click listener
-        tabClients.setOnClickListener(v -> {
-            // Toggle client list visibility
-            isClientsVisible = !isClientsVisible;
-            rvClients.setVisibility(isClientsVisible ? View.VISIBLE : View.GONE);
-
-            // Hide barber list if visible
-            if (isBarbersVisible) {
-                rvBarbers.setVisibility(View.GONE);
-                isBarbersVisible = false;
-            }
-        });
-
-        // View Ratings/Reviews button click listener
-        btnViewRatings.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminPage.this, fragment_view_ratings.class); // Example activity
-            startActivity(intent);
-        });
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle action bar item clicks
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
