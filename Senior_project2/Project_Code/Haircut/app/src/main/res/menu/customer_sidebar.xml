@@ -45,6 +45,12 @@
             android:icon="@drawable/baseline_rate_review_24"
             android:title="@string/rate_and_review_barbershop"
             android:layout_height="wrap_content" />
+        <item
+            android:id="@+id/sidebar_option_find_barbershops"
+            android:icon="@drawable/baseline_location_pin_24"
+            android:title="@string/find_barbershops"
+            />
+
         <!-- Sign Out Button -->
         <item
             android:id="@+id/sidebar_option_signout"

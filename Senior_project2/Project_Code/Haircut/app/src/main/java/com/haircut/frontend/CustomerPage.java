@@ -1,5 +1,6 @@
 package com.haircut.frontend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -53,12 +54,12 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_barbershop_list()).commit();
         } else if (item.getItemId() == R.id.sidebar_option_chat) { // Chat with Barber
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_chat_with_barber()).commit();
-        } else if (item.getItemId() == R.id.sidebar_option_rate) { //Rate barbershop
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_rate_barbershop()).commit();
+        } else if (item.getItemId() == R.id.sidebar_option_rate) { // Rate Barbershop
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_rate_barbershop()).commit();
+        } else if (item.getItemId() == R.id.sidebar_option_find_barbershops) { // Find Barbershops
+            startActivity(new Intent(CustomerPage.this, MapsActivity.class));
         } else if (item.getItemId() == R.id.sidebar_option_signout) { // Sign Out
             new FragmentSignOutDialog().show(getSupportFragmentManager(), "SignOutDialog");
-
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentSignOutDialog()).commit();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
