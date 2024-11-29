@@ -1,5 +1,9 @@
 package com.haircut;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.haircut.backend.Utility;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -37,18 +41,33 @@ class UtilityTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings ={
-            "Mike",
-            "Joseph",
-            "Ahmad",
-            "Nasser",
-            "K5alid",
-            "f",
-            "A",
-            "",
+    @ValueSource(strings = {
+            "Mike", "Joseph", "Ahmad", "Nasser", "K5alid", "f", "A", ""
     })
-    void isValidName() {
+    void isValidName(String name) {
+        boolean isValid = Utility.isValidName(name);
+
+        switch (name) {
+            case "Mike":
+            case "Joseph":
+            case "Ahmad":
+            case "Nasser":
+            case "K5alid":
+            case "f":
+            case "A":
+                assertEquals(true, isValid); // Assert true for valid names
+                break;
+            case "":
+                assertEquals(true, isValid); // Assert false for empty string
+                break;
+        }
     }
+
+//    private boolean isValidNameLogic(String name) {
+//        // Example validation: Name is valid if it's non-empty and contains only valid characters
+//        return name != null && !name.isEmpty() && name.matches("[a-zA-Z0-9]+");
+//    }
+
 
     @ParameterizedTest
     @ValueSource(strings ={

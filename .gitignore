@@ -79,6 +79,7 @@ Thumbs.db
 # #=======================================================================
 >>>>>>> d186c92 (Updated The latex report to be the official report)
 # LaTeX generated files
+*.pytxcode
 *.aux
 *.bbl
 *.blg
