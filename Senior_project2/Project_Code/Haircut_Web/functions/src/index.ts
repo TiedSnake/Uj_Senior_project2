@@ -53,7 +53,7 @@ export const verify = https.onRequest(async (req, res) => {
     return;
   }
 
-  const userToken = req.headers["token"] as string;
+  const userToken = req.headers["authorization-token"] as string;
   const context = req.headers["context"] as string;
 
   if (!userToken || !context) {
@@ -72,32 +72,36 @@ export const verify = https.onRequest(async (req, res) => {
     console.log(`Verified user: ${decodedToken.email}`);
 
     const verificationCode = Math.floor(Math.random() * 900000 + 100000).toString();
-    let actionCodeSettings: { url: string; handleCodeInApp: boolean };
-
+    // let actionCodeSettings: { url: string; handleCodeInApp: boolean };
+    let url;
     switch (context) {
       case VerificationContext.EmailVerification:
-        actionCodeSettings = {
-          url: `http://192.168.8.101:5001/verification.html?verificationCode=${verificationCode}`,
-          handleCodeInApp: false,
-        };
+        url = `http://127.0.0.1:5000/verification.html?verificationCode=${verificationCode}`
+        // actionCodeSettings = {
+        //   url: `http://127.0.0.1:5000/verification.html?verificationCode=${verificationCode}`,
+        //   handleCodeInApp: false,
+        // };
         break;
       case VerificationContext.ResetPassword:
-        actionCodeSettings = {
-          url: `http://192.168.8.101:5001/passwordReset.html?verificationCode=${verificationCode}`,
-          handleCodeInApp: false,
-        };
+        url = `http://127.0.0.1:5000/passwordReset.html?verificationCode=${verificationCode}`
+        // actionCodeSettings = {
+        //   url: `http://192.168.8.101:5000/passwordReset.html?verificationCode=${verificationCode}`,
+        //   handleCodeInApp: false,
+        // };
         break;
       default:
         res.status(400).send("Invalid context");
         return;
     }
 
-    const link = await auth().generateEmailVerificationLink(email, actionCodeSettings);
-    console.log(`Verification link for ${email}: ${link}`);
+    // const link = await auth().generateEmailVerificationLink(email, actionCodeSettings);
+    // console.log(`Verification link for ${email}: ${link}`);
+    console.log(`Verification link for ${email}: ${url}`);
 
     const tokenObject = {
       user_email: email,
       userId: decodedToken.uid,
+      verificationCode,
       userToken,
       createdAt: new Date(createdAt).toISOString(),
       expiresAt: new Date(expiresAt).toISOString(),
@@ -114,7 +118,8 @@ export const verify = https.onRequest(async (req, res) => {
     snapshot.forEach(doc => batch.delete(doc.ref));
     await batch.commit();
 
-    res.status(200).send({ link, verificationCode });
+    // res.status(200).send({ link, verificationCode });
+    res.status(200).send({ url, verificationCode });
   } catch (error) {
     console.error("Error generating verification link:", error);
     res.status(500).send({ error: "Failed to generate verification link" });

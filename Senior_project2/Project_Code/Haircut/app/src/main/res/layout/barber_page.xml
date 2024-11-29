@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/barber_drawer_layout"
     tools:openDrawer="start"
     tools:context=".frontend.BarberPage">
 <LinearLayout
@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/barber_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -21,13 +21,13 @@
         app:title="@string/sidebar_headerText"/>
 
 <FrameLayout
-    android:id="@+id/FrameLayout"
+    android:id="@+id/barber_frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
     
 </LinearLayout>
 <com.google.android.material.navigation.NavigationView
-    android:id="@+id/nav_view"
+    android:id="@+id/barber_nav_view"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_gravity="start"

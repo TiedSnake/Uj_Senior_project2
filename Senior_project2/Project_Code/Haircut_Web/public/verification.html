@@ -27,8 +27,20 @@
         <img src="https://lh3.googleusercontent.com/d/1U_6y7E44VYVkB1J_zlftfLiyqnfdjvP0" alt="Image" width="15%">
       <div id="message">
         <h2>Verificaiton code</h2>
-        <p>Your code for the verification process is: {{verificationCode}}</p>
+        <p>Your code for the verification process is: <span id="verification-code">{{verificationCode}}</span></p>
       </div>
     </center>
 </body>
+<script>
+  // Get the query parameters from the URL
+  const params = new URLSearchParams(window.location.search);
+  const verificationCode = params.get('verificationCode');
+
+  // Replace the placeholder with the actual code
+  if (verificationCode) {
+    document.getElementById('verification-code').textContent = verificationCode;
+  } else {
+    document.getElementById('verification-code').textContent = "N/A (code not found)";
+  }
+</script>
 </html>

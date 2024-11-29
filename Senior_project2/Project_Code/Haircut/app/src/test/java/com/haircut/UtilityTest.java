@@ -36,8 +36,8 @@ class UtilityTest {
             "test.user@example.com",
             "invalid-email@.com",
     })
-    void isValidEmailFormat(String email) {
-        System.out.println(email + " is valid: "+ com.haircut.backend.Utility.isValidEmailFormat(email)); // true
+    void isValidEmail(String email) {
+        System.out.println(email + " is valid: "+ com.haircut.backend.Utility.isValidEmail(email)); // true
     }
 
     @ParameterizedTest

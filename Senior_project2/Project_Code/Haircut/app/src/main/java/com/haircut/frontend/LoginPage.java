@@ -50,7 +50,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public static CompletableFuture<FLAGS> login(String email, String password, UserType userType) {
-        if (!Utility.isValidEmailFormat(email)) {
+        if (!Utility.isValidEmail(email)) {
             return CompletableFuture.completedFuture(FLAGS.INVALID_EMAIL);
         }
         if (!Utility.isValidPassword(password)) {

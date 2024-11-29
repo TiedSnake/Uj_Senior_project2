@@ -87,7 +87,7 @@ public class Utility {
      * @param email The email address to validate.
      * @return True if the email format is valid, false otherwise.
      */
-    public static boolean isValidEmailFormat(String email) {
+    public static boolean isValidEmail(String email) {
         if (email == null) {
             return false;
         } else {

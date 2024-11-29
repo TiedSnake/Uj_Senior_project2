@@ -17,10 +17,6 @@ import com.haircut.backend.FLAGS;
 import com.haircut.backend.Service;
 import com.haircut.backend.Utility;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 public class PasswordResetPage extends AppCompatActivity {
@@ -53,7 +49,7 @@ public class PasswordResetPage extends AppCompatActivity {
 //    }
 
     public static CompletableFuture<FLAGS> passwordReset(String email) {
-        if (!Utility.isValidEmailFormat(email)) {
+        if (!Utility.isValidEmail(email)) {
             return CompletableFuture.completedFuture(FLAGS.INVALID_EMAIL);
         }
         return Service.resetPassword(email).thenApply(flag -> {

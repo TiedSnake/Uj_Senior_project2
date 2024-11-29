@@ -23,8 +23,35 @@ public class AdminPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //        super.onCreate(savedInstanceState);
+//        // FIXME: 11/28/24 Needs to point to the admin siderbar like customer & barber pages.
+//        setContentView(R.layout.admin_page);
+//
+//        toolbar = findViewById(R.id.admin_toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        // Set the navigation icon for the Toolbar
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            toolbar.setNavigationIcon(R.drawable.ic_menu); // Ensure you have the right icon resource
+//        }
+//
+//        drawerLayout = findViewById(R.id.admin_drawer_layout);
+//        navigationView = findViewById(R.id.admin_nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+//
+//        // Set up the ActionBarDrawerToggle
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+//        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.gray)); // Set icon color
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState(); // Sync the toggle state with the drawer
+//
+//        // Load default fragment
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new BarberHome()).commit();
+//            navigationView.setCheckedItem(R.id.btnHome);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home_admin);  // Make sure this is your actual layout
+        setContentView(R.layout.fragment_home_admin);
 
         // Find views by their IDs
         Button btnViewRatings = findViewById(R.id.btnViewRatings);

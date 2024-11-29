@@ -6,6 +6,7 @@ import static com.google.common.base.Throwables.getRootCause;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.haircut.R;
 import com.haircut.backend.Service;
-
-import android.util.Log;
-
-import java.util.concurrent.CompletionException;
 
 public class FragmentSignOutDialog extends DialogFragment {
     private final static String TAG = "fragment_sign_out.java";

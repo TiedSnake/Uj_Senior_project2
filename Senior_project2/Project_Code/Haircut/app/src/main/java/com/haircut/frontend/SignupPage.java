@@ -44,7 +44,7 @@ public class SignupPage extends AppCompatActivity {
             return CompletableFuture.completedFuture(FLAGS.INVALID_FNAME);
         if (!Utility.isValidName(lName))
             return CompletableFuture.completedFuture(FLAGS.INVALID_LNAME);
-        if (!Utility.isValidEmailFormat(email))
+        if (!Utility.isValidEmail(email))
             return CompletableFuture.completedFuture(FLAGS.INVALID_EMAIL);
         if (!Utility.isValidPassword(pwd))
             return CompletableFuture.completedFuture(FLAGS.INVALID_PASSWORD);
@@ -95,56 +95,65 @@ public class SignupPage extends AppCompatActivity {
 //            if (userType == null) throw new NullPointerException("User type is null");
             signup(_fName, _lName, _email, _pwd, userType).thenAccept(flags -> {
                 runOnUiThread(() -> {//Run the result on main Android UI thread instead of the other threads the asynchronous completable future works on.
-                switch (flags) {
-                    case INVALID_FNAME:
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignupPage.this, "Please enter a valid first name", Toast.LENGTH_SHORT).show();
-                        break;
-                    case INVALID_LNAME:
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignupPage.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
-                        break;
-                    case INVALID_EMAIL:
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignupPage.this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
-                        break;
-                    case INVALID_PASSWORD:
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignupPage.this, "Please enter a valid password", Toast.LENGTH_SHORT).show();
-                        break;
-                    case INVALID_USER:
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignupPage.this, "Unexpected error: the user type is unidentified!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case SUCCESS:
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignupPage.this, "Signup succeeded!", Toast.LENGTH_SHORT).show();
-                        Intent forward = new Intent(SignupPage.this, CustomerPage.class);
-                        startActivity(forward);
-                        finish();
-                        break;
+                    switch (flags) {
+                        case INVALID_FNAME:
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignupPage.this, "Please enter a valid first name", Toast.LENGTH_SHORT).show();
+                            break;
+                        case INVALID_LNAME:
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignupPage.this, "Please enter a valid last name", Toast.LENGTH_SHORT).show();
+                            break;
+                        case INVALID_EMAIL:
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignupPage.this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
+                            break;
+                        case INVALID_PASSWORD:
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignupPage.this, "Please enter a valid password", Toast.LENGTH_SHORT).show();
+                            break;
+                        case INVALID_USER:
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignupPage.this, "Unexpected error: the user type is unidentified!", Toast.LENGTH_SHORT).show();
+                            break;
+                        case SUCCESS:
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignupPage.this, "Signup succeeded!", Toast.LENGTH_SHORT).show();
+
+                            Class<?> targetPage = switch (Service.getCurrentUser().getUserType()) {
+                                case CUSTOMER -> CustomerPage.class;
+                                case BARBER -> BarberPage.class;
+                                case ADMIN -> AdminPage.class;
+                                default ->
+                                        throw new IllegalArgumentException("Unexpected user type: " + userType);
+                            };
+                            Intent forward = new Intent(SignupPage.this, targetPage);
+                            startActivity(forward);
+                            finish();
+                            break;
 //                    default:
 //                        progressBar.setVisibility(View.INVISIBLE);
 //                        Toast.makeText(SignupPage.this, "This is unexpected error", Toast.LENGTH_SHORT).show();
-                }});
+                    }
+                });
             }).exceptionally(ex -> {
                 Throwable rootCause = getRootCause(ex);
                 runOnUiThread(() -> {
-                progressBar.setVisibility(View.INVISIBLE);
-                if (rootCause instanceof UserAlreadyExistsException)
-                     Toast.makeText(SignupPage.this, "There is a user registered with this email already", Toast.LENGTH_SHORT).show();
-                if (rootCause instanceof SchemaInitializationException)
-                    Toast.makeText(SignupPage.this, "Database error 001", Toast.LENGTH_SHORT).show();
-                if (rootCause instanceof SchemaColumnException)
-                    Toast.makeText(SignupPage.this, "Database error 002", Toast.LENGTH_SHORT).show();
-                if (rootCause instanceof UserCreationException)
-                    Toast.makeText(SignupPage.this, "Firebase authentication 001", Toast.LENGTH_SHORT).show();
-                if (rootCause instanceof UserPersistenceException)
-                    Toast.makeText(SignupPage.this, "Database connection error", Toast.LENGTH_SHORT).show();
-                if (rootCause instanceof EmailVerificationException)
-                    Toast.makeText(SignupPage.this, "Email Verification error", Toast.LENGTH_SHORT).show();
-                if (rootCause instanceof NullPointerException)
-                    Toast.makeText(SignupPage.this, "Null object error", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    if (rootCause instanceof UserAlreadyExistsException)
+                        Toast.makeText(SignupPage.this, "There is a user registered with this email already", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof SchemaInitializationException)
+                        Toast.makeText(SignupPage.this, "Database error 001", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof SchemaColumnException)
+                        Toast.makeText(SignupPage.this, "Database error 002", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof UserCreationException)
+                        Toast.makeText(SignupPage.this, "Firebase authentication 001", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof UserPersistenceException)
+                        Toast.makeText(SignupPage.this, "Database connection error", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof EmailVerificationException)
+                        Toast.makeText(SignupPage.this, "Email Verification error", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof NullPointerException)
+                        Toast.makeText(SignupPage.this, "Null object error", Toast.LENGTH_SHORT).show();
                 });
                 return null;
             });

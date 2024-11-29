@@ -5,19 +5,19 @@ plugins {
     id("com.google.gms.google-services") version "4.4.2" apply false
 }
 // FIXME: below code can be replaced with the new version
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        // Add the classpath for Google services here
-        classpath("com.google.gms:google-services:4.4.2")
-    }
-}
-
-allprojects {
-    repositories {
-    }
-}
+//buildscript {
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        // Add the classpath for Google services here
+//        classpath("com.google.gms:google-services:4.4.2")
+//    }
+//}
+//
+//allprojects {
+//    repositories {
+//    }
+//}

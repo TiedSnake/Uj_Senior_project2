@@ -3,6 +3,7 @@ package com.haircut.frontend;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.haircut.R;
 import com.google.android.material.navigation.NavigationView;
+import com.haircut.backend.Service;
+import com.haircut.backend.User;
 
 public class BarberPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -23,9 +26,10 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.barber_page);
+        User user = Service.getCurrentUser();
 
         // Initialize views
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.barber_toolbar);
         setSupportActionBar(toolbar);
 
         // Set the navigation icon for the Toolbar
@@ -34,9 +38,17 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
             toolbar.setNavigationIcon(R.drawable.ic_menu); // Ensure you have the right icon resource
         }
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.barber_drawer_layout);
+        navigationView = findViewById(R.id.barber_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (navigationView != null) {
+            android.view.View headerView = navigationView.getHeaderView(0);
+
+            // Finds the TextView inside the header view
+            TextView headerText = headerView.findViewById(R.id.barber_siderbar_header_text);
+            headerText.setText(user.getFirstName()+" "+user.getLastName());
+        }
 
         // Set up the ActionBarDrawerToggle
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
@@ -46,7 +58,7 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
 
         // Load default fragment
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new BarberHome()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.barber_frameLayout, new BarberHome()).commit();
             navigationView.setCheckedItem(R.id.btnHome);
         }
     }
@@ -54,18 +66,17 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnHome) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new BarberHome()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.barber_frameLayout, new BarberHome()).commit();
         } else if (item.getItemId() == R.id.btnProfile) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new UpdateProfile()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.barber_frameLayout, new UpdateProfile()).commit();
         } else if (item.getItemId() == R.id.btnMenu) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new menu()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.barber_frameLayout, new menu()).commit();
         } else if (item.getItemId() == R.id.btnAppointments) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_appointment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.barber_frameLayout, new fragment_appointment()).commit();
         } else if (item.getItemId() == R.id.btnReviews) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.FrameLayout, new fragment_reviews()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.barber_frameLayout, new fragment_reviews()).commit();
         } else if (item.getItemId() == R.id.btnSignOut) {
-            // Handle sign-out: clear session, redirect to WelcomePage
-            signOut();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentSignOutDialog()).commit();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

@@ -21,10 +21,8 @@ import com.haircut.backend.Exceptions.UserCreationException;
 import com.haircut.backend.Exceptions.UserExistenceCheckException;
 import com.haircut.backend.Exceptions.UserPersistenceException;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -83,13 +81,21 @@ public abstract class Service {
         databaseRef = database.getReference("schema");
     }
 
+    public static synchronized User getCurrentUser() {
+        return user;
+    }
+
+    public static synchronized void setCurrentUser(User currentUser) {
+        user = currentUser;
+    }
+
     public static boolean isLoggedIn() {
         if (user != null) return user.isLoggedIn();
         else return false;
     }
 
     //Saves|persist a user in the database
-    private static CompletableFuture<Boolean> persistUser(User user) {
+    public static CompletableFuture<Boolean> persistUser(User user) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         databaseRef.child("users").child(user.getUuid()).setValue(user).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -173,6 +179,35 @@ public abstract class Service {
         return future;
     }
 
+    public static CompletableFuture<Boolean> updateUserEmailInFirebase(String email) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        fUser.updateEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d(TAG, String.format("INFO: the user with email %s has updated the email successfully", user.getEmail()));
+                future.complete(true);
+                CompletableFuture.completedFuture(true);
+            } else {
+                Log.e(TAG, "Failed to update email", task.getException());
+                future.completeExceptionally(new RuntimeException("ERROR: Failed to update the user email in Firebase due to:\n", task.getException()));
+            }
+        });
+        return future;
+    }
+
+    public static CompletableFuture<Boolean> updateUserPasswordInFirebase(String password) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        fUser.updatePassword(password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d(TAG, String.format("INFO: the user with email %s has updated the password successfully", user.getEmail()));
+                future.complete(true);
+                CompletableFuture.completedFuture(true);
+            } else {
+                Log.e(TAG, "Failed to update password", task.getException());
+                future.completeExceptionally(new RuntimeException("ERROR: Failed to update the user password in Firebase due to:\n", task.getException()));
+            }
+        });
+        return future;
+    }
     private static CompletableFuture<User> createUserInFirebase(User user, String password) {
         CompletableFuture<User> future = new CompletableFuture<>();
         auth.createUserWithEmailAndPassword(user.getEmail(), password).addOnCompleteListener(task -> {
@@ -275,7 +310,7 @@ public abstract class Service {
      * @param properties the property(ies) to be updated in user's table in the database.
      *                   {@link #updateProperty(String, Map)}
      */
-    private static CompletableFuture<Boolean> updateProperty(String uuid, Map<String, Object> properties) {
+    public static CompletableFuture<Boolean> updateProperty(String uuid, Map<String, Object> properties) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         databaseRef.child("users").child(uuid).updateChildren(properties).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -469,42 +504,46 @@ public abstract class Service {
      */
     @NonNull
     public static CompletableFuture<Boolean> sendVerification(String email, String userToken, String context) {
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
-        try {
-            URL url = new URL(CUSTOM_TOKEN_CLOUD_FUNCTION_URL);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Content-Type", "application/json"); //Sets the request header.
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                System.setProperty("java.net.preferIPv4Stack", "true");
+                URL url = new URL(CUSTOM_TOKEN_CLOUD_FUNCTION_URL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setConnectTimeout(5000); // Timeout after 5 seconds
+                urlConnection.setReadTimeout(5000);    // Timeout for reading response
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json"); // Sets the request header.
 
-            long createdAt = System.currentTimeMillis(), expiresAt = System.currentTimeMillis() + (1000 * 60); //expires after minute
+                long createdAt = System.currentTimeMillis();
+                long expiresAt = System.currentTimeMillis() + (1000 * 60); // Expires after 1 minute
 
-            urlConnection.setDoOutput(true);
-            JSONObject jsonParam = new JSONObject();
+                urlConnection.setDoOutput(true);
+                JSONObject jsonParam = new JSONObject();
 
-            urlConnection.setRequestProperty("authorization-token", userToken); //Sets the request header.
-            urlConnection.setRequestProperty("context", context); //Sets the request header.
+                urlConnection.setRequestProperty("authorization-token", userToken); // Sets the request header.
+                urlConnection.setRequestProperty("context", context);              // Sets the request header.
 
-//            jsonParam.put("userToken", userToken);
+                jsonParam.put("createdAt", createdAt);
+                jsonParam.put("expiresAt", expiresAt);
+                jsonParam.put("email", email);
 
-            jsonParam.put("createdAt", createdAt);
-            jsonParam.put("expiresAt", expiresAt);
-            jsonParam.put("email", email);
+                try (OutputStream os = urlConnection.getOutputStream()) {
+                    byte[] input = jsonParam.toString().getBytes(StandardCharsets.UTF_8);
+                    os.write(input, 0, input.length);
+                }
 
-            try (OutputStream os = urlConnection.getOutputStream()) {
-                byte[] input = jsonParam.toString().getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
+                int code = urlConnection.getResponseCode();
+                if (code == HttpURLConnection.HTTP_OK) {
+                    return true;
+                } else {
+                    throw new RuntimeException("Error: HTTP " + code);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-            int code = urlConnection.getResponseCode();
-            if (code == HttpURLConnection.HTTP_OK) {
-                future.complete(true);
-            } else {
-                future.completeExceptionally(new RuntimeException("Error: " + code));
-            }
-        } catch (JSONException | IOException e) {
-            future.completeExceptionally(new RuntimeException(e));
-        }
-        return future;
+        });
     }
+
 
     /**
      * Takes a code & verifies whether the reset code matches the one generated by Firebase authentication for the specific user linked with the email.
