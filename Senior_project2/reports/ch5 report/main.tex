@@ -236,8 +236,8 @@ Firebase integrates seamlessly with other Google services like Google Cloud and 
 
 \begin{figure}
             \centering
-            \includegraphics[width=0.5\linewidth]{attachments/image.png}
-         \label{fig:enter-label}
+            \includegraphics[width=0.5\linewidth]{images/npm.png}
+         \label{fig:npm label}
                \caption{npm icon}
         \end{figure}
 
@@ -264,13 +264,12 @@ Npm: is package manager for installing Firebase-tools package
 
 \begin{figure}
                 \centering
-                \includegraphics[width=0.5\linewidth]{image.png}
+                \includegraphics[width=0.5\linewidth]{images/nodeJs_transparent.png}
                 \caption{node.js icon}
-                \label{fig:enter-label}
+ \label{fig:node.js icon label}
          
-        \end{figure}
-        \label{fig:enter-label}
-        \newpage
+\end{figure}
+ \newpage
 
    \textbf{Node.js} is a cross-platform, open-source JavaScript runtime environment. It is a widely used tool for nearly all types of projects
 Outside of the browser,Node.js powers Google Chrome's V8 JavaScript engine. This enables the high performance of Node.js.
@@ -340,7 +339,7 @@ and the users are categorized as follows:
 }
 \immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/WelcomePage.java -O attachments/WelcomePage.java}
 
-\lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/WelcomePage.java}
+        \lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/welcome.java}
 
 \newpage
 Secondly, after the user clicks on the suitable option another page asks the user whether they are trying to login or sign up for the first time.
@@ -549,14 +548,14 @@ Here's the profile page of the customer, similar to the barber profile page, the
 \end{figure}
 \lstinputlisting[style=javaCode, language=Java, caption=Profile customer java]{attachments/profile1.java}
 \newpage
-Here's the customer sidebar menu where the user can access then home, about us, profile, book appointment, chat with barber and sign out:
+Here's the customer sidebar menu where the user can access then home, about us, profile, book appointment, chat with barber, rate and review barbershop,find barbershops and sign out:
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/customer_sidebar.png}
     \caption{Sidebar of Customer}
     \label{fig: Sidebar of Customer screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption=Customer sidebar java]{attachments/customer.java}
+\lstinputlisting[style=javaCode, language=Java, caption=Customer sidebar java]{attachments/CustomerPage.java}
 \newpage
 Here's the calendar/book appointment page, where the user books an appointment by selecting a date and time:
 \begin{figure}[ht]
@@ -582,6 +581,56 @@ Here's the Chat page, where the customer can chat with the barber and send messa
 \end{figure}
 \lstinputlisting[style=javaCode, language=Java, caption=Chat with barber java]{attachments/fragment_chat_with_barber.java}
 \newpage
+Here's the rate and review barbershop page, when the clicks on it, a pop-up page appears with message "Select a barbershop", after user selects barbershop, they'll be directed ti the rating page, where they can rate and review barbershop and submit their review:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Rate_barbershop1.png}
+    \caption{Rate barbershop page of Customer}
+    \label{fig: Rate barbershop page of Customer screen}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Rate_barbershop2.png}
+    \caption{Rate barbershop page of Customer}
+    \label{fig: Rate barbershop page2 of Customer screen}
+\end{figure}
+\lstinputlisting[style=javaCode, language=Java, caption=rate barbershop java]{attachments/fragment_rate_barbershop.java}
+\newpage
+Here's the find barbershops page, it is a map that shows barbershops across the city, in this case Jeddah,where when a user searches for a barbershop and clicks on its name, it will be pinned, when th user clicks on the pin, it displays the shop name, and on the bottom left there is a directions and and open in google maps buttons, and it also has a filter in which if the selected place or the place user searches for isn't a barbershop, it displays a message telling the user that the place isn't a barbershop:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/find_barbershops1.png}
+    \caption{Find barbershops page of Customer}
+    \label{fig: Find barbershops page of Customer screen}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/find_barbershops2.png}
+    \caption{Find barbershops page of Customer}
+    \label{fig:Find barbershops page3 of Customer screen}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/find_barbershops3.png}
+    \caption{Find barbershops page of Customer}
+    \label{fig: Find barbershops page 3of Customer screen}
+\end{figure}
+\newpage
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/find_barbershops4.png}
+    \caption{Find barbershops page of Customer}
+    \label{fig: Find barbershops page4 of Customer screen}
+\end{figure}
+\newpage
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/find_barbershops5.png}
+    \caption{Find barbershops page of Customer}
+    \label{fig: Find barbershops page5 of Customer screen}
+\end{figure}
+% \lstinputlisting[style=javaCode, language=Java, caption=rate barbershop java]{attachments/MapsActivity.java}
+\newpage
 when the customer clicks on sign out option, he will be redirected to the sign out page where there is a sign out button, when he clicks the sign out button, he will be redirected to the welcome page:
 \begin{figure}[ht]
     \centering
@@ -590,7 +639,6 @@ when the customer clicks on sign out option, he will be redirected to the sign o
     \label{fig: sign out page of Customer screen}
 \end{figure}
 \newpage
-
 
 \item \subsection{Conclusion}
 In this chapter, we discussed and described the software tools and IDEs that we used for the project, including Android Studio, Kotlin, and Figma, and described the hardware needed for this project, in that case, an Android pixel or an Android mobile device with at least 300 MB of available storage space, and 4 GB RAM and we went on to describe details related to the screens and the steps needed to properly use the app, starting with the welcome page, where the user chooses the type of user they are, and whether the user needs to either login or signup, to which when they choose the login, the user enters the email and password, if they choose signup, the user enters the required credentials, if the user forgets their password, they're redirected to the password recovery page, where the user enters the email, receives a verification code, and enters the code to be able to reset their password.
