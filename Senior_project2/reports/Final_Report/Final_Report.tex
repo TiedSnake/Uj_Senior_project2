@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{subcaption}
+\usepackage{pdfpages}
+\usepackage{fancyhdr} %For Header & footer Horizontal lines
+\pagestyle{fancy} %For Header & footer Horizontal lines
+\usepackage{booktabs} 
+\usepackage{lmodern} % To avoid the font size substition errors
+\usepackage[a4paper, left=0.5in, right=0.5in, top=0.5in, bottom=0.5in]{geometry} % Adjustments for the page margins
+\usepackage{graphicx} % For adding figueres to the document
+\usepackage{listings} % For adding external code attachment files
+\usepackage{xcolor}
+\usepackage{times} % using the times roman font
+\usepackage{float} % float values for some fonts
+\usepackage[absolute,overlay]{textpos}
+\usepackage{hyperref}
+
+% Header and footer line thickness
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhfoffset[L,R]{0pt} % Removes header and footer side offsets
+
+
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{../ch5 report/main.pdf}
+\includepdf[pages=2-, fitpaper=true]{../ch6-report/main.pdf}  % "-2" starts from the 2nd page to the last one & skips the cover in ch6 report since ch5 already has a cover
+\end{document}

@@ -1,3 +1,5 @@
+# Ignoring archived report files
+*.zip
 # Manually excluded files
 *.docx
 *.jar
