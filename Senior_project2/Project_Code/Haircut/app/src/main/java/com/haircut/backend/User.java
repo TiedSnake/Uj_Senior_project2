@@ -63,6 +63,7 @@ public class User {
         return isLoggedIn;
     }
 
+    @PropertyName("isLoggedIn")
     public void setIsLoggedIn(boolean status) {
         this.isLoggedIn = status;
     }

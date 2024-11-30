@@ -54,8 +54,7 @@ public class FragmentSignOutDialog extends DialogFragment {
 
     // Method to handle sign out and navigate to the welcome page
     private void signOutUser() {
-        // Perform sign out logic, such as clearing shared preferences or user session
-        // After signing out, redirect to the Welcome Page (assuming it's an Activity)
+        // After signing out, redirect to the Welcome Page
         Activity activity = getActivity();
         if (isAdded() && activity != null) {
             Intent intent = new Intent(activity, WelcomePage.class);

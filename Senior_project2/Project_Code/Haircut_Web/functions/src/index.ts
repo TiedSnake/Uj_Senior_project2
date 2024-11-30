@@ -119,7 +119,7 @@ export const verify = https.onRequest(async (req, res) => {
     await batch.commit();
 
     // res.status(200).send({ link, verificationCode });
-    res.status(200).send({ url, verificationCode });
+    res.status(200).send({ url});
   } catch (error) {
     console.error("Error generating verification link:", error);
     res.status(500).send({ error: "Failed to generate verification link" });

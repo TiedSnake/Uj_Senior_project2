@@ -43,10 +43,6 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
             // Find the TextView inside the header view
             TextView headerText = headerView.findViewById(R.id.customer_siderbar_header_text);
             headerText.setText(user.getFirstName() + " " + user.getLastName());
-//                headerText.setText("Welcome, Customer!"); // Set the desired text
-            // Modify the text of the TextView
-//            if (headerText != null) {
-//            }
         }
 
 
@@ -61,31 +57,6 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.sidebar_option_home);
         }
     }
-
-    //    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        if (item.getItemId() == R.id.sidebar_option_home) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_home_customer()).commit();
-//        } else if (item.getItemId() == R.id.sidebar_option_about_us) { // About Us
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_about_us()).commit();
-//        } else if (item.getItemId() == R.id.sidebar_option_profile) { // Profile
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UpdateProfile()).commit();
-//        } else if (item.getItemId() == R.id.sidebar_option_appointment) { // Book Appointment
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_barbershop_list()).commit();
-//        } else if (item.getItemId() == R.id.sidebar_option_chat) { // Chat with Barber
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_chat_with_barber()).commit();
-//        } else if (item.getItemId() == R.id.sidebar_option_rate) { // Rate Barbershop
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_rate_barbershop()).commit();
-//        } else if (item.getItemId() == R.id.sidebar_option_find_barbershops) { // Find Barbershops
-//            startActivity(new Intent(CustomerPage.this, MapsActivity.class));
-//        } else if (item.getItemId() == R.id.sidebar_option_signout) { // Sign Out
-//            new FragmentSignOutDialog().show(getSupportFragmentManager(), "SignOutDialog");
-////            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentSignOutDialog()).commit();
-//        }
-//
-//        drawerLayout.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -144,9 +115,7 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
             return true;
         }
 
-        // Continue with other menu options...
-
-        if (tag != null) {
+        if (tag != null) {//if tag is not null display the clicked option.
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, tag).commit();
         }
 
