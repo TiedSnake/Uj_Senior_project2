@@ -20,6 +20,7 @@ import com.haircut.backend.Exceptions.UserAlreadyExistsException;
 import com.haircut.backend.Exceptions.UserCreationException;
 import com.haircut.backend.Exceptions.UserExistenceCheckException;
 import com.haircut.backend.Exceptions.UserPersistenceException;
+import com.haircut.backend.Exceptions.WrongCredentialsException;
 
 import org.json.JSONObject;
 
@@ -351,8 +352,8 @@ public abstract class Service {
                 fUser = auth.getCurrentUser();
                 future.complete(fUser);
             } else {
-                Log.e(TAG, "The task failed to authenticate the user in firebase during sign-in process with the provided credentials");
-                future.completeExceptionally(new RuntimeException("Error: Failed to authenticate user due to\n" + task.getException()));
+                Log.e(TAG, "Error: Failed to authenticate user due to\n" + task.getException());
+                future.complete(null);
             }
         });
         return future;
@@ -366,7 +367,7 @@ public abstract class Service {
             } else return authenticateUser(email, password).thenCompose(firebaseUser -> {
                 if (firebaseUser == null) {
                     Log.e(TAG, String.format("Login Error: failed to authenticate firebase user with the provided credentials for the email:\n%s", email));
-                    throw new NullPointerException("Error: Firebase user object is null");
+                    throw new WrongCredentialsException("The task failed to authenticate the user in firebase during sign-in process with the provided credentials");
                 } else return fetchUserById(firebaseUser.getUid());
 
             }).thenApply(user -> {

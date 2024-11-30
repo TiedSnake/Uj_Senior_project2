@@ -16,8 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.haircut.R;
-import com.haircut.backend.Exceptions.UnregisteredUserException;
 import com.haircut.backend.Exceptions.DataFetchException;
+import com.haircut.backend.Exceptions.UnregisteredUserException;
+import com.haircut.backend.Exceptions.WrongCredentialsException;
 import com.haircut.backend.FLAGS;
 import com.haircut.backend.Service;
 import com.haircut.backend.User.UserType;
@@ -122,6 +123,8 @@ public class LoginPage extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
                 if (rootCause instanceof UnregisteredUserException)
                     Toast.makeText(LoginPage.this, "The entered email is not registered in the system", Toast.LENGTH_SHORT).show();
+                if (rootCause instanceof WrongCredentialsException)
+                    Toast.makeText(LoginPage.this, "Wrong email or password", Toast.LENGTH_SHORT).show();
                 if (rootCause instanceof NullPointerException)
                     Toast.makeText(LoginPage.this, "Error: Firebase user object is null", Toast.LENGTH_SHORT).show();
                 if (rootCause instanceof DataFetchException)

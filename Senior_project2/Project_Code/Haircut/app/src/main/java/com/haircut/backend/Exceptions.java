@@ -95,5 +95,13 @@ public class Exceptions extends Exception {
             super(errMessage);
         }
     }
+    public static class WrongCredentialsException extends RuntimeException {
+        public WrongCredentialsException(String errMessage, Throwable err) {
+            super(errMessage, err);
+        }
+        public WrongCredentialsException(String errMessage) {
+            super(errMessage);
+        }
+    }
 
 }
