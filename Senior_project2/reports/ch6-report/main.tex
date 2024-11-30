@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage{subcaption}
+\usepackage{fancyhdr} %For Header & footer Horizontal lines
+\pagestyle{fancy} %For Header & footer Horizontal lines
+\usepackage{booktabs} 
+\usepackage{lmodern} % To avoid the font size substition errors
+\usepackage[a4paper, left=0.5in, right=0.5in, top=0.5in, bottom=0.5in]{geometry} % Adjustments for the page margins
+\usepackage{graphicx} % For adding figueres to the document
+\usepackage{listings} % For adding external code attachment files
+\usepackage{xcolor}
+\usepackage{times} % using the times roman font
+\usepackage{float} % float values for some fonts
+\usepackage[absolute,overlay]{textpos}
+\usepackage{hyperref}
+
+% Header and footer line thickness
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhfoffset[L,R]{0pt} % Removes header and footer side offsets
+
+
+\begin{document}
+
+\lstdefinestyle{javaCode}{
+    language=Java,
+    frame=single,
+    breaklines=true,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    showstringspaces=false,
+    tabsize=4
+}
+
+\begin{figure}[ht]
+    \includegraphics[width=0.1\textwidth]{images/UOJ_Logo_Transparent.png}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/Haircut_icon.png}
+    \caption{Haircut application Icon}
+\end{figure}
+    \label{fig: App icon}
+    \begin{table}[h] 
+        \centering
+        \begingroup
+    \fontsize{15}{20}\selectfont
+    \begin{tabular}{|c |c|} \hline  
+        \textbf{\fontsize{18}{20}\selectfont Name(s)}& \textbf{\fontsize{18}{20}\selectfont ID(s)}\\ \hline         
+       Marwan Almehmadi& 1741630
+\\ \hline 
+        Anas Aldhahri& 1845490\\ \hline 
+        
+ Waleed Aldhahri&2042395\\ \hline 
+ Abdulrahman Maghrabi&2042791\\ \hline 
+ Ali Abualwah&2140185\\ \hline 
+ Sari Alblwi&2142407\\ \hline
+    \end{tabular}
+    \caption{Names and IDs}
+    \label{tab:yourtablelabel}
+
+    \vspace{1em}\begin{tabular}{|c |c|} \hline
+    \textbf{Supervisor}&Dr. Sakher Ghanem\\ \hline
+    \end{tabular}
+
+    \vspace{3em}\begin{tabular}{|c|} \hline
+        University of Jeddah \\
+        College of Computer Science and Engineering \\
+        Department of Computer Science\\
+        Academic Session: Autumn 2024 \\ \hline
+    \end{tabular}
+    \endgroup
+\end{table}
+\newpage
+\section{Chapter 6: Testing}
+\begin{itemize}
+\item \subsection{Report Outline:}
+\begin{itemize}
+    \item \textbf{Scenarios for Unit Testing:} Scenarios details
+
+    \item \textbf{Unit Testing:} Testing results
+    
+    \item \textbf{Scenarios for Integration Testing:} Scenarios details
+    
+    \item \textbf{Integration Testing:} Testing details/results
+    
+    \item \textbf{Scenarios for Usability and Compatibility Testing:} Scenarios details according to the type of project.
+    \item \textbf{Usability and Compatibility Testing:} Testing details according to the type of project.
+\end{itemize}
+\newpage
+\item \subsection{Scenarios for Unit Testing:}
+\subsubsection{\label{sec:scenario1} Scenario 1: Validating the first and last name of the user during the sign-up process}
+\subsubsection{\label{sec:scenario2} Scenario 2: Validating the user's email pattern during the sign-up process}
+\subsubsection{\label{sec:scenario3} Scenario 3: Validating the password of the user during the sign-up process}
+\subsubsection{\label{sec:scenario4} Scenario 4: Validating the user is one of the defined user types in the system {customer, barber, admin} used in multiple processes}
+\newpage
+\item \subsection{Unit Testing:}
+\subsubsection{Unit test 1:} \ref{sec:scenario1}
+\subsubsection{Unit test 2:} \ref{sec:scenario2}
+\subsubsection{Unit test 3:} \ref{sec:scenario3}
+\subsubsection{Unit test 4:} \ref{sec:scenario4}
+
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{images/Android studio.png}
+%     \caption{Android Studio Icon}
+%     \label{fig: android studio icon}
+% \end{figure}
+\newpage
+
+\item \subsection{Scenarios for Integration Testing:}
+\subsubsection{\label{sec:scenario5} Scenario 1: }
+\subsubsection{\label{sec:scenario6} Scenario 2: }
+\subsubsection{\label{sec:scenario7} Scenario 3: }
+\subsubsection{\label{sec:scenario8} Scenario 4: }
+\newpage
+
+\item \subsection{Integration Testing:}
+\subsubsection{Integration Test 1:} \ref{sec:scenario5}
+\subsubsection{Integration Test 2:} \ref{sec:scenario6}
+\subsubsection{Integration Test 3:} \ref{sec:scenario7}
+\subsubsection{Integration Test 4:} \ref{sec:scenario8}
+\newpage
+
+\item \subsection{Scenarios for Usability and Compatibility Testing:}
+\subsubsection{\label{sec:scenario9} Scenario 1: }
+\subsubsection{\label{sec:scenario10} Scenario 2: }
+\subsubsection{\label{sec:scenario11} Scenario 3: }
+\subsubsection{\label{sec:scenario12} Scenario 4: }
+\newpage
+
+\item \subsection{Usability and Compatibility Testing:}
+\subsubsection{Usability and compatibility test 1:} \ref{sec:scenario9}
+\subsubsection{Usability and compatibility test 2:} \ref{sec:scenario10}
+\subsubsection{Usability and compatibility test 3:} \ref{sec:scenario11}
+\subsubsection{Usability and compatibility test 4:} \ref{sec:scenario12}
+\end{itemize}
+
+\end{document}
