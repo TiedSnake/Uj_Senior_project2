@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.haircut.R;
+
 public class fragment_chat_with_barber extends Fragment {
 
     private LinearLayout chatContainer;
     private EditText messageInput;
-    private Button sendButton;
 
     @Nullable
     @Override
@@ -26,7 +27,7 @@ public class fragment_chat_with_barber extends Fragment {
 
         chatContainer = view.findViewById(R.id.chat_container);
         messageInput = view.findViewById(R.id.message_input);
-        sendButton = view.findViewById(R.id.send_button);
+        Button sendButton = view.findViewById(R.id.send_button);
 
         // Set up send button to add messages to the chat
         sendButton.setOnClickListener(v -> sendMessage());

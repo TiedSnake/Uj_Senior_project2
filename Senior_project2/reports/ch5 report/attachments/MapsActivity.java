@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // Keywords to identify barbershops
                         String placeName = place.getName().toLowerCase();
                         boolean hasRelevantKeyword = placeName.contains("barber") || placeName.contains("salon") || placeName.contains("saloon") ||
-                        placeName.contains("saloon") || placeName.contains("barbershop");
+                        placeName.contains("saloon") || placeName.contains("barbershoop");
 
                         // Place types to identify barbershops
                         boolean hasRelevantType = place.getTypes() != null &&

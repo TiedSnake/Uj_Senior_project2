@@ -20,6 +20,18 @@
 
 \begin{document}
 
+\lstdefinestyle{javaCode}{
+    language=Java,
+    frame=single,
+    breaklines=true,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    showstringspaces=false,
+    tabsize=4
+}
+
 \begin{figure}[ht]
     \includegraphics[width=0.1\textwidth]{images/UOJ_Logo_Transparent.png}
 \end{figure}
@@ -311,12 +323,7 @@ In this section we are going to describe the hardware components and the require
 In this section of the report, we discuss the user interface in steps with the description of each page and the present components
 in addition to the flow of the pages and the difference between each user. 
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/Android platform chart.png}
-    \caption{Android platform chart of each platform's distribution}
-    \label{fig: platform chart}
-\end{figure}
+
 \newpage
 Firstly, the application starts with the `welcome page' which displays several options of the kind of users the application is going to serve
 and the users are categorized as follows:
@@ -327,23 +334,11 @@ and the users are categorized as follows:
     \label{fig: User classification screen}
 \end{figure}
 
-
-\lstdefinestyle{javaCode}{
-    language=Java,
-    frame=single,
-    breaklines=true,
-    basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue},
-    commentstyle=\color{gray},
-    stringstyle=\color{teal},
-    showstringspaces=false,
-    tabsize=4
-}
 \immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/WelcomePage.java -O attachments/WelcomePage.java}
 
 \lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/WelcomePage.java}
-
 \newpage
+
 Secondly, after the user clicks on the suitable option another page asks the user whether they are trying to login or sign up for the first time.
 
 
@@ -432,7 +427,7 @@ here on the admin page, the admin can select either the barber or the customer a
 \end{figure}
 
 \immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_home_admin.java -O attachments/fragment_home_admin.java}
-\lstinputlisting[style=javaCode, language=Java, caption=fragment_home_admin.java]{attachments/fragment_home_admin.java}
+\lstinputlisting[style=javaCode, language=Java, caption="fragment home admin java"]{attachments/fragment_home_admin.java}
 \newpage
 
 here's what the ratings and reviews look like.
@@ -443,7 +438,7 @@ here's what the ratings and reviews look like.
     \label{fig: rating and reviews page screen}
 \end{figure}
 \immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_view_ratings.java -O attachments/fragment_view_ratings.java}
-\lstinputlisting[style=javaCode, language=Java, caption=fragment_view_ratings java]{attachments/fragment_view_ratings.java}
+\lstinputlisting[style=javaCode, language=Java, caption=fragment view ratings java]{attachments/fragment_view_ratings.java}
 \newpage
 
 here's the admin sidebar, where the admin can navigate to the home, profile,or sign out page:

@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,9 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class signup_login extends AppCompatActivity {
+import com.haircut.R;
+
+public class SignupAndLoginPage extends AppCompatActivity {
     Button login_btn;
     Button signup_btn;
 
@@ -18,13 +20,11 @@ public class signup_login extends AppCompatActivity {
         login_btn = findViewById(R.id.signup_button);
         signup_btn = findViewById(R.id.Signup_button);
         login_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(signup_login.this, login.class);
-            intent.putExtra("action", "login");
+            Intent intent = new Intent(SignupAndLoginPage.this, LoginPage.class);
             startActivity(intent);
         });
         signup_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(signup_login.this, signup.class);
-            intent.putExtra("action", "signup");
+            Intent intent = new Intent(SignupAndLoginPage.this, SignupPage.class);
             startActivity(intent);
         });
     }

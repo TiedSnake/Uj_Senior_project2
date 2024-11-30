@@ -1,4 +1,4 @@
-package com.example.haircut;  // Update with your actual package name
+package com.haircut.frontend;  // Update with your actual package name
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.haircut.R;
 
 public class fragment_home_customer extends Fragment {
 

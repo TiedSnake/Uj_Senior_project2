@@ -1,4 +1,4 @@
-package com.example.haircut;
+package com.haircut.frontend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,13 +9,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.haircut.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class fragment_reviews extends Fragment {
-
-    private RecyclerView reviewsRecyclerView;
-    private ReviewsAdapter reviewsAdapter;
 
     @Nullable
     @Override
@@ -24,23 +24,23 @@ public class fragment_reviews extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reviews, container, false);
 
         // Setup RecyclerView for Reviews
-        reviewsRecyclerView = view.findViewById(R.id.reviewsRecyclerView);
+        RecyclerView reviewsRecyclerView = view.findViewById(R.id.reviewsRecyclerView);
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize the adapter and set it to the RecyclerView
-        reviewsAdapter = new ReviewsAdapter(getCustomerReviews());
+        ReviewsAdapter reviewsAdapter = new ReviewsAdapter(getCustomerReviews());
         reviewsRecyclerView.setAdapter(reviewsAdapter);
 
         return view;
     }
 
     // Mock method to get customer reviews (replace with real data source)
-    private List<Review> getCustomerReviews() {
-        List<Review> reviews = new ArrayList<>();
+    private List<ReviewRecord> getCustomerReviews() {
+        List<ReviewRecord> ReviewRecords = new ArrayList<>();
         // Add sample reviews
-        reviews.add(new Review("John Doe", "Great service and friendly staff!", 5));
-        reviews.add(new Review("Jane Smith", "Loved the haircut!", 4));
-        reviews.add(new Review("Michael Johnson", "Good experience overall.", 3));
-        return reviews;
+        ReviewRecords.add(new ReviewRecord("John Doe", "Great service and friendly staff!", 5));
+        ReviewRecords.add(new ReviewRecord("Jane Smith", "Loved the haircut!", 4));
+        ReviewRecords.add(new ReviewRecord("Michael Johnson", "Good experience overall.", 3));
+        return ReviewRecords;
     }
 }

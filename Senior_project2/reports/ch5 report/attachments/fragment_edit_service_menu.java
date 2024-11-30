@@ -1,13 +1,16 @@
-package com.example.haircut;
-import android.widget.Toast;
+package com.haircut.frontend;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.haircut.R;
 
 public class fragment_edit_service_menu extends Fragment {
 
