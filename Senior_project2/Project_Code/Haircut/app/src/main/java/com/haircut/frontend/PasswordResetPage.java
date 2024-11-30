@@ -31,7 +31,7 @@ public class PasswordResetPage extends AppCompatActivity {
 //        /**
 //         * Incorrect File Path in sendCode Method:
 //         *
-//         *     The path "resources" is not valid on Android. The File constructor you’re using creates a file in the local filesystem where your app does not have permission.
+//         *     The path "resources" is not valid on Android. The File constructor used creates a file in the local filesystem where your app does not have permission.
 //         *     On Android, files should be stored in app-specific directories such as getFilesDir() or getCacheDir().
 //         */
 //        File file = new File("resources", "verification_code.txt");

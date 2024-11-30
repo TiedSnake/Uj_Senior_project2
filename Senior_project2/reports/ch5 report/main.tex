@@ -341,7 +341,7 @@ and the users are categorized as follows:
 }
 \immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/WelcomePage.java -O attachments/WelcomePage.java}
 
-        \lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/welcome.java}
+\lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/WelcomePage.java}
 
 \newpage
 Secondly, after the user clicks on the suitable option another page asks the user whether they are trying to login or sign up for the first time.
@@ -354,7 +354,9 @@ Secondly, after the user clicks on the suitable option another page asks the use
     \label{fig: signup or login page screen}
 \end{figure}
 
-\lstinputlisting[style=javaCode, language=Java, caption=signup login.java]{attachments/signup_login.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/SignupAndLoginPage.java -O attachments/SignupAndLoginPage.java}
+
+\lstinputlisting[style=javaCode, language=Java, caption=signup login.java]{attachments/SignupAndLoginPage.java}
 \newpage
 If the user chooses the login option, they will be redirected to the login page, where the user enters the email and password and logs in to the app.
 \begin{figure}[ht]
@@ -364,9 +366,11 @@ If the user chooses the login option, they will be redirected to the login page,
     \label{fig: login screen}
 \end{figure}
 
-\lstinputlisting[style=javaCode, language=Java, caption=login.java]{attachments/login.java}
-
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/LoginPage.java -O attachments/LoginPage.java}
+\lstinputlisting[style=javaCode, language=Java, caption=login.java]{attachments/LoginPage.java}
 \newpage
+
+% Image needs to be updated `signup.xml
 If the user chooses the signup option, they will be redirected to the signup page, where the user needs to enter their credentials, and it includes their first name, last name, email, and password, after the user enters the credentials they press the signup button.
 \begin{figure}[ht]
     \centering
@@ -375,10 +379,11 @@ If the user chooses the signup option, they will be redirected to the signup pag
     \label{fig: signup page screen}
 \end{figure}
 
-\lstinputlisting[style=javaCode, language=Java, caption=signup.java]{attachments/signup.java}
-
-
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/SignupPage.java -O attachments/SignupPage.java}
+\lstinputlisting[style=javaCode, language=Java, caption=Signup.java]{attachments/SignupPage.java}
 \newpage
+
+% Image needs to be updated `forgot_password.xml
 if the user forgets their password, they will be redirected to the forgot password page, where the user enters their email and clicks on recover password.
 \begin{figure}[ht]
     \centering
@@ -386,9 +391,12 @@ if the user forgets their password, they will be redirected to the forgot passwo
     \caption{forgot password page}
     \label{fig: forgot password page screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption="password reset"]{attachments/password_reset.java}
-
+% Needs to be updated
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/PasswordResetPage.java -O attachments/PasswordResetPage.java}
+\lstinputlisting[style=javaCode, language=Java, caption="password reset"]{attachments/PasswordResetPage.java}
 \newpage
+
+% Image needs to be updated `verification_page.xml
 once the user clicks on the recover password button, they are redirected to the reset password page, where the user receives a verification code on their email, once they enter the verification code, the user clicks on send.
 \begin{figure}[ht]
     \centering
@@ -397,9 +405,10 @@ once the user clicks on the recover password button, they are redirected to the 
     \label{fig: password recovery page screen}
 \end{figure}
 
-
-\lstinputlisting[style=javaCode, language=Java, caption=code verification.java]{attachments/code_verification.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/CodeVerification.java -O attachments/CodeVerification.java}
+\lstinputlisting[style=javaCode, language=Java, caption=code CodeVerification.java]{attachments/CodeVerification.java}
 \newpage
+
 This page introduces Haircut, an app designed to modernize barbershops by simplifying appointments, enhancing customer experience, and empowering barbers with tech-driven solutions.
 \begin{figure}[ht]
     \centering
@@ -407,6 +416,8 @@ This page introduces Haircut, an app designed to modernize barbershops by simpli
     \caption{about us}
     \label{fig: About us page screen}
 \end{figure}Admin
+
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_about_us.java -O attachments/fragment_about_us.java}
 \lstinputlisting[style=javaCode, language=Java, caption="About us page java"]{attachments/fragment_about_us.java}
 \newpage
 
@@ -419,7 +430,9 @@ here on the admin page, the admin can select either the barber or the customer a
     \caption{admin home page}
     \label{fig: admin page screen}
 \end{figure}
-% \lstinputlisting[style=javaCode, language=Java, caption=admin.java]{attachments/fragment_home_admin.java}
+
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_home_admin.java -O attachments/fragment_home_admin.java}
+\lstinputlisting[style=javaCode, language=Java, caption=fragment_home_admin.java]{attachments/fragment_home_admin.java}
 \newpage
 
 here's what the ratings and reviews look like.
@@ -429,8 +442,10 @@ here's what the ratings and reviews look like.
     \caption{rating and reviews}
     \label{fig: rating and reviews page screen}
 \end{figure}
-\lstinputlisting[style=javaCode, language=Java, caption=view ratings admin java]{attachments/fragment_view_ratings.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_view_ratings.java -O attachments/fragment_view_ratings.java}
+\lstinputlisting[style=javaCode, language=Java, caption=fragment_view_ratings java]{attachments/fragment_view_ratings.java}
 \newpage
+
 here's the admin sidebar, where the admin can navigate to the home, profile,or sign out page:
 \begin{figure}[ht]
     \centering
@@ -439,8 +454,10 @@ here's the admin sidebar, where the admin can navigate to the home, profile,or s
     \label{fig: Admin sidebar screen}
 \end{figure}
 % The admin name changed to AdminPage.java
-\lstinputlisting[style=javaCode, language=Java, caption=admin sidebar java]{attachments/admin.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/AdminPage.java -O attachments/AdminPage.java}
+\lstinputlisting[style=javaCode, language=Java, caption=admin sidebar java]{attachments/AdminPage.java}
 \newpage
+
 when the admin clicks on the profile option from the sidebar, he will be directed to the profile page of admin:
 \begin{figure}[ht]
     \centering
@@ -449,8 +466,10 @@ when the admin clicks on the profile option from the sidebar, he will be directe
     \label{fig: Admin profile screen}
 \end{figure}
 % profile1 Changed to UpdateProfile
-\lstinputlisting[style=javaCode, language=Java, caption=admin profile java]{attachments/profile1.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/UpdateProfile.java -O attachments/UpdateProfile.java}
+\lstinputlisting[style=javaCode, language=Java, caption=admin profile java]{attachments/UpdateProfile.java}
 \newpage
+
 when the admin clicks on sign out option on the sidebar, he is redirected to a page where he clicks sign out button, to which he'll be redirected to the welcome page:
 \begin{figure}[ht]
     \centering
@@ -459,8 +478,10 @@ when the admin clicks on sign out option on the sidebar, he is redirected to a p
     \label{fig: Admin signout screen}
 \end{figure}
 % The code needs to be fetched from Github
-% \lstinputlisting[style=javaCode, language=Java, caption=admin sign out java]{attachments/FragmentSignOutDialog.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/FragmentSignOutDialog.java -O attachments/FragmentSignOutDialog.java}
+\lstinputlisting[style=javaCode, language=Java, caption=admin sign out java]{attachments/FragmentSignOutDialog.java}
 \newpage
+
 here is the home page for the barber  where he can check the incoming appointment and customer views and have access to the sidebar
 \begin{figure}[ht]
     \centering
@@ -469,8 +490,10 @@ here is the home page for the barber  where he can check the incoming appointmen
     \label{fig: home barber page screen}
 \end{figure}
 % changed from barber to BarberHome
-% \lstinputlisting[style=javaCode, language=Java, caption=Home Barber java]{attachments/BarberHome.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/BarberHome.java -O attachments/BarberHome.java}
+\lstinputlisting[style=javaCode, language=Java, caption=Home Barber java]{attachments/BarberHome.java}
 \newpage
+
 here the barber can check and update his information and return through the sidebar
 \begin{figure}[ht]
     \centering
@@ -479,8 +502,10 @@ here the barber can check and update his information and return through the side
     \label{fig: barber profile page screen}
 \end{figure}
 % profile1  changed to UpdateProfile
-% \lstinputlisting[style=javaCode, language=Java, caption=Profile barber java]{attachments/profile1.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/UpdateProfile.java -O attachments/UpdateProfile.java}
+% \lstinputlisting[style=javaCode, language=Java, caption=Profile barber java]{attachments/UpdateProfile.java}
 \newpage
+
 here are all the services that the barber provides in his shop and return through the sidebar
 \begin{figure}[ht]
     \centering
@@ -488,8 +513,10 @@ here are all the services that the barber provides in his shop and return throug
     \caption{services menu }
     \label{fig: services menu page screen}
 \end{figure}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/menu.java -O attachments/menu.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Services menu java]{attachments/menu.java}
 \newpage
+
 here when the barber chooses edit services menu, he will be redirected to the edit service menu page, where he can edit his provided services for customers:
 \begin{figure}[ht]
     \centering
@@ -497,8 +524,10 @@ here when the barber chooses edit services menu, he will be redirected to the ed
     \caption{edit services menu}
     \label{fig:edit services menu page screen}
 \end{figure}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_edit_service_menu.java -O attachments/fragment_edit_service_menu.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Edit Services menu java]{attachments/fragment_edit_service_menu.java}
 \newpage
+
 here that's how it will be shown the appointments page and return through the sidebar
 \begin{figure}[ht]
     \centering
@@ -506,8 +535,10 @@ here that's how it will be shown the appointments page and return through the si
     \caption{Appointments barber }
     \label{fig: Appointments barber page screen}
 \end{figure}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_appointment.java -O attachments/fragment_appointment.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Appointments barber java]{attachments/fragment_appointment.java}
 \newpage
+
 here is a sidebar menu where the user can access home, profile, service menu, edit services menu, appointments, reviews, and sign out
 \begin{figure}[ht]
     \centering
@@ -516,9 +547,10 @@ here is a sidebar menu where the user can access home, profile, service menu, ed
     \label{fig: sidebar menu page screen}
 \end{figure}
 % changed from  barber.java  to "BarberPage.java"
-\lstinputlisting[style=javaCode, language=Java, caption=Barber sidebar java]{attachments/barber.java}
-
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/BarberPage.java -O attachments/BarberPage.java}
+\lstinputlisting[style=javaCode, language=Java, caption=Barber sidebar java]{attachments/BarberPage.java}
 \newpage
+
 here barber can check all the customer reviews and return through the sidebar
 \begin{figure}[ht]
     \centering
@@ -526,8 +558,10 @@ here barber can check all the customer reviews and return through the sidebar
     \caption{reviews for the barber }
     \label{fig: reviews for the barber page screen}
 \end{figure}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_reviews.java -O attachments/fragment_reviews.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Reviews of customers java]{attachments/fragment_reviews.java}
 \newpage
+
 here in the sidebar menu if the barber clicks on the sign-out he will be redirected to the welcome page
 \begin{figure}[ht]
     \centering
@@ -536,7 +570,6 @@ here in the sidebar menu if the barber clicks on the sign-out he will be redirec
     \label{fig: barber sign out page screen}
 \end{figure}
 % needs to be grouped with signout code
-
 \newpage
 Now for the customer page, we will display the home page, profile page,sidebar and calendar selection page for appointments. here's the home page of the customer:
 \begin{figure}[ht]
@@ -545,8 +578,10 @@ Now for the customer page, we will display the home page, profile page,sidebar a
     \caption{Home page of Customer}
     \label{fig: Home page of Customer screen}
 \end{figure}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_home_customer.java -O attachments/fragment_home_customer.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Home Customer page java]{attachments/fragment_home_customer.java}
 \newpage
+
 Here's the profile page of the customer, similar to the barber profile page, the customer can update his profile and return through the sidebar:
 \begin{figure}[ht]
     \centering
@@ -555,8 +590,10 @@ Here's the profile page of the customer, similar to the barber profile page, the
     \label{fig: Profile page of Customer screen}
 \end{figure}
 % needs to be changed from profile1 to UpdateProfile
-\lstinputlisting[style=javaCode, language=Java, caption=Profile customer java]{attachments/profile1.java}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/UpdateProfile.java -O attachments/UpdateProfile.java}
+\lstinputlisting[style=javaCode, language=Java, caption=Profile customer java]{attachments/UpdateProfile.java}
 \newpage
+
 Here's the customer sidebar menu where the user can access then home, about us, profile, book appointment, chat with barber, rate and review barbershop,find barbershops and sign out:
 \begin{figure}[ht]
     \centering
@@ -564,7 +601,7 @@ Here's the customer sidebar menu where the user can access then home, about us, 
     \caption{Sidebar of Customer}
     \label{fig: Sidebar of Customer screen}
 \end{figure}
-
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/CustomerPage.java -O attachments/CustomerPage.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Customer sidebar java]{attachments/CustomerPage.java}
 \newpage
 
@@ -586,9 +623,10 @@ Here's the customer sidebar menu where the user can access then home, about us, 
     \caption{Side-by-side images of Calendar/Book appointments pages.}
     \label{fig: side-by-side-calendar}
 \end{figure}
-
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_appointment_customer.java -O attachments/fragment_appointment_customer.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Calendar/Appointments java]{attachments/fragment_appointment_customer.java}
 \newpage
+
 Here's the Chat page, where the customer can chat with the barber and send messages and receive messages:
 \begin{figure}[ht]
     \centering
@@ -596,8 +634,10 @@ Here's the Chat page, where the customer can chat with the barber and send messa
     \caption{Chat with barber page of Customer}
     \label{fig: Chat with barber page of Customer screen}
 \end{figure}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_chat_with_barber.java -O attachments/fragment_chat_with_barber.java}
 \lstinputlisting[style=javaCode, language=Java, caption=Chat with barber java]{attachments/fragment_chat_with_barber.java}
 \newpage
+
 Here's the rate and review barbershop page, when the clicks on it, a pop-up page appears with message "Select a barbershop", after user selects barbershop, they'll be directed ti the rating page, where they can rate and review barbershop and submit their review:
 
 \begin{figure}[ht]
@@ -616,8 +656,10 @@ Here's the rate and review barbershop page, when the clicks on it, a pop-up page
         \label{fig: Review Page}
     \end{subfigure}
 \end{figure}
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/fragment_rate_barbershop.java -O attachments/fragment_rate_barbershop.java}
 \lstinputlisting[style=javaCode, language=Java, caption=rate barbershop java]{attachments/fragment_rate_barbershop.java}
 \newpage
+
 Here's the find barbershops page, it is a map that shows barbershops across the city, in this case Jeddah,where when a user searches for a barbershop and clicks on its name, it will be pinned, when th user clicks on the pin, it displays the shop name, and on the bottom left there is a directions and and open in google maps buttons, and it also has a filter in which if the selected place or the place user searches for isn't a barbershop, it displays a message telling the user that the place isn't a barbershop:
 
 \begin{figure}[ht]
@@ -663,6 +705,7 @@ Here's the find barbershops page, it is a map that shows barbershops across the 
 \end{figure}
 
 \newpage
+\immediate\write18{wget https://raw.githubusercontent.com/TiedSnake/Uj_Senior_project2/refs/heads/integration/Senior_project2/Project_Code/Haircut/app/src/main/java/com/haircut/frontend/MapsActivity.java -O attachments/MapsActivity.java}
 \lstinputlisting[style=javaCode, language=Java, caption=rate barbershop java]{attachments/MapsActivity.java}
 
 when the customer clicks on sign out option, he will be redirected to the sign out page where there is a sign out button, when he clicks the sign out button, he will be redirected to the welcome page:

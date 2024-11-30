@@ -109,8 +109,7 @@ public class LoginPage extends AppCompatActivity {
                         //FLAG_ACTIVITY_CLEAR_TASK: This flag clears any existing task that would be associated with the new activity, effectively clearing the back stack.
                         //FLAG_ACTIVITY_NEW_TASK: This flag starts the activity in a new task.
                         forward.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(forward);
-                        finish(); //This ensures the LoginActivity itself is closed, so it’s not left in the back stack.
+                        startActivity(forward); finish(); //This ensures the LoginActivity itself is closed, so it is not left in the back stack.
                         break;
 //                    default:
 //                        progressBar.setVisibility(View.INVISIBLE);
