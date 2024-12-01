@@ -22,12 +22,6 @@ import com.haircut.backend.Exceptions.UserExistenceCheckException;
 import com.haircut.backend.Exceptions.UserPersistenceException;
 import com.haircut.backend.Exceptions.WrongCredentialsException;
 
-import org.json.JSONObject;
-
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
@@ -57,7 +51,8 @@ public abstract class Service {
     private final static DatabaseReference databaseRef;
     private final static HashMap<String, User> user_records = new HashMap<>();
     private final static HashMap<String, String> users_emails = new HashMap<>();
-    private static final String CUSTOM_TOKEN_CLOUD_FUNCTION_URL = String.format(Locale.ENGLISH, "http://%s:%d/%s/us-central1/verify", IP_ADDRESS, FUNCTIONS_PORT, PROJECT_ID);
+        private static final String CUSTOM_TOKEN_CLOUD_FUNCTION_URL = String.format(Locale.ENGLISH, "http://%s:%d/%s/us-central1/generateLink", IP_ADDRESS, FUNCTIONS_PORT, PROJECT_ID);
+//    private static final String CUSTOM_TOKEN_CLOUD_FUNCTION_URL = "https://us-central1-haircut-93a44.cloudfunctions.net/generateLink";
     private static FirebaseUser fUser;
     //Initialize a reference to realtime database. {old project}
 //    private final static DatabaseReference databaseRef = FirebaseDatabase.getInstance("https://haircut-508fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("schema");
@@ -209,6 +204,7 @@ public abstract class Service {
         });
         return future;
     }
+
     private static CompletableFuture<User> createUserInFirebase(User user, String password) {
         CompletableFuture<User> future = new CompletableFuture<>();
         auth.createUserWithEmailAndPassword(user.getEmail(), password).addOnCompleteListener(task -> {
@@ -242,11 +238,11 @@ public abstract class Service {
         return future;
     }
 
-    private static CompletableFuture<Boolean> sendVerificationEmail(String token) {
+    private static CompletableFuture<Boolean> sendVerificationEmail(String link) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         if (fUser != null) {
 //            String url = CUSTOM_TOKEN_CLOUD_FUNCTION_URL+ String.format("?token=%s", token);
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(CUSTOM_TOKEN_CLOUD_FUNCTION_URL).setHandleCodeInApp(false).build();
+            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(link).setHandleCodeInApp(false).build();
             fUser.sendEmailVerification(actionCodeSettings).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) //sending succeed
                 {
@@ -297,12 +293,10 @@ public abstract class Service {
                 };
                 return createUserInFirebase(user, password);
             }
-        }).thenCompose(createdUser -> fetchUserToken().thenCompose(userToken -> {
-            return sendVerification(user.getEmail(), userToken, "emailVerification");
-        }).thenCompose(isSent -> {
+        }).thenCompose(createdUser -> fetchGeneratedLink(createdUser.getUuid(), "EmailVerification")).thenCompose(Service::sendVerificationEmail).thenCompose(isSent -> {
             user.setIsLoggedIn(true);
             return persistUser(user);
-        }).thenApply(isPersisted -> user));
+        }).thenApply(isPersisted -> user);
     }
 
 
@@ -468,15 +462,14 @@ public abstract class Service {
     }
 
     /**
-     * @param token Takes the token string which will be embedded in the password reset link.
+     * @param link Takes the token string which will be embedded in the password reset link.
      * @return returns true if the operation completed successfully or an exception if not.
      */
-    public static CompletableFuture<Boolean> buildToken(String token) {
+    public static CompletableFuture<Boolean> buildToken(String link) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         if (auth != null) {
             // String url = "https://appname.firebaseapp.com/verify?token=" + token + "&context=passwordReset";
-            String url = String.format(Locale.getDefault(), "http://%s:%d?token=%s&context=passwordReset", IP_ADDRESS, FUNCTIONS_PORT, token);
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(url).setHandleCodeInApp(true).build();
+            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(link).setHandleCodeInApp(true).build();
             auth.sendPasswordResetEmail(user.getEmail(), actionCodeSettings).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.i(TAG, "password reset email has been sent successfully!");
@@ -493,57 +486,6 @@ public abstract class Service {
         return future;
     }
 
-    /**
-     * After the function from typescript returns a custom token.
-     * <ol>
-     * <li> Store the token in the database in relation to the user who requested it.</li>
-     * <li> After successfully storing it, append the token to the verification link(cloud function) sent to the user in the email.</li>
-     * <li> There should be a cloud function which takes this token & verifies it against the token present in the database.</li>
-     * <li> If the token matches another cloud function should return the `successful verification` static html file.</li>
-     * <li> If not, then the cloud Typescript function would return the `verification failed` static html file.</li>
-     * </ol>
-     */
-    @NonNull
-    public static CompletableFuture<Boolean> sendVerification(String email, String userToken, String context) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                System.setProperty("java.net.preferIPv4Stack", "true");
-                URL url = new URL(CUSTOM_TOKEN_CLOUD_FUNCTION_URL);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(5000); // Timeout after 5 seconds
-                urlConnection.setReadTimeout(5000);    // Timeout for reading response
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type", "application/json"); // Sets the request header.
-
-                long createdAt = System.currentTimeMillis();
-                long expiresAt = System.currentTimeMillis() + (1000 * 60); // Expires after 1 minute
-
-                urlConnection.setDoOutput(true);
-                JSONObject jsonParam = new JSONObject();
-
-                urlConnection.setRequestProperty("authorization-token", userToken); // Sets the request header.
-                urlConnection.setRequestProperty("context", context);              // Sets the request header.
-
-                jsonParam.put("createdAt", createdAt);
-                jsonParam.put("expiresAt", expiresAt);
-                jsonParam.put("email", email);
-
-                try (OutputStream os = urlConnection.getOutputStream()) {
-                    byte[] input = jsonParam.toString().getBytes(StandardCharsets.UTF_8);
-                    os.write(input, 0, input.length);
-                }
-
-                int code = urlConnection.getResponseCode();
-                if (code == HttpURLConnection.HTTP_OK) {
-                    return true;
-                } else {
-                    throw new RuntimeException("Error: HTTP " + code);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
 
 
     /**
@@ -576,6 +518,7 @@ public abstract class Service {
         });
         return future;
     }
+
     public static CompletableFuture<Boolean> persistReview(Review review) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         databaseRef.child("reviews").child(review.getUuid().toString()).setValue(review).addOnCompleteListener(task -> {
@@ -586,6 +529,40 @@ public abstract class Service {
                 Log.e(TAG, "DatabaseError: Error saving review to database", task.getException());
                 future.completeExceptionally(new RuntimeException("Failed to persist review", task.getException()));
             }
+        });
+        return future;
+    }
+
+    /**
+     * Method that requests Typescript cloud function to generate either a email verification or password reset links.
+     * @param userId takes the firebase userid,
+     * @param context takes the context either email verification or password reset
+     */
+    private static CompletableFuture<String> fetchGeneratedLink(String userId, String context) {
+        CompletableFuture<String> future = new CompletableFuture<>();
+        // Additional properties to send to the Firebase Cloud Function
+        long createdAt = System.currentTimeMillis();
+        long expiresAt = createdAt + (1000 * 60); // Expires after 1 minute
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("userId", userId);
+        data.put("createdAt", createdAt);
+        data.put("expiresAt", expiresAt);
+        data.put("context", context);
+        functions.getHttpsCallable("generateLink").call(data).continueWith(task -> {
+            if (!task.isSuccessful()) {
+                future.completeExceptionally(new RuntimeException("Failed to fetch link", task.getException()));
+            }
+            Map<String, Object> resultData = (Map<String, Object>) task.getResult().getData();
+            if (resultData != null) {
+                if (!resultData.containsKey("link")) {
+                    future.completeExceptionally(new RuntimeException("Missing 'link' in Firebase response"));
+                } else if (resultData.containsKey("link")) {
+                    String link = (String) resultData.get("link");
+                    future.complete(link);
+                }
+            }
+            return future;
         });
         return future;
     }

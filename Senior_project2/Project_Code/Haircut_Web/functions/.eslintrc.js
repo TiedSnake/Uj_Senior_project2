@@ -27,9 +27,9 @@ module.exports = {
   ],
   rules: {
     "max-len": ["warn", {code: 120}],
-    "quotes": ["error", "double"],
+    "quotes": ["warn", "double"],
     "import/no-unresolved": 0,
     // "indent": ["warn", 1],
-    "object-curly-spacing": ["none"],
+    "object-curly-spacing": 0,
   },
 };
