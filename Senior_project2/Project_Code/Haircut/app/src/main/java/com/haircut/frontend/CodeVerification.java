@@ -3,6 +3,8 @@ package com.haircut.frontend;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class CodeVerification extends AppCompatActivity {
     EditText verificationCodeField;
+    TextView verificationCodeLabel;
     TextView newPasswordLabel;
     TextView retypedPasswordLabel;
     EditText newPasswordField;
@@ -30,10 +33,8 @@ public class CodeVerification extends AppCompatActivity {
     Button verifyBtn;
     Button resetButton;
     ProgressBar progressBar;
+    String code; //declared here so that it becomes accessible to both buttons verifyBtn & resetButton SHARED STATE`
 
-    //User type may help in user lookup in the system
-    SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-    User.UserType userType = User.UserType.valueOf(prefs.getString("USER_TYPE", User.UserType.GUEST.name()));
 
     public static CompletableFuture<FLAGS> confirmVerificationCode(String resetCode, String newPassword, String retypedPassword, User.UserType userType) {
         if (!Utility.isValidUser(userType))
@@ -59,7 +60,12 @@ public class CodeVerification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.verification_page);
 
+        //User type may help in user lookup in the system
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        User.UserType userType = User.UserType.valueOf(prefs.getString("USER_TYPE", User.UserType.GUEST.name()));
+
         verificationCodeField = findViewById(R.id.verification_code_field);
+        verificationCodeLabel = findViewById(R.id.verification_code_label);
         newPasswordLabel = findViewById(R.id.new_password_label);
         newPasswordField = findViewById(R.id.new_password_field);
         retypedPasswordField = findViewById(R.id.verify_new_password_field);
@@ -68,23 +74,36 @@ public class CodeVerification extends AppCompatActivity {
         verifyBtn = findViewById(R.id.verify_btn);
         progressBar = findViewById(R.id.progressBar);
 
-        verifyBtn.setVisibility(View.INVISIBLE);
+        resetButton.setVisibility(View.INVISIBLE);
         newPasswordLabel.setVisibility(View.INVISIBLE);
         newPasswordField.setVisibility(View.INVISIBLE);
         retypedPasswordLabel.setVisibility(View.INVISIBLE);
         retypedPasswordField.setVisibility(View.INVISIBLE);
-        verificationCodeField.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
         //Can't assign default values in here. must verify manually.
 
+        verificationCodeField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {}
 
-        String code = verificationCodeField.toString();
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Update 'code' with the latest text in the EditText
+                code = charSequence.toString().trim();  // Trimmed to remove any spaces
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+        code = verificationCodeField.getText().toString().trim();
 
         //Must see what kind of verification code Firebase sends in here so I could compose a Regex to verify whether entered verification code matches it.
-        resetButton.setOnClickListener(view -> {
+        verifyBtn.setOnClickListener(view -> {
             if (Utility.isValidVerificationCode(code)) {
-                verificationCodeField.setVisibility(View.INVISIBLE);
-                verifyBtn.setVisibility(View.VISIBLE);
+                verificationCodeField.setVisibility(View.GONE);
+                verificationCodeLabel.setVisibility(View.GONE);
+                verifyBtn.setVisibility(View.INVISIBLE);
+                resetButton.setVisibility(View.VISIBLE);
                 newPasswordLabel.setVisibility(View.VISIBLE);
                 newPasswordField.setVisibility(View.VISIBLE);
                 retypedPasswordLabel.setVisibility(View.VISIBLE);
@@ -92,7 +111,7 @@ public class CodeVerification extends AppCompatActivity {
             } else
                 Toast.makeText(CodeVerification.this, "Please enter a valid verification code", Toast.LENGTH_SHORT).show();
         });
-        verifyBtn.setOnClickListener(view -> {
+        resetButton.setOnClickListener(view -> {
             String newPassword = newPasswordField.toString();
             String retypedPassword = retypedPasswordField.toString();
             progressBar.setVisibility(View.VISIBLE);

@@ -68,10 +68,10 @@ public class Exceptions extends Exception {
         }
     }
     /**
-     * Exception trigger: Failure when persisting a user in Firebase real-time database
+     * Exception trigger: Failure when sending a verification email to a user in Firebase real-time database
      */
-    public static class EmailVerificationException extends RuntimeException {
-        public EmailVerificationException(String errMessage, Throwable err) {
+    public static class VerificationEmailException extends RuntimeException {
+        public VerificationEmailException(String errMessage, Throwable err) {
             super(errMessage, err);
         }
     }
@@ -92,6 +92,17 @@ public class Exceptions extends Exception {
             super(errMessage, err);
         }
         public DataFetchException(String errMessage) {
+            super(errMessage);
+        }
+    }
+    /**
+     * Exception trigger: exception when fetching data from Firebase real-time database
+     */
+    public static class PasswordResetEmailException extends RuntimeException {
+        public PasswordResetEmailException(String errMessage, Throwable err) {
+            super(errMessage, err);
+        }
+        public PasswordResetEmailException(String errMessage) {
             super(errMessage);
         }
     }

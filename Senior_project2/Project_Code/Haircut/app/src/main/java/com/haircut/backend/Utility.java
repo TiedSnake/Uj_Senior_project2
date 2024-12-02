@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 
 
 public class Utility {
-    //Needs more work
     private static final String NAME_REGEX = "[A-Za-z]+";
 
     /**
@@ -96,12 +95,15 @@ public class Utility {
         }
     }
 
+    // TODO: 12/2/24 Needs to be verified
+    private static final String VERIFICATION_CODE_REGEX = "[0-9]{6}";
+    private static final Pattern VERIFICATION_CODE_PATTERN = Pattern.compile(VERIFICATION_CODE_REGEX);
     // FIXME: 11/30/24 pattern needs to match 6 digits number
     public static boolean isValidVerificationCode(String code) {
         if (code == null) {
             return false;
         } else {
-            Matcher matcher = EMAIL_PATTERN.matcher(code);
+            Matcher matcher = VERIFICATION_CODE_PATTERN.matcher(code);
             return matcher.matches(); //returns true/false
         }
     }

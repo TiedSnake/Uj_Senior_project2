@@ -16,11 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.haircut.R;
+import com.haircut.backend.Exceptions;
 import com.haircut.backend.Exceptions.SchemaColumnException;
 import com.haircut.backend.Exceptions.SchemaInitializationException;
 import com.haircut.backend.Exceptions.UserCreationException;
 import com.haircut.backend.Exceptions.UserPersistenceException;
-import com.haircut.backend.Exceptions.EmailVerificationException;
+import com.haircut.backend.Exceptions.VerificationEmailException;
 import com.haircut.backend.Exceptions.UserAlreadyExistsException;
 import com.haircut.backend.FLAGS;
 import com.haircut.backend.Service;
@@ -142,6 +143,10 @@ public class SignupPage extends AppCompatActivity {
                     progressBar.setVisibility(View.INVISIBLE);
                     if (rootCause instanceof UserAlreadyExistsException)
                         Toast.makeText(SignupPage.this, "There is a user registered with this email already", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof Exceptions.UserExistenceCheckException)
+                        Toast.makeText(SignupPage.this, "Bad connection with the database", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof RuntimeException)
+                        Toast.makeText(SignupPage.this, "Bad connection with the cloud function", Toast.LENGTH_SHORT).show();
                     if (rootCause instanceof SchemaInitializationException)
                         Toast.makeText(SignupPage.this, "Database error 001", Toast.LENGTH_SHORT).show();
                     if (rootCause instanceof SchemaColumnException)
@@ -150,8 +155,8 @@ public class SignupPage extends AppCompatActivity {
                         Toast.makeText(SignupPage.this, "Firebase authentication 001", Toast.LENGTH_SHORT).show();
                     if (rootCause instanceof UserPersistenceException)
                         Toast.makeText(SignupPage.this, "Database connection error", Toast.LENGTH_SHORT).show();
-                    if (rootCause instanceof EmailVerificationException)
-                        Toast.makeText(SignupPage.this, "Email Verification error", Toast.LENGTH_SHORT).show();
+                    if (rootCause instanceof VerificationEmailException)
+                        Toast.makeText(SignupPage.this, "Failed to send email verification", Toast.LENGTH_SHORT).show();
                     if (rootCause instanceof NullPointerException)
                         Toast.makeText(SignupPage.this, "Null object error", Toast.LENGTH_SHORT).show();
                 });
