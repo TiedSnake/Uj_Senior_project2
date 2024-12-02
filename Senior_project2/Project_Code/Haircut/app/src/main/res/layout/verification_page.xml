@@ -59,6 +59,7 @@
         android:autofillHints="emailAddress"
         android:background="#BBBBBB"
         android:hint="@string/verification_code_hint"
+        android:textAlignment="center"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
         android:textColorHint="#000000"
@@ -85,6 +86,7 @@
         android:layout_height="48dp"
         android:autofillHints="emailAddress"
         android:background="#BBBBBB"
+        android:textAlignment="center"
         android:hint="Enter new password"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
@@ -112,6 +114,7 @@
         android:autofillHints="emailAddress"
         android:background="#BBBBBB"
         android:hint="Renter new password"
+        android:textAlignment="center"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
         android:textColorHint="#000000"
@@ -140,11 +143,24 @@
         android:backgroundTint="#000000"
         android:text="@string/reset"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintBottom_toTopOf="@id/errorMessageTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/verify_new_password_field" />
 
+    <TextView
+        android:id="@+id/errorMessageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New password must match retyped password"
+        android:textColor="@android:color/holo_red_dark"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reset_btn" />
+    />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -154,6 +170,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reset_btn"/>
+        app:layout_constraintTop_toBottomOf="@id/errorMessageTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

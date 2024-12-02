@@ -31,6 +31,7 @@ public class CodeVerification extends AppCompatActivity {
     EditText newPasswordField;
     EditText retypedPasswordField;
     Button verifyBtn;
+    TextView errorMessageView;
     Button resetButton;
     ProgressBar progressBar;
     String code; //declared here so that it becomes accessible to both buttons verifyBtn & resetButton SHARED STATE`
@@ -71,6 +72,7 @@ public class CodeVerification extends AppCompatActivity {
         retypedPasswordField = findViewById(R.id.verify_new_password_field);
         retypedPasswordLabel = findViewById(R.id.verify_new_password_label);
         resetButton = findViewById(R.id.reset_btn);
+        errorMessageView = findViewById(R.id.errorMessageTextView);
         verifyBtn = findViewById(R.id.verify_btn);
         progressBar = findViewById(R.id.progressBar);
 
@@ -80,8 +82,6 @@ public class CodeVerification extends AppCompatActivity {
         retypedPasswordLabel.setVisibility(View.INVISIBLE);
         retypedPasswordField.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
-        //Can't assign default values in here. must verify manually.
-
         verificationCodeField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {}
@@ -111,6 +111,30 @@ public class CodeVerification extends AppCompatActivity {
             } else
                 Toast.makeText(CodeVerification.this, "Please enter a valid verification code", Toast.LENGTH_SHORT).show();
         });
+        TextWatcher passwordWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newPassword = newPasswordField.getText().toString();
+                String retypePassword = retypedPasswordField.getText().toString();
+
+                if (!newPassword.equals(retypePassword)) {
+                    // Shows the error message
+                    errorMessageView.setVisibility(TextView.VISIBLE);
+                } else {
+                    // Hides the error message when passwords match
+                    errorMessageView.setVisibility(TextView.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+        // Attaches the TextWatcher to both EditText fields
+        newPasswordField.addTextChangedListener(passwordWatcher);
+        retypedPasswordField.addTextChangedListener(passwordWatcher);
         resetButton.setOnClickListener(view -> {
             String newPassword = newPasswordField.toString();
             String retypedPassword = retypedPasswordField.toString();
