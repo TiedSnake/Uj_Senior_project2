@@ -41,7 +41,6 @@ android {
 }
 
 dependencies {
-    implementation("com.google.android.gms:play-services-maps:18.1.0") // Ensure this is the latest version
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)

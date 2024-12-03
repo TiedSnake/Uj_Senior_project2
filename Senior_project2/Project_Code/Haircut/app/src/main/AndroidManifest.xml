@@ -35,29 +35,22 @@
         <activity
             android:name=".frontend.WelcomePage"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".frontend.SignupAndLoginPage" />
         <activity android:name=".frontend.CustomerPage"
             android:exported="true"
                 />
 
-<!--        <activity android:name=".frontend.PasswordResetPage" android:exported="true">-->
+        <activity android:name=".frontend.PasswordResetPage" android:exported="true">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
-<!--        </activity>-->
-        <activity android:name=".frontend.CodeVerification" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
 
         <activity android:name=".frontend.LoginPage" />
 

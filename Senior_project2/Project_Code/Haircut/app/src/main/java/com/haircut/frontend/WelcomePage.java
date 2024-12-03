@@ -9,10 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.haircut.R;
-import com.haircut.backend.Service;
 import com.haircut.backend.User.UserType;
 
 public class WelcomePage extends AppCompatActivity {
+    private final static String TAG = "Service.java";
     Button customer_btn;
     Button barber_btn;
     Button admin_btn;
@@ -22,6 +22,8 @@ public class WelcomePage extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_page);
+
+
         customer_btn = findViewById(R.id.Customer);
         barber_btn = findViewById(R.id.Barber);
         admin_btn = findViewById(R.id.Admin);

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.haircut.R;
 import com.haircut.backend.Exceptions;
 import com.haircut.backend.Exceptions.PasswordResetEmailException;
@@ -22,7 +23,6 @@ import com.haircut.backend.Service;
 import com.haircut.backend.Utility;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 public class PasswordResetPage extends AppCompatActivity {
     Button passwordResetBtn;
@@ -30,22 +30,6 @@ public class PasswordResetPage extends AppCompatActivity {
     TextView loginLabel;
     TextView signupLabel;
     ProgressBar progressBar;
-
-    public static CompletableFuture<FLAGS> passwordReset(String email) {
-        if (!Utility.isValidEmail(email)) {
-            return CompletableFuture.completedFuture(FLAGS.INVALID_EMAIL);
-        }
-        return Service.resetPassword(email).handle((isSent, ex) -> {
-            if (isSent && ex == null)
-                return FLAGS.SUCCESS;
-            else throw new CompletionException(ex);
-
-        }).exceptionally(ex -> {
-            throw new CompletionException(ex);
-//            System.out.println("Exception during login: " + ex.getMessage());
-//            return FLAGS.ERROR;
-        });
-    }
 
 
     //Onclick method to send user from  password reset login page
@@ -74,7 +58,7 @@ public class PasswordResetPage extends AppCompatActivity {
         passwordResetBtn.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
             String email = emailField.getText().toString();
-            passwordReset(email).thenAccept(flag -> {
+            passwordReset(Service.getCurrentAuth(), email).thenAccept(flag -> {
                 switch (flag) {
                     case INVALID_EMAIL:
                         progressBar.setVisibility(View.INVISIBLE);
@@ -83,7 +67,7 @@ public class PasswordResetPage extends AppCompatActivity {
                     case SUCCESS:
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(PasswordResetPage.this, "Reset password email has been sent!", Toast.LENGTH_SHORT).show();
-                        Intent forward = new Intent(PasswordResetPage.this, CodeVerification.class);
+                        Intent forward = new Intent(PasswordResetPage.this, SignupAndLoginPage.class);
                         startActivity(forward);
                         finish();
                         break;
@@ -93,7 +77,7 @@ public class PasswordResetPage extends AppCompatActivity {
                 }
             }).exceptionally(ex -> {
                 Throwable rootCause = getRootCause(ex);
-                runOnUiThread(() -> {
+                runOnUiThread(() -> {// FIXME: 12/3/24 Custom exceptions not tied with the reset Password method
                     progressBar.setVisibility(View.INVISIBLE);
                     if (rootCause instanceof Exceptions.UserExistenceCheckException)
                         Toast.makeText(PasswordResetPage.this, "Bad connection with the database", Toast.LENGTH_SHORT).show();
@@ -109,5 +93,36 @@ public class PasswordResetPage extends AppCompatActivity {
                 return null;
             });
         });
+    }
+
+    private CompletableFuture<FLAGS> passwordReset(FirebaseAuth auth, String email) {
+        CompletableFuture<FLAGS> future = new CompletableFuture<>();
+        if (auth != null) {
+            progressBar.setVisibility(View.VISIBLE);
+            passwordResetBtn.setVisibility(View.INVISIBLE);
+            if (!Utility.isValidEmail(email)) {
+                future.complete(FLAGS.INVALID_EMAIL);
+                return future;
+            }
+//            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
+//                    .setUrl("http://10.0.2.2:9099/emulator/action")
+//                    .setHandleCodeInApp(true)
+//                    .build();
+            auth.sendPasswordResetEmail(email).addOnSuccessListener(unused -> {
+                future.complete(FLAGS.SUCCESS);
+                Toast.makeText(PasswordResetPage.this, "Password reset link has been sent to the registered email", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PasswordResetPage.this, SignupAndLoginPage.class);
+                startActivity(intent);
+                finish();
+
+            }).addOnFailureListener(e -> {
+//            Toast.makeText(PasswordResetPage.this, "Error : " + e.getCause(), Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
+                passwordResetBtn.setVisibility(View.VISIBLE);
+                future.completeExceptionally(new Exception(e.getCause()));
+            });
+        } else
+            future.completeExceptionally(new RuntimeException("null Firebase authentication object"));
+        return future;
     }
 }

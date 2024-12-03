@@ -4,7 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -14,20 +13,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.haircut.backend.Exceptions.DataFetchException;
-import com.haircut.backend.Exceptions.VerificationEmailException;
 import com.haircut.backend.Exceptions.UnregisteredUserException;
 import com.haircut.backend.Exceptions.UserAlreadyExistsException;
 import com.haircut.backend.Exceptions.UserCreationException;
 import com.haircut.backend.Exceptions.UserExistenceCheckException;
 import com.haircut.backend.Exceptions.UserPersistenceException;
+import com.haircut.backend.Exceptions.VerificationEmailException;
 import com.haircut.backend.Exceptions.WrongCredentialsException;
-import com.haircut.backend.Exceptions.PasswordResetEmailException;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -58,8 +54,6 @@ public abstract class Service {
     private final static FirebaseAuth auth;
     private final static FirebaseFunctions functions;
     private final static DatabaseReference databaseRef;
-    private final static HashMap<String, User> user_records = new HashMap<>();
-    private final static HashMap<String, String> users_emails = new HashMap<>();
     private static final String CUSTOM_TOKEN_CLOUD_FUNCTION_URL = String.format(Locale.ENGLISH, "http://%s:%d/%s/us-central1/generateLink", IP_ADDRESS, FUNCTIONS_PORT, PROJECT_ID);
     //    private static final String CUSTOM_TOKEN_CLOUD_FUNCTION_URL = "https://us-central1-haircut-93a44.cloudfunctions.net/generateLink";
     private static FirebaseUser fUser;
@@ -78,17 +72,21 @@ public abstract class Service {
         database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(false);
 //        database.useEmulator("10.0.2.2", 9002);
-        database.useEmulator(IP_ADDRESS, DATABASE_PORT);
+//        database.useEmulator(IP_ADDRESS, DATABASE_PORT);
         auth = FirebaseAuth.getInstance();
-        auth.useEmulator(IP_ADDRESS, AUTH_PORT);
+//        auth.useEmulator(IP_ADDRESS, AUTH_PORT);
         functions = FirebaseFunctions.getInstance();
-        functions.useEmulator(IP_ADDRESS, FUNCTIONS_PORT);
+//        functions.useEmulator(IP_ADDRESS, FUNCTIONS_PORT);
         databaseRef = database.getReference("schema");
     }
 
     public static synchronized User getCurrentUser() {
         return user;
     }
+    public static synchronized FirebaseAuth getCurrentAuth() {
+        return auth;
+    }
+
 
     public static synchronized void setCurrentUser(User currentUser) {
         user = currentUser;
@@ -235,23 +233,12 @@ public abstract class Service {
         return future;
     }
 
-    /**
-     * adding to the hashmap will return the user object we compare against Non-null
-     * to force the function into return true if user added successfully & false if not.
-     * This Method returns multiple types of object depending on the program flow(User, FLAGS)
-     */
-    public static <T> CompletableFuture<T> failedFuture(Throwable exception) {
-        CompletableFuture<T> future = new CompletableFuture<>();
-        future.completeExceptionally(exception);
-        return future;
-    }
-
-    private static CompletableFuture<Boolean> sendVerificationEmail(String link) {
+    private static CompletableFuture<Boolean> sendVerificationEmail() {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         if (fUser != null) {
 //            String url = CUSTOM_TOKEN_CLOUD_FUNCTION_URL+ String.format("?token=%s", token);
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(link).setHandleCodeInApp(false).build();
-            fUser.sendEmailVerification(actionCodeSettings).addOnCompleteListener(task -> {
+//            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(link).setHandleCodeInApp(false).build();
+            fUser.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) //sending succeed
                 {
                     Log.i(TAG, "verification email has been sent successfully!");
@@ -265,24 +252,6 @@ public abstract class Service {
         } else {
             Log.e(TAG, "Error: Sending email verification process failed due to firebaseUser object being null");
             future.completeExceptionally(new NullPointerException("Error: failed to send verification email due to Firebase user object is null"));
-        }
-        return future;
-    }
-
-    public static CompletableFuture<String> fetchUserToken() {
-        CompletableFuture<String> future = new CompletableFuture<>();
-        if (fUser != null) {
-            fUser.getIdToken(true).addOnCompleteListener(fetchUserTask -> {
-                if (fetchUserTask.isSuccessful()) {
-                    future.complete(fetchUserTask.getResult().getToken());
-                } else {
-                    future.completeExceptionally(new RuntimeException("Failed to fetch the Firebase user token due to:\n", fetchUserTask.getException()));
-                    Log.e(TAG, "Failed to get ID token", fetchUserTask.getException());
-                }
-            });
-        } else {
-            Log.e(TAG, "Failed to fetch the Firebase user token due to the user object being null");
-            future.completeExceptionally(new NullPointerException("Failed to fetch the Firebase user token due to the user object being null"));
         }
         return future;
     }
@@ -301,7 +270,7 @@ public abstract class Service {
                 };
                 return createUserInFirebase(user, password);
             }
-        }).thenCompose(createdUser -> fetchGeneratedLinkForEmailVerification(createdUser.getUuid(), "EmailVerification")).thenCompose(Service::sendVerificationEmail).thenCompose(isSent -> {
+        }).thenCompose(createdUser -> sendVerificationEmail()).thenCompose(isSent -> {
             user.setIsLoggedIn(true);
             return persistUser(user);
         }).thenApply(isPersisted -> user);
@@ -387,133 +356,6 @@ public abstract class Service {
         });
     }
 
-    /**
-     * @param uuid user can't logout if he/she isn't logged in from the first place, that explains why the parameter is of type User instead of email.
-     *             the point is to avoid the overhead of finding in the records for the user object again when the user is already logged in.
-     * @return
-     */
-    protected static CompletableFuture<FLAGS> logout(UUID uuid) {
-        CompletableFuture<FLAGS> future = new CompletableFuture<>();
-        User user = user_records.getOrDefault(uuid, null);
-        if (user == null)
-            future.completeExceptionally(new RuntimeException("Unexpected error during logout, the user associated with this uuid " + uuid.toString() + " is null"));
-        else if (user.isLoggedIn()) {
-            auth.signOut();
-            user.setIsLoggedIn(false);
-            future.complete(FLAGS.SUCCESS);
-        } else
-            future.completeExceptionally(new RuntimeException("Unexpected error during logout, the user associated with this uuid " + uuid.toString() + " is not signed in the system"));
-        return future;
-    }
-
-    static CompletableFuture<FLAGS> codeVerification(String code) {
-        CompletableFuture<FLAGS> future = new CompletableFuture<>();
-        auth.verifyPasswordResetCode(code).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                future.complete(FLAGS.SUCCESS);
-            } else
-                future.completeExceptionally(new RuntimeException("Invalid verification code or it has expired " + task.getException()));
-        });
-        return future;
-    }
-
-    public static CompletableFuture<FLAGS> verifyPassword(String resetCode, String newPassword, User.UserType userType) {
-        if (true/*flag.equals(FLAGS.SUCCESS)*/) {
-            if (!user.getUserType().equals(userType))
-                Log.w(TAG, String.format("Usertype from frontend %s doesn't match UserType from the database %s for this user %s", userType, user.getUserType(), user.getUuid()));
-            Log.i(TAG, "Password reset code verified successfully.");
-            // Step 3: Confirm the password reset with new password
-            return confirmPasswordReset(resetCode, newPassword).thenApply(flag2 -> {
-                if (flag2.equals(FLAGS.SUCCESS)) {
-                    Log.i(TAG, "Password has been reset successfully.");
-                    return FLAGS.SUCCESS;
-                } else {
-                    Log.e(TAG, "Error: failed to confirm the password reset.");
-                    return FLAGS.ERROR;
-                }
-            });
-        } else {
-            Log.e(TAG, "Error: invalid password reset code.");
-            return failedFuture(new Exception("Invalid password reset code"));
-        }
-    }
-
-    /**
-     * <ul>
-     * <li>{@code Service.user = user} Initializing the user object so the method {@link #fetchGeneratedLinkForPasswordReset(String, String)} ()} can proceed.
-     * <li>Once the result comes from {@link} it will be substituted in {@link #fetchGeneratedLinkForPasswordReset(String, String)} directly & the value will returned true if successful or exception if not</li>
-     * <li>{@code exceptionally} block will handle exceptions coming from {@link #userExist(String)}, {@link #fetchUserById(String)}, {@link } and {@link #fetchGeneratedLinkForPasswordReset(String, String)}
-     * </ul>
-     */
-    public static CompletableFuture<Boolean> resetPassword(String email) {
-        return userExist(email).thenCompose(userExists -> {
-            if (!userExists) {
-                Log.e(TAG, String.format("This email %s is not registered in the system", email));
-                throw new UnregisteredUserException(String.format("The entered email %s is not registered in the system", email));
-            } else {
-                Log.i(TAG, String.format("This email %s is registered in the system with a user", email));
-                // Step 1: Send password reset email
-                return fetchGeneratedLinkForPasswordReset(email, "PasswordReset").thenCompose(link -> sendResetPasswordEmail(email, link)).thenCompose(isSent -> CompletableFuture.completedFuture(true));
-            }
-        });
-    }
-
-    /**
-     * @param link Takes the token string which will be embedded in the password reset link.
-     * @return returns true if the operation completed successfully or an exception if not.
-     */
-    public static CompletableFuture<Boolean> sendResetPasswordEmail(String email, String link) {
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
-        if (auth != null) {
-            ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder().setUrl(link).setHandleCodeInApp(true).build();
-            auth.sendPasswordResetEmail(email, actionCodeSettings).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Log.i(TAG, "password reset email has been sent successfully!");
-                    future.complete(true);
-                } else {
-                    Log.e(TAG, String.format("Error: failed to send verification\n%s", task.getException()));
-                    future.completeExceptionally(new PasswordResetEmailException("Error: failed to send verification email to user due to:\n", task.getException()));
-                }
-            });
-        } else {
-            Log.e(TAG, "Error: Sending password reset email failed due to authentication object being null");
-            future.completeExceptionally(new NullPointerException("Error: Sending password reset email failed due to authentication object being null"));
-        }
-        return future;
-    }
-
-
-    /**
-     * Takes a code & verifies whether the reset code matches the one generated by Firebase authentication for the specific user linked with the email.
-     *
-     * @param resetCode
-     * @return
-     */
-    private static CompletableFuture<FLAGS> verifyPasswordResetCode(String resetCode) {
-        CompletableFuture<FLAGS> future = new CompletableFuture<>();
-        auth.verifyPasswordResetCode(resetCode).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) future.complete(FLAGS.SUCCESS);
-            else
-                future.completeExceptionally(new RuntimeException("Password Verification Error: Failed to verify password  due to\n" + task.getException()));
-        });
-        return future;
-    }
-
-    /**
-     * @param resetCode
-     * @param newPassword
-     * @return
-     */
-    private static CompletableFuture<FLAGS> confirmPasswordReset(String resetCode, String newPassword) {
-        CompletableFuture<FLAGS> future = new CompletableFuture<>();
-        auth.confirmPasswordReset(resetCode, newPassword).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) future.complete(FLAGS.SUCCESS);
-            else
-                future.completeExceptionally(new RuntimeException("Password Confirmation Error: Failed to confirm password  due to\n" + task.getException()));
-        });
-        return future;
-    }
-
     public static CompletableFuture<Boolean> persistReview(Review review) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         databaseRef.child("reviews").child(review.getUuid().toString()).setValue(review).addOnCompleteListener(task -> {
@@ -524,70 +366,6 @@ public abstract class Service {
                 Log.e(TAG, "DatabaseError: Error saving review to database", task.getException());
                 future.completeExceptionally(new RuntimeException("Failed to persist review", task.getException()));
             }
-        });
-        return future;
-    }
-
-    /**
-     * Method that requests Typescript cloud function to generate either a email verification or password reset links.
-     *
-     * @param userId  takes the firebase userid,
-     * @param context takes the context either email verification or password reset
-     */
-    private static CompletableFuture<String> fetchGeneratedLinkForEmailVerification(String userId, String context) {
-        CompletableFuture<String> future = new CompletableFuture<>();
-        // Additional properties to send to the Firebase Cloud Function
-        long createdAt = System.currentTimeMillis();
-        long expiresAt = createdAt + (1000 * 60); // Expires after 1 minute
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("userId", userId);
-        data.put("createdAt", createdAt);
-        data.put("expiresAt", expiresAt);
-        data.put("context", context);
-        functions.getHttpsCallable("generateLink").call(data).continueWith(task -> {
-            if (!task.isSuccessful()) {
-                future.completeExceptionally(new RuntimeException("Failed to fetch link", task.getException()));
-            }
-            Map<String, Object> resultData = (Map<String, Object>) task.getResult().getData();
-            if (resultData != null) {
-                if (!resultData.containsKey("link")) {
-                    future.completeExceptionally(new RuntimeException("Missing 'link' in Firebase response"));
-                } else if (resultData.containsKey("link")) {
-                    String link = (String) resultData.get("link");
-                    future.complete(link);
-                }
-            }
-            return future;
-        });
-        return future;
-    }
-
-    private static CompletableFuture<String> fetchGeneratedLinkForPasswordReset(String email, String context) {
-        CompletableFuture<String> future = new CompletableFuture<>();
-        // Additional properties to send to the Firebase Cloud Function
-        long createdAt = System.currentTimeMillis();
-        long expiresAt = createdAt + (1000 * 60); // Expires after 1 minute
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("email", email);
-        data.put("createdAt", createdAt);
-        data.put("expiresAt", expiresAt);
-        data.put("context", context);
-        functions.getHttpsCallable("generateLink").call(data).continueWith(task -> {
-            if (!task.isSuccessful()) {
-                future.completeExceptionally(new RuntimeException("Failed to fetch link", task.getException()));
-            }
-            Map<String, Object> resultData = (Map<String, Object>) task.getResult().getData();
-            if (resultData != null) {
-                if (!resultData.containsKey("link")) {
-                    future.completeExceptionally(new RuntimeException("Missing 'link' in Firebase response"));
-                } else if (resultData.containsKey("link")) {
-                    String link = (String) resultData.get("link");
-                    future.complete(link);
-                }
-            }
-            return future;
         });
         return future;
     }
