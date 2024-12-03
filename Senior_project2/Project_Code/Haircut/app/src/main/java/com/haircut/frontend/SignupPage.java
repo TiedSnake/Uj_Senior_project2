@@ -1,10 +1,12 @@
 package com.haircut.frontend;
 
 import static com.google.common.base.Throwables.getRootCause;
+import static com.haircut.backend.User.UserType;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,19 +21,20 @@ import com.haircut.R;
 import com.haircut.backend.Exceptions;
 import com.haircut.backend.Exceptions.SchemaColumnException;
 import com.haircut.backend.Exceptions.SchemaInitializationException;
+import com.haircut.backend.Exceptions.UserAlreadyExistsException;
 import com.haircut.backend.Exceptions.UserCreationException;
 import com.haircut.backend.Exceptions.UserPersistenceException;
 import com.haircut.backend.Exceptions.VerificationEmailException;
-import com.haircut.backend.Exceptions.UserAlreadyExistsException;
 import com.haircut.backend.FLAGS;
 import com.haircut.backend.Service;
-import com.haircut.backend.User.UserType;
 import com.haircut.backend.Utility;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class SignupPage extends AppCompatActivity {
+    private final static String TAG = "SignupPage.java";
+
     EditText fName;
     EditText lName;
     EditText email;
@@ -120,13 +123,17 @@ public class SignupPage extends AppCompatActivity {
                         case SUCCESS:
                             progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(SignupPage.this, "Signup succeeded!", Toast.LENGTH_SHORT).show();
-
-                            Class<?> targetPage = switch (Service.getCurrentUser().getUserType()) {
+                            UserType s = Service.getCurrentUser().getUserType();
+                            Class<?> targetPage = switch (s) {
                                 case CUSTOMER -> CustomerPage.class;
                                 case BARBER -> BarberPage.class;
                                 case ADMIN -> AdminPage.class;
                                 default ->
+                                {
+                                    Log.e(TAG, "Unexpected user type:"+ userType);
                                         throw new IllegalArgumentException("Unexpected user type: " + userType);
+
+                                }
                             };
                             Intent forward = new Intent(SignupPage.this, targetPage);
                             startActivity(forward);

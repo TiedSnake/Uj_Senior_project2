@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <!-- Home Button -->
         <item
-            android:id="@+id/sidebar_option_home"
+            android:id="@+id/customer_sidebar_option_home"
             android:icon="@drawable/baseline_home_24"
             android:title="@string/sidebar_headerText"
             android:checked="true"
@@ -14,7 +14,7 @@
 
         <!-- About Us Button -->
         <item
-            android:id="@+id/sidebar_option_about_us"
+            android:id="@+id/customer_sidebar_option_about_us"
             android:icon="@drawable/ic_info"
             android:title="@string/About_us"
             android:layout_height="wrap_content" />

@@ -1,5 +1,5 @@
 package com.haircut.backend;
-
+import static com.haircut.backend.User.UserType.CUSTOMER;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -48,7 +48,7 @@ public class Customer extends User {
     }
 
     public Customer(String firstName, String lastName, String email) {
-        super(firstName, lastName, email,  UserType.CUSTOMER);
+        super(firstName, lastName, email,  CUSTOMER);
         this.appointments = new ArrayList<Appointment>();
     }
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.haircut.R;
 
-public class fragment_chat_with_barber extends Fragment {
+public class fragment_chat extends Fragment {
 
     private LinearLayout chatContainer;
     private EditText messageInput;
@@ -23,7 +22,7 @@ public class fragment_chat_with_barber extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chat_with_barber, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         chatContainer = view.findViewById(R.id.chat_container);
         messageInput = view.findViewById(R.id.message_input);

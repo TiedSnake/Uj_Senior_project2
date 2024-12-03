@@ -5,8 +5,8 @@
     android:id="@+id/customer_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".frontend.CustomerPage"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    tools:context=".frontend.CustomerPage">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
 
         <!-- Change the ID to match what your Java class is using -->
         <FrameLayout
-            android:id="@+id/fragment_container"
+            android:id="@+id/customer_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -34,8 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:menu="@menu/customer_sidebar"
         app:headerLayout="@layout/customer_header"
-        app:itemIconPadding="30dp"
-        app:menu="@menu/customer_sidebar" />
+        app:itemIconPadding="30dp" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

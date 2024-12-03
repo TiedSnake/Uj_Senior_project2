@@ -22,6 +22,7 @@ import com.haircut.backend.User;
 
 public class CustomerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
 
     @SuppressLint("SetTextI18n")
@@ -41,87 +42,87 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
             android.view.View headerView = navigationView.getHeaderView(0);
 
             // Find the TextView inside the header view
-            TextView headerText = headerView.findViewById(R.id.customer_siderbar_header_text);
-            headerText.setText(user.getFirstName() + " " + user.getLastName());
+            TextView headerText = headerView.findViewById(R.id.customer_sidebar_header_text);
+            // TODO: 12/3/24 undo this
+//            headerText.setText(user.getFirstName() + " " + user.getLastName());
         }
 
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         if (savedInstanceState == null) {
             // Default fragment when the app first opens (Home)
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_home_customer()).commit();
-            navigationView.setCheckedItem(R.id.sidebar_option_home);
+            getSupportFragmentManager().beginTransaction().replace(R.id.customer_frame_layout, new fragment_home_customer()).commit();
+            navigationView.setCheckedItem(R.id.customer_sidebar_option_home);
         }
     }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = null;
-        String tag = null;
-        if (item.getItemId() == R.id.sidebar_option_home) {
-            tag = "HOME";
-            fragment = fragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                fragment = new fragment_home_customer();
-            }
-        } else if (item.getItemId() == R.id.sidebar_option_about_us) {
-            tag = "ABOUT_US";
-            fragment = fragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                fragment = new fragment_about_us();
-            }
-        } else if (item.getItemId() == R.id.sidebar_option_profile) {
-            tag = "PROFILE";
-            fragment = fragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                fragment = new UpdateProfile();
-            }
-        } else if (item.getItemId() == R.id.sidebar_option_appointment) {
-            tag = "BARBERSHOP_LIST";
-            fragment = fragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                fragment = new fragment_barbershop_list();
-            }
-        } else if (item.getItemId() == R.id.sidebar_option_chat) {
-            tag = "CHAT";
-            fragment = fragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                fragment = new fragment_chat_with_barber();
-            }
-        } else if (item.getItemId() == R.id.sidebar_option_rate) {
-            tag = "RATE";
-            fragment = fragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                fragment = new fragment_rate_barbershop();
-            }
-        } else if (item.getItemId() == R.id.sidebar_option_find_barbershops) {
-            startActivity(new Intent(CustomerPage.this, MapsActivity.class));
-            return true;
-        } else if (item.getItemId() == R.id.sidebar_option_signout) {
-            FragmentSignOutDialog signOutDialog = (FragmentSignOutDialog) getSupportFragmentManager().findFragmentByTag("SignOutDialog");
 
-            if (signOutDialog != null && signOutDialog.isVisible()) {
-                // If dialog is already showing, dismiss it before showing a new one
-                signOutDialog.dismiss();
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment fragment = null;
+            String tag = null;
+            if (item.getItemId() == R.id.customer_sidebar_option_home) {
+                tag = "HOME";
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new fragment_home_customer();
+                }
+            } else if (item.getItemId() == R.id.customer_sidebar_option_about_us) {
+                tag = "ABOUT_US";
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new fragment_about_us();
+                }
+            } else if (item.getItemId() == R.id.sidebar_option_profile) {
+                tag = "PROFILE";
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new UpdateProfile();
+                }
+            } else if (item.getItemId() == R.id.sidebar_option_appointment) {
+                tag = "BARBERSHOP_LIST";
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new fragment_barbershop_list();
+                }
+            } else if (item.getItemId() == R.id.sidebar_option_chat) {
+                tag = "CHAT";
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new fragment_chat();
+                }
+            } else if (item.getItemId() == R.id.sidebar_option_rate) {
+                tag = "RATE";
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new fragment_rate_barbershop();
+                }
+            } else if (item.getItemId() == R.id.sidebar_option_find_barbershops) {
+                startActivity(new Intent(CustomerPage.this, MapsActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.sidebar_option_signout) {
+                FragmentSignOutDialog signOutDialog = (FragmentSignOutDialog) getSupportFragmentManager().findFragmentByTag("SignOutDialog");
+
+                if (signOutDialog != null && signOutDialog.isVisible()) {
+                    // If dialog is already showing, dismiss it before showing a new one
+                    signOutDialog.dismiss();
+                }
+
+                // Show the sign-out dialog
+                new FragmentSignOutDialog().show(getSupportFragmentManager(), "SignOutDialog");
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
 
-            // Show the sign-out dialog
-            new FragmentSignOutDialog().show(getSupportFragmentManager(), "SignOutDialog");
+        if (tag != null) {//if tag is not null display the clicked option.
+            fragmentManager.beginTransaction().replace(R.id.customer_frame_layout, fragment, tag).commit();
+        }
+
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         }
-
-        if (tag != null) {//if tag is not null display the clicked option.
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, tag).commit();
-        }
-
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     @Override
     public void onBackPressed() {

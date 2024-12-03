@@ -52,7 +52,7 @@ public class fragment_home_admin extends Fragment {
         btnViewRatings.setOnClickListener(v -> {
             // Load the fragment to view ratings/reviews
             getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayout, new fragment_view_ratings())
+                    .replace(R.id.admin_frame_layout, new fragment_view_ratings())
                     .addToBackStack(null) // Optional: add to back stack to allow back navigation
                     .commit();
         });

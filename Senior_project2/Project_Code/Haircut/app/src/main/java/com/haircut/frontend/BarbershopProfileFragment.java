@@ -39,7 +39,7 @@ public class BarbershopProfileFragment extends Fragment {
         Fragment fragment = new fragment_appointment_customer();
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
+                .replace(R.id.update_profile_fragment_container, fragment)
                 .addToBackStack(null)
                 .commit();
     }

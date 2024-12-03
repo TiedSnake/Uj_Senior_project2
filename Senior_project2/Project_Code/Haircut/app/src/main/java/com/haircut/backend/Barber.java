@@ -1,5 +1,7 @@
 package com.haircut.backend;
 
+import static com.haircut.backend.User.UserType.BARBER;
+
 import java.util.HashSet;
 
 public class Barber extends User {
@@ -29,7 +31,7 @@ public class Barber extends User {
     }
 
     public Barber(String firstName, String lastName, String email) {
-        super(firstName, lastName, email, UserType.BARBER);
+        super(firstName, lastName, email, BARBER);
         this.reviews = new HashSet<Review>();
         this.appointments = new HashSet<Appointment>();
     }

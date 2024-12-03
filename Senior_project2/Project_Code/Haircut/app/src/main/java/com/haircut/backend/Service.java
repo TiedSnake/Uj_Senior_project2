@@ -1,5 +1,8 @@
 package com.haircut.backend;
 
+import static com.haircut.backend.User.UserType;
+import static com.haircut.backend.User.UserType.GUEST;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -256,7 +259,7 @@ public abstract class Service {
         return future;
     }
 
-    public static CompletableFuture<User> signup(String firstName, String lastName, String email, String password, User.UserType userType) {
+    public static CompletableFuture<User> signup(String firstName, String lastName, String email, String password, UserType userType) {
         return userExist(email).thenCompose(userExists -> {
             if (userExists) {
                 Log.e(TAG, String.format("This email %s is already registered in the system with a user", email));
@@ -266,7 +269,7 @@ public abstract class Service {
                     case CUSTOMER -> new Customer(firstName, lastName, email);
                     case BARBER -> new Barber(firstName, lastName, email);
                     case ADMIN -> new Admin(firstName, lastName, email);
-                    default -> new User(firstName, lastName, email, User.UserType.GUEST);
+                    default -> new User(firstName, lastName, email, GUEST);
                 };
                 return createUserInFirebase(user, password);
             }
@@ -330,7 +333,7 @@ public abstract class Service {
         return future;
     }
 
-    public static CompletableFuture<User> login(String email, String password, User.UserType userType) {
+    public static CompletableFuture<User> login(String email, String password, UserType userType) {
         return userExist(email).thenCompose(userExists -> {
             if (!userExists) {
                 Log.e(TAG, String.format("This email %s is not registered in the system", email));

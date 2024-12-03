@@ -6,22 +6,21 @@
     <group android:checkableBehavior="single">
         <!-- Home Button -->
         <item
-            android:id="@+id/btnHome"
+            android:id="@+id/admin_sidebar_option_home"
             android:icon="@drawable/baseline_home_24"
             android:title="@string/sidebar_headerText"
             android:checked="true"
             android:layout_height="wrap_content" />
-        <!-- Updated title to a more descriptive string -->
         <!-- Profile Button -->
         <item
-            android:id="@+id/btnProfile"
+            android:id="@+id/admin_sidebar_option_profile"
             android:icon="@drawable/baseline_account_circle_24"
             android:title="@string/profile"
             android:layout_height="wrap_content" />
 
         <!-- Sign Out Button -->
         <item
-            android:id="@+id/btnSignOut"
+            android:id="@+id/admin_sidebar_option_signout"
             android:icon="@drawable/baseline_logout_24"
             android:title="@string/sign_out_barber"
             android:layout_height="wrap_content" />

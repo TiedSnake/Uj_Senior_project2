@@ -15,7 +15,7 @@ import com.haircut.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarberHome extends Fragment {
+public class fragment_home_barber extends Fragment {
 
     @Nullable
     @Override

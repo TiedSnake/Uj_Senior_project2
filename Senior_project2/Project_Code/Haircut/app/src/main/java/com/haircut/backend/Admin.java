@@ -1,5 +1,7 @@
 package com.haircut.backend;
 
+import static com.haircut.backend.User.UserType.ADMIN;
+
 import java.util.HashSet;
 
 public class Admin extends User {
@@ -8,7 +10,7 @@ public class Admin extends User {
 
     public Admin(String firstName, String lastName, String email) {
         //Pass the user type optionally upon Admin object creation.
-        super(firstName, lastName, email, UserType.ADMIN);
+        super(firstName, lastName, email, ADMIN);
         this.users_blacklist = new HashSet<>();
         this.reviews_list = new HashSet<>();
     }

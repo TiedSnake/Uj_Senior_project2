@@ -69,7 +69,7 @@ public class fragment_barbershop_list extends Fragment {
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.barbershop_list_frame_layout, fragment)
                     .addToBackStack(null)
                     .commit();
         } catch (Exception e) {

@@ -7,7 +7,7 @@
     <group android:checkableBehavior="single">
         <!-- Home Button -->
         <item
-            android:id="@+id/btnHome"
+            android:id="@+id/barber_sidebar_option_home"
             android:icon="@drawable/baseline_home_24"
             android:title="@string/sidebar_headerText"
             android:checked="true"
@@ -15,40 +15,47 @@
 
         <!-- Profile Button -->
         <item
-            android:id="@+id/btnProfile"
+            android:id="@+id/barber_sidebar_option_profile"
             android:icon="@drawable/baseline_account_circle_24"
             android:title="@string/profile"
             android:layout_height="wrap_content" />
 
         <!-- Menu Button -->
         <item
-            android:id="@+id/btnMenu"
+            android:id="@+id/barber_sidebar_option_services_menu"
             android:icon="@drawable/ic_menu"
             android:title="@string/menu_button"
             android:layout_height="wrap_content" />
+        <!-- Chat with Customer Button -->
+        <item
+            android:id="@+id/barber_sidebar_option_chat"
+            android:icon="@drawable/baseline_chat_24"
+            android:title="@string/chat_with_customer"
+            android:layout_height="wrap_content" />
+
         <!-- Edit Menu Button -->
         <item
-            android:id="@+id/btnEditMenu"
+            android:id="@+id/barber_sidebar_option_edit_services_menu"
             android:icon="@drawable/ic_menu"
             android:title="@string/edit_services_menu"
             android:layout_height="wrap_content" />
         <!-- Appointments Button -->
         <item
-            android:id="@+id/btnAppointments"
+            android:id="@+id/barber_sidebar_option_appointments"
             android:icon="@drawable/appointment"
             android:title="@string/appointments_button"
             android:layout_height="wrap_content" />
 
         <!-- Reviews Button -->
         <item
-            android:id="@+id/btnReviews"
+            android:id="@+id/barber_sidebar_option_reviews"
             android:icon="@drawable/baseline_reviews_24"
             android:title="@string/check_reviews_barber"
             android:layout_height="wrap_content" />
 
         <!-- Sign Out Button -->
         <item
-            android:id="@+id/btnSignOut"
+            android:id="@+id/barber_sidebar_option_signout"
             android:icon="@drawable/baseline_logout_24"
             android:title="@string/sign_out_barber"
             android:layout_height="wrap_content" />

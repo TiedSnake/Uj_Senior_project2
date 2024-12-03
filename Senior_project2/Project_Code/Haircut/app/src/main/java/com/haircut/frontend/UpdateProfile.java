@@ -21,7 +21,7 @@ public class UpdateProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the fragment layout
         View view = inflater.inflate(R.layout.fragment_update_profile, container, false);
-        Toolbar toolbar=requireActivity().findViewById(R.id.signup_label);
+        Toolbar toolbar=requireActivity().findViewById(R.id.profile_label);
         if (toolbar != null) {
             toolbar.setTitle("Profile");
         }
