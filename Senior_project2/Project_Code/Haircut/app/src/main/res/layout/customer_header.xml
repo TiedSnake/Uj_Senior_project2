@@ -12,7 +12,6 @@
         android:layout_marginTop="30dp"
         android:padding="10dp">
 
-
         <ImageView
             android:src="@drawable/haircut_app_icon"
             android:layout_width="50dp"
@@ -25,7 +24,6 @@
             android:layout_marginStart="10dp"
             android:orientation="vertical"
             android:layout_gravity="center">
-
 
             <TextView
                 android:id="@+id/customer_sidebar_header_text"

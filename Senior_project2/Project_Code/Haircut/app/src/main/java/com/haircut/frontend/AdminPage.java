@@ -41,12 +41,13 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
             android.view.View headerView = navigationView.getHeaderView(0);
 
             // Find the TextView inside the header view
-            TextView headerText = headerView.findViewById(R.id.customer_sidebar_header_text);
-            headerText.setText(user.getFirstName() + " " + user.getLastName());
+            TextView headerText = headerView.findViewById(R.id.admin_sidebar_header_text);
+            // TODO: 12/3/24 undo this
+//            headerText.setText(user.getFirstName() + " " + user.getLastName());
         }
         // Set up the toggle for the navigation drawer with the toolbar
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.lightRed)); // Sets icon color
+//        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.lightRed)); // changes the color of the options menu icon in sidebar
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -57,30 +58,30 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         }
 
         // Set up navigation item selection listener
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
-
-                // Use if-else statements for navigation
-                if (item.getItemId() == R.id.admin_sidebar_option_home) {
-                    selectedFragment = new fragment_home_admin();
-                } else if (item.getItemId() == R.id.admin_sidebar_option_profile) {
-                    selectedFragment = new UpdateProfile();
-                } else if (item.getItemId() == R.id.admin_sidebar_option_signout) {
-                    selectedFragment = new FragmentSignOutDialog();
-                }
-
-                // Replace the current fragment with the selected one
-                if (selectedFragment != null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.admin_frame_layout, selectedFragment).commit();
-                }
-
-                // Close the drawer after item selection
-                drawerLayout.closeDrawers();
-                return true;
-            }
-        });
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                Fragment selectedFragment = null;
+//
+//                // Use if-else statements for navigation
+//                if (item.getItemId() == R.id.admin_sidebar_option_home) {
+//                    selectedFragment = new fragment_home_admin();
+//                } else if (item.getItemId() == R.id.admin_sidebar_option_profile) {
+//                    selectedFragment = new UpdateProfile();
+//                } else if (item.getItemId() == R.id.admin_sidebar_option_signout) {
+//                    selectedFragment = new FragmentSignOutDialog();
+//                }
+//
+//                // Replace the current fragment with the selected one
+//                if (selectedFragment != null) {
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.admin_frame_layout, selectedFragment).commit();
+//                }
+//
+//                // Close the drawer after item selection
+//                drawerLayout.closeDrawers();
+//                return true;
+//            }
+//        });
     }
 
     @Override
@@ -95,12 +96,12 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
                 fragment = new fragment_home_admin();
             }
         } else if (item.getItemId() == R.id.admin_sidebar_option_profile) {
-            tag = "PROFILE";
+            tag = "ADMIN_PROFILE";
             fragment = fragmentManager.findFragmentByTag(tag);
             if (fragment == null) {
                 fragment = new UpdateProfile();
             }
-        } else if (item.getItemId() == R.id.sidebar_option_signout) {
+        } else if (item.getItemId() == R.id.admin_sidebar_option_signout) {
             FragmentSignOutDialog signOutDialog = (FragmentSignOutDialog) getSupportFragmentManager().findFragmentByTag("SignOutDialog");
 
             if (signOutDialog != null && signOutDialog.isVisible()) {
@@ -115,19 +116,29 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         }
 
         if (tag != null) {//if tag is not null display the clicked option.
-            fragmentManager.beginTransaction().replace(R.id.update_profile_fragment_container, fragment, tag).commit();
+            fragmentManager.beginTransaction().replace(R.id.admin_frame_layout, fragment, tag).commit();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        // Handles action bar item clicks
+//        if (toggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // Handles action bar item clicks
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -22,8 +22,9 @@ import com.haircut.backend.User;
 
 public class CustomerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -31,6 +32,7 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_page);
         User user = Service.getCurrentUser();
+        // Set up the toolbar and make it the action bar
         Toolbar toolbar = findViewById(R.id.customer_toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,8 +48,9 @@ public class CustomerPage extends AppCompatActivity implements NavigationView.On
             // TODO: 12/3/24 undo this
 //            headerText.setText(user.getFirstName() + " " + user.getLastName());
         }
-
+        // Set up the toggle for the navigation drawer with the toolbar
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.teal_200)); // Sets icon color
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 

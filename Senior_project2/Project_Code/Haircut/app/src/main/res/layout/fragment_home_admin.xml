@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".frontend.fragment_home_admin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,11 +24,11 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/tvBarberName"
+            android:id="@+id/tvAdminName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/ali_admin_page"
+            android:text="@string/admin_default_name"
             android:textSize="30sp"
             android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@id/tvAdminTitle"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@id/tvBarberName"
+            app:layout_constraintTop_toBottomOf="@id/tvAdminName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 

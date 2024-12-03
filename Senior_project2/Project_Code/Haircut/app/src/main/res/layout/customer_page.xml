@@ -21,12 +21,10 @@
             app:title="@string/sidebar_headerText"
             app:titleTextColor="@color/black" />
 
-        <!-- Change the ID to match what your Java class is using -->
         <FrameLayout
             android:id="@+id/customer_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

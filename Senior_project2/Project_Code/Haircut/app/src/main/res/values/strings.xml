@@ -38,7 +38,7 @@
     <string name="login_button">Log In</string>
     <string name="admin_page">Admin</string>
     <string name="profile_picture_admin">Profile Picture</string>
-    <string name="ali_admin_page">Ali</string>
+    <string name="admin_default_name">Name</string>
     <string name="profile_picture_admin_page">Profile Picture</string>
     <string name="admin_page_text">Admin</string>
     <string name="barber_admin_page">Barber</string>

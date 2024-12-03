@@ -21,6 +21,7 @@ import com.haircut.backend.User;
 public class BarberPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
+    NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
 
@@ -33,7 +34,7 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.barber_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.barber_nav_view);
+        navigationView = findViewById(R.id.barber_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         if (navigationView != null) {
             android.view.View headerView = navigationView.getHeaderView(0);
@@ -43,7 +44,9 @@ public class BarberPage extends AppCompatActivity implements NavigationView.OnNa
             // TODO: 12/3/24 undo this
 //            headerText.setText(user.getFirstName()+" "+user.getLastName());
         }
+        // Set up the toggle for the navigation drawer with the toolbar
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+//        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.lightRed)); // changes the color of the options menu icon in sidebar
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
