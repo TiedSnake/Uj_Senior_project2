@@ -99,7 +99,6 @@ public class fragment_rate_barbershop extends Fragment {
             selectedBarbershopName = barbershopNames[which];
             barbershopNameTextView.setText(selectedBarbershopName);
         });
-        builder.setCancelable(false);
         builder.show();
     }
 }

@@ -21,13 +21,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.haircut.R;
 import com.haircut.backend.Service;
 import com.haircut.backend.User;
 import com.haircut.backend.Utility;
-
-import java.util.concurrent.CompletableFuture;
 
 public class UpdateProfile extends Fragment {
     EditText fNameField;
@@ -37,7 +34,7 @@ public class UpdateProfile extends Fragment {
     Button updatePasswordBtn;
     TextView errorMessageView;
     ProgressBar progressBar;
-
+    boolean skipUpdateEmailInFirebase = true;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +59,6 @@ public class UpdateProfile extends Fragment {
         fNameField.setText(user.getFirstName());
         lNameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
-
         TextWatcher fieldsWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -74,32 +70,37 @@ public class UpdateProfile extends Fragment {
                 String updatedLName = lNameField.getText().toString();
                 String updatedEmail = emailField.getText().toString();
 
-                if (!Utility.isValidName(updatedFName)) {
-                    // Shows the message
-                    showMessage(getString(R.string.update_password_error_message5), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updateProfileBtn.setVisibility(View.INVISIBLE);
-                }else if (Utility.isValidName(updatedFName) && updatedFName.equalsIgnoreCase(user.getFirstName())) {
-                    // same first name no update needed
-//                    showMessage(getString(R.string.update_password_error_message5), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updateProfileBtn.setVisibility(View.INVISIBLE);
-                } else if (!Utility.isValidName(updatedLName)) {
-                    showMessage(getString(R.string.update_password_error_message6), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updateProfileBtn.setVisibility(View.INVISIBLE);
-                } else if (Utility.isValidName(updatedLName) && updatedLName.equalsIgnoreCase(user.getLastName())) {
-                    // same last name no update needed
-//                    showMessage(getString(R.string.update_password_error_message6), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updateProfileBtn.setVisibility(View.INVISIBLE);
-                } else if (!Utility.isValidEmail(updatedEmail)) {
-                    // Hides the error message when passwords match
-                    showMessage(getString(R.string.update_password_error_message7), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updateProfileBtn.setVisibility(View.INVISIBLE);
-                } else if (Utility.isValidEmail(updatedEmail) && updatedEmail.equalsIgnoreCase(user.getEmail())) {
-                    // Hides the error message when passwords match
-//                    showMessage(getString(R.string.update_password_error_message7), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updateProfileBtn.setVisibility(View.INVISIBLE);
-                } else {
+                //checking each field whether it is updated
+                boolean isUpdatedFName = !updatedFName.equalsIgnoreCase(user.getFirstName());
+                boolean isUpdatedLName = !updatedLName.equalsIgnoreCase(user.getLastName());
+                boolean isUpdatedEmail = !updatedEmail.equalsIgnoreCase(user.getEmail());
+
+                if (isUpdatedEmail)
+                    skipUpdateEmailInFirebase = false;
+
+
+                // Checking if there's at least one valid updated
+                boolean isValidFName = Utility.isValidName(updatedFName);
+                boolean isValidLName = Utility.isValidName(updatedLName);
+                boolean isValidEmail = Utility.isValidEmail(updatedEmail);
+
+                //enable button only if at least one field is updated and all fields are valid
+                if (isValidFName && isValidLName && isValidEmail &&
+                        (isUpdatedFName || isUpdatedLName || isUpdatedEmail)) {
                     clearMessage();
-                    updateProfileBtn.setVisibility(View.VISIBLE);
+                    updateProfileBtn.setVisibility(View.VISIBLE);  // Enable the button if at least one field is updated and valid
+                } else {
+                    // Show appropriate error messages and disable the button if any field is invalid
+                    if (!isValidFName) {
+                        showMessage(getString(R.string.update_password_error_message5), R.color.red); // Invalid first name
+                    }
+                    if (!isValidLName) {
+                        showMessage(getString(R.string.update_password_error_message6), R.color.red); // Invalid last name
+                    }
+                    if (!isValidEmail) {
+                        showMessage(getString(R.string.update_password_error_message7), R.color.red); // Invalid email
+                    }
+                    updateProfileBtn.setVisibility(View.INVISIBLE); // Disable the button if there are errors
                 }
             }
 
@@ -112,30 +113,30 @@ public class UpdateProfile extends Fragment {
         emailField.addTextChangedListener(fieldsWatcher);
 
         // Handle update button to update profile;
-        updateProfileBtn.setEnabled(true);
         updateProfileBtn.setOnClickListener(v -> {
-            updateProfileBtn.setEnabled(false);
+            updateProfileBtn.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
 
             String fName = fNameField.getText().toString();
             String lName = lNameField.getText().toString();
             String email = emailField.getText().toString();
 
-            user.setFirstName(fName);
-            user.setLastName(lName);
-            user.setEmail(email);
-            updateUserEmail(email, Service.getCurrentAuth().getCurrentUser()).thenApply(isUpdated -> {
-                if (!isUpdated)
-
-                    throw new RuntimeException("Failed to update email.");
-                return Service.persistUser(user);
-            }).thenAccept(isPersisted -> {
+//            updateUserEmail(email, Service.getCurrentAuth().getCurrentUser()).thenApply(isUpdated -> {
+//                if (!isUpdated)
+//                    throw new RuntimeException("Failed to update email.");
+                user.setFirstName(fName);
+                user.setLastName(lName);
+                user.setEmail(email);
+                /*return*/ Service.persistUser(user).thenAccept(isPersisted -> {
                 progressBar.setVisibility(View.INVISIBLE);
                 updateProfileBtn.setEnabled(true);
-                showMessage(getString(R.string.update_password_success_message), R.color.green, true); //set the text to the error message text saved in Strings.xml
+                showMessage(getString(R.string.update_user_profile_success_message), R.color.green, true); //set the text to the error message text saved in Strings.xml
             }).exceptionally(throwable -> {
-                Throwable ex = getRootCause(throwable);
-                showMessage(throwable.getMessage(), R.color.red, true);
+                if (throwable != null) {
+                    Throwable ex = getRootCause(throwable);
+                    String error = Utility.errorMessage(ex);
+                    showMessage(error, R.color.red, true);
+                }
                 updateProfileBtn.setEnabled(true);
                 return null;
             });
@@ -148,34 +149,66 @@ public class UpdateProfile extends Fragment {
         });
 
         updatePasswordBtn.setOnClickListener(v2 -> {
-                updatePasswordDialog passwordDialog = new updatePasswordDialog();
-                passwordDialog.show(getParentFragmentManager(), "updatePasswordDialog");
-            });
+            updatePasswordDialog passwordDialog = new updatePasswordDialog();
+            passwordDialog.show(getParentFragmentManager(), "updatePasswordDialog");
+        });
 
         return view;
     }
 
-    private CompletableFuture<Boolean> updateUserEmail(String email, FirebaseUser fUser) {
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
-        if (fUser != null && email != null) {
-            fUser.verifyBeforeUpdateEmail(email).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    future.complete(true);
-                } else {
-                    Log.e("updateUserEmail", "Update email failed: " + task.getException().getMessage());
-                    future.completeExceptionally(new Exception(task.getException()));
-                }
-            });
-        } else {
-            Log.e("updateUserEmail", "User not logged in or email unavailable");
-            future.completeExceptionally(new Exception("User not logged in or email unavailable"));
-        }
-        return future;
-    }
-
-    private void updateCurrentPassword(User user, String fName, String lName, String email) {
-
-    }
+//    private CompletableFuture<Boolean> updateUserEmail(String email, FirebaseUser fUser) {
+//        CompletableFuture<Boolean> future = new CompletableFuture<>();
+//
+//        if (fUser != null && email != null) {
+//            // If needed, reauthenticate the user (for example, using their current password)
+//            AuthCredential credential = EmailAuthProvider.getCredential(fUser.getEmail(), "user_password_here"); // Use the actual password
+//            fUser.reauthenticate(credential).addOnCompleteListener(task -> {
+//                if (task.isSuccessful()) {
+//                    // Reauthentication successful, now update the email
+//                    fUser.updateEmail(email).addOnCompleteListener(updateTask -> {
+//                        if (updateTask.isSuccessful()) {
+//                            future.complete(true);  // Email updated successfully
+//                        } else {
+//                            Log.e("updateUserEmail", "Email update failed: " + updateTask.getException().getMessage());
+//                            future.completeExceptionally(new Exception(updateTask.getException()));
+//                        }
+//                    });
+//                } else {
+//                    Log.e("updateUserEmail", "Reauthentication failed: " + task.getException().getMessage());
+//                    future.completeExceptionally(new Exception(task.getException()));
+//                }
+//            });
+//        } else {
+//            Log.e("updateUserEmail", "User not logged in or email unavailable");
+//            future.completeExceptionally(new Exception("User not logged in or email unavailable"));
+//        }
+//        return future;
+//    }
+//
+//
+//    private CompletableFuture<Boolean> updateUserEmail(String email, FirebaseUser fUser) {
+//        CompletableFuture<Boolean> future = new CompletableFuture<>();
+//        if (skipUpdateEmailInFirebase == true) {
+//            future.complete(true);
+//            return future;
+//        }
+//
+//        if (fUser != null && email != null) {
+//            fUser.verifyBeforeUpdateEmail(email).addOnCompleteListener(task -> {
+//                if (task.isSuccessful()) {
+//                    Log.e("updateUserEmail", "Email updated successfully");
+//                    future.complete(true);
+//                } else {
+//                    Log.e("updateUserEmail", "Update email failed: " + task.getException().getMessage());
+//                    future.completeExceptionally(new Exception(task.getException()));
+//                }
+//            });
+//        } else {
+//            Log.e("updateUserEmail", "User not logged in or email unavailable");
+//            future.completeExceptionally(new Exception("User not logged in or email unavailable"));
+//        }
+//        return future;
+//    }
 
     private void clearMessage() {
         errorMessageView.setText("");

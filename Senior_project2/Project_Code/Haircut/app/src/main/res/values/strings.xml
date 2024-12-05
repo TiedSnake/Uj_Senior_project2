@@ -109,6 +109,7 @@
     <string name="update_password_error_message6">Please enter a valid last name</string>
     <string name="update_password_error_message7">Please enter a valid email name</string>
     <string name="update_password_success_message">Password updated successfully</string>
+    <string name="update_user_profile_success_message">User data has been updated successfully</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sidebar_title">Barber\n\n</string>

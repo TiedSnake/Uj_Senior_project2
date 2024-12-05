@@ -31,18 +31,17 @@ import com.haircut.backend.Utility;
 
 import java.util.concurrent.CompletableFuture;
 
-public class updatePasswordDialog extends DialogFragment {
+public class updateEmailDialog extends DialogFragment {
     EditText passwordField;
-    EditText newPasswordField;
-    EditText retypedPasswordField;
-    TextView errorMessageView;
-    Button verifyPasswordBtn;
-    Button updatePasswordBtn;
     LinearLayout currentPasswordBar;
-    LinearLayout newPasswordBar;
-    LinearLayout retypedPasswordBar;
+    LinearLayout newEmailBar;
+    TextView newEmailField;
     LinearLayout verifyPasswordButtonBar;
-    LinearLayout updatePasswordButtonBar;
+    LinearLayout updateEmailButtonBar;
+    Button verifyPasswordBtn;
+    Button updateEmailBtn;
+    TextView errorMessageView;
+
     ProgressBar progressBar;
 
     @NonNull
@@ -51,25 +50,23 @@ public class updatePasswordDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.update_password_dialog, null);
+        View view = inflater.inflate(R.layout.update_email_dialog, null);
 
         builder.setView(view).setCancelable(false); // Fixing the bug when clicking outside the emulator, by making the dialog non-cancelable by touching outside
 
         passwordField = view.findViewById(R.id.update_profile_password_field);
-        newPasswordField = view.findViewById(R.id.update_profile_new_password_field);
-        retypedPasswordField = view.findViewById(R.id.update_profile_retype_password_field);
 
         currentPasswordBar = view.findViewById(R.id.current_password_bar);
-        newPasswordBar = view.findViewById(R.id.new_password_bar);
-        retypedPasswordBar = view.findViewById(R.id.retyped_password_bar);
+        newEmailBar = view.findViewById(R.id.new_email_bar);
+        newEmailField = view.findViewById(R.id.update_profile_new_email_field);
         verifyPasswordButtonBar = view.findViewById(R.id.verify_password_button_bar);
-        updatePasswordButtonBar = view.findViewById(R.id.update_password_button_bar);
+        updateEmailButtonBar = view.findViewById(R.id.update_email_button_bar);
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
 
         verifyPasswordBtn = view.findViewById(R.id.verify_pwd_btn); // update password
-        updatePasswordBtn = view.findViewById(R.id.update_pwd_btn); // update password
+        updateEmailBtn = view.findViewById(R.id.update_email_btn); // update password
         errorMessageView = view.findViewById(R.id.errorMessageTextView); //error message
 
 
@@ -80,20 +77,15 @@ public class updatePasswordDialog extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newPassword = newPasswordField.getText().toString();
-                String retypedPassword = retypedPasswordField.getText().toString();
+                String newEmail = newEmailField.getText().toString();
 
-                if (!newPassword.equals(retypedPassword)) {
-                    // Shows the message
-                    showMessage(getString(R.string.update_password_error_message2), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updatePasswordButtonBar.setVisibility(View.INVISIBLE);
-                } else if (!Utility.isValidPassword(newPassword)) {
-                    showMessage(getString(R.string.update_password_error_message3), R.color.red); //set the text to the error message text saved in Strings.xml
-                    updatePasswordButtonBar.setVisibility(View.INVISIBLE);
+                if (!Utility.isValidEmail(newEmail)) {
+                    showMessage(getString(R.string.update_password_error_message7), R.color.red); //set the text to the error message text saved in Strings.xml
+                    updateEmailButtonBar.setVisibility(View.INVISIBLE);
                 } else {
                     // Hides the error message when passwords match
                     clearMessage();
-                    updatePasswordButtonBar.setVisibility(View.VISIBLE);
+                    updateEmailButtonBar.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -112,30 +104,28 @@ public class updatePasswordDialog extends DialogFragment {
                     currentPasswordBar.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
                     verifyPasswordButtonBar.setVisibility(View.INVISIBLE);
-                    newPasswordBar.setVisibility(View.VISIBLE);
-                    retypedPasswordBar.setVisibility(View.VISIBLE);
-                    updatePasswordButtonBar.setVisibility(View.VISIBLE);
-                    newPasswordField.addTextChangedListener(passwordWatcher);
-                    retypedPasswordField.addTextChangedListener(passwordWatcher);
-                    updatePasswordBtn.setOnClickListener(v2 -> {
-                        String newPassword = newPasswordField.getText().toString();
-                        updateCurrentPassword(firebaseUser, newPassword);
+                    newEmailBar.setVisibility(View.VISIBLE);
+                    updateEmailButtonBar.setVisibility(View.VISIBLE);
+                    newEmailField.addTextChangedListener(passwordWatcher);
+                    updateEmailBtn.setOnClickListener(v2 -> {
+                        String newEmail = newEmailField.getText().toString();
+                        updateCurrentEmail(firebaseUser, newEmail);
                     });
                 }).exceptionally(throwable -> {if (throwable != null) {
-                        Throwable ex = getRootCause(throwable);
-                        String error = Utility.errorMessage(ex);
+                    Throwable ex = getRootCause(throwable);
+                    String error = Utility.errorMessage(ex);
 
 //                        if (ex instanceof FirebaseAuthException) {
-                        showMessage(error, R.color.red, true);
+                    showMessage(error, R.color.red, true);
 //                        } else {
 //                            showMessage(throwable.getMessage(), R.color.red, true);
 //                            System.out.println("Error: " + throwable.getMessage());
 //                        }
-                    }
+                }
                     return null;
                 });
             } else {
-                showMessage(getString(R.string.update_password_error_message3), R.color.red, true);
+                showMessage(getString(R.string.update_password_error_message7), R.color.red, true);
             }
         });
         // Create the dialog
@@ -164,11 +154,11 @@ public class updatePasswordDialog extends DialogFragment {
         errorMessageView.setVisibility(View.INVISIBLE);
     }
 
-    private void updateCurrentPassword(FirebaseUser user, String newPassword) {
+    private void updateCurrentEmail(FirebaseUser user, String newEmail) {
         // if Reauthentication successful, update the password
         if (user != null) {
             currentPasswordBar.setVisibility(View.INVISIBLE);
-            user.updatePassword(newPassword).addOnCompleteListener(task -> {
+            user.updateEmail(newEmail).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     // Password update successful
                     showMessage(getString(R.string.update_password_success_message), R.color.green, true); //set the text to the error message text saved in Strings.xml
@@ -180,8 +170,8 @@ public class updatePasswordDialog extends DialogFragment {
                 }
             });
         } else {
-            System.out.println("User is null, can't update the password");
-            showMessage("User object is null can't update the password", R.color.red, true); //set the text to the error message text saved in Strings.xml
+            System.out.println("User is null, can't update the email");
+            showMessage("User object is null can't update the email", R.color.red, true); //set the text to the error message text saved in Strings.xml
 
         }
     }
@@ -191,7 +181,7 @@ public class updatePasswordDialog extends DialogFragment {
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null && currentUser.getEmail() != null) {
             String email = currentUser.getEmail();
-            Log.d("VerifyPassword", "Current User Email: " + email);
+            Log.d("VerifyEmail", "Current User Email: " + email);
 
             // Get currentUser credentials using email & password
             AuthCredential credential = EmailAuthProvider.getCredential(email, currentPassword);
@@ -199,15 +189,15 @@ public class updatePasswordDialog extends DialogFragment {
             // Reauthenticate the currentUser
             currentUser.reauthenticate(credential).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Log.d("VerifyPassword", "Reauthentication successful.");
+                    Log.d("VerifyEmail", "Reauthentication successful.");
                     future.complete(currentUser);
                 } else {
-                    Log.e("VerifyPassword", "Reauthentication failed: " + task.getException().getMessage());
+                    Log.e("VerifyEmail", "Reauthentication failed: " + task.getException().getMessage());
                     future.completeExceptionally(new Exception(task.getException()));
                 }
             });
         } else {
-            Log.e("VerifyPassword", "User not logged in or email unavailable");
+            Log.e("VerifyEmail", "User not logged in or email unavailable");
             future.completeExceptionally(new Exception("User not logged in or email unavailable"));
         }
         return future;

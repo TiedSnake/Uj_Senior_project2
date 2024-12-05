@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/current_password_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15sp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/Password_label"
+                android:layout_width="160sp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="current password"
+                android:textAlignment="center"
+                android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/update_profile_password_field"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:autofillHints="emailAddress"
+                android:background="#BBBBBB"
+                android:inputType="textPassword"
+                android:text="@string/default_password"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textColorHint="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/new_email_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15sp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/update_profile_new_email_label"
+                android:layout_width="160sp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="New Email"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/update_profile_new_email_field"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:autofillHints="name"
+                android:background="#BBBBBB"
+                android:ems="10"
+                android:hint="@string/email_hint"
+                android:inputType="textEmailAddress"
+                android:text="@string/default_email"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textColorHint="#000000" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/update_email_button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15sp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/update_email_btn"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#000000"
+                android:text="update email"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/verify_password_button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15sp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/verify_pwd_btn"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#000000"
+                android:text="verify password"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/progressbar_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15sp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15sp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/errorMessageTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="20sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
