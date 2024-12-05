@@ -75,11 +75,11 @@ public abstract class Service {
         database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(false);
 //        database.useEmulator("10.0.2.2", 9002);
-        database.useEmulator(IP_ADDRESS, DATABASE_PORT);
+//        database.useEmulator(IP_ADDRESS, DATABASE_PORT);
         auth = FirebaseAuth.getInstance();
-        auth.useEmulator(IP_ADDRESS, AUTH_PORT);
+//        auth.useEmulator(IP_ADDRESS, AUTH_PORT);
         functions = FirebaseFunctions.getInstance();
-        functions.useEmulator(IP_ADDRESS, FUNCTIONS_PORT);
+//        functions.useEmulator(IP_ADDRESS, FUNCTIONS_PORT);
         databaseRef = database.getReference("schema");
     }
 

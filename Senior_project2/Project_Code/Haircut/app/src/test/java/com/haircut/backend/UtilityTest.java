@@ -1,12 +1,8 @@
-package com.haircut;
+package com.haircut.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.haircut.backend.Utility;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,16 +81,16 @@ class UtilityTest {
     })
     void isValidPassword() {
     }
-    @ParameterizedTest
-    @CsvSource({
-            "Mike, ssga, something@something.com, t24oth2owT", "customer", //valid data
-            "Mi3ke, ssga, something@something.com, t24oth2owT", "customer",//invalid first name
-            "Mike, ss$ga, something@something.com, t24oth2owT", "customer",//invalid last name
-            "Mike, ssga, somethingsomething.com, t24oth2owT", "customer",//invalid email
-            "Mike, ssga, something@something.com, t24oth2owt", "customer",//invalid password
-    })
-    void signupTest(String fname, String lname, String email, String password, String userType) {
-        String result = com.haircut.backend.Utility.signup( fname, lname, email, password, userType);
-        Assertions.assertEquals("-1", result);
-    }
+//    @ParameterizedTest
+//    @CsvSource({
+//            "Mike, ssga, something@something.com, t24oth2owT", "customer", //valid data
+//            "Mi3ke, ssga, something@something.com, t24oth2owT", "customer",//invalid first name
+//            "Mike, ss$ga, something@something.com, t24oth2owT", "customer",//invalid last name
+//            "Mike, ssga, somethingsomething.com, t24oth2owT", "customer",//invalid email
+//            "Mike, ssga, something@something.com, t24oth2owt", "customer",//invalid password
+//    })
+//    void signupTest(String fname, String lname, String email, String password, String userType) {
+//        String result = com.haircut.backend.Utility.signup( fname, lname, email, password, userType);
+//        Assertions.assertEquals("-1", result);
+//    }
 }

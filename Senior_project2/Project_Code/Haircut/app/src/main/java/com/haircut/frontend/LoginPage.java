@@ -105,12 +105,22 @@ public class LoginPage extends AppCompatActivity {
                         break;
                     case SUCCESS:
                         progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(LoginPage.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                        Intent forward = new Intent(LoginPage.this, CustomerPage.class);
-                        //FLAG_ACTIVITY_CLEAR_TASK: This flag clears any existing task that would be associated with the new activity, effectively clearing the back stack.
-                        //FLAG_ACTIVITY_NEW_TASK: This flag starts the activity in a new task.
-                        forward.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(forward); finish(); //This ensures the LoginActivity itself is closed, so it is not left in the back stack.
+                        Toast.makeText(LoginPage.this, "Signup succeeded!", Toast.LENGTH_SHORT).show();
+                        UserType s = Service.getCurrentUser().getUserType();
+                        Class<?> targetPage = switch (s) {
+                            case CUSTOMER -> CustomerPage.class;
+                            case BARBER -> BarberPage.class;
+                            case ADMIN -> AdminPage.class;
+                            default ->
+                            {
+//                                Log.e(TAG, "Unexpected user type:"+ userType);
+                                throw new IllegalArgumentException("Unexpected user type: " + userType);
+
+                            }
+                        };
+                        Intent forward = new Intent(LoginPage.this, targetPage);
+                        startActivity(forward);
+                        finish();
                         break;
 //                    default:
 //                        progressBar.setVisibility(View.INVISIBLE);
