@@ -42,7 +42,7 @@ public class fragment_barbershop_list extends Fragment {
         public void onClick(View v) {
             // If a barbershop is already selected, remove its highlight
             if (selectedBarbershop != null) {
-                selectedBarbershop.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent));
+                selectedBarbershop.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white));
             }
 
             // Set the clicked barbershop as the selected one and highlight it
