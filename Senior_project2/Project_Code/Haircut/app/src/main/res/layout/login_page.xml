@@ -62,7 +62,7 @@
         android:textAlignment="center"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textColorHint="#000000"
         app:layout_constraintBottom_toTopOf="@id/pwd_field"
         app:layout_constraintLeft_toRightOf="@id/Email_label"

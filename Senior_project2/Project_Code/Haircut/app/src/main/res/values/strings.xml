@@ -101,6 +101,14 @@
     <string name="close">Close Navigation Drawer</string>
     <string name="profile">Profile</string>
     <string name="update_profile">Update</string>
+    <string name="update_password_error_message1">Incorrect password</string>
+    <string name="update_password_error_message2">New password must match retyped password</string>
+    <string name="update_password_error_message3">Please enter a valid password</string>
+    <string name="update_password_error_message4">Failed to update the password, incorrect password or user does not exist</string>
+    <string name="update_password_error_message5">Please enter a valid first name</string>
+    <string name="update_password_error_message6">Please enter a valid last name</string>
+    <string name="update_password_error_message7">Please enter a valid email name</string>
+    <string name="update_password_success_message">Password updated successfully</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sidebar_title">Barber\n\n</string>
@@ -123,8 +131,8 @@
     <string name="google_maps_api_key">AIzaSyDkjclvFuCZBIxcEarf0WNtF3Veesh2wHs</string>
 
     <!--    Debug values-->
-    <string name="default_email">myujproject@gmail.com</string>
-<!--    <string name="default_email">example@example.com</string>-->
+<!--    <string name="default_email">myujproject@gmail.com</string>-->
+    <string name="default_email">example@example.com</string>
     <string name="default_first_name">John</string>
     <string name="default_last_name">Doe</string>
     <string name="default_password">Rgjsi1252</string>

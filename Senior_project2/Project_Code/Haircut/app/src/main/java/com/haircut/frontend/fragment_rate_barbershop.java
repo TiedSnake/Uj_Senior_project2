@@ -8,10 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,9 +21,6 @@ import androidx.fragment.app.Fragment;
 import com.haircut.R;
 import com.haircut.backend.Review;
 import com.haircut.backend.User;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 public class fragment_rate_barbershop extends Fragment {
 
