@@ -21,6 +21,88 @@
 
 
 \begin{document}
+\lstdefinestyle{javaCode}{
+    language=Java,
+    frame=single,
+    breaklines=true,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    showstringspaces=false,
+    tabsize=4
+}
+
 \includepdf[pages=-, fitpaper=true]{../ch5 report/main.pdf}
-\includepdf[pages=2-, fitpaper=true]{../ch6-report/main.pdf}  % "-2" starts from the 2nd page to the last one & skips the cover in ch6 report since ch5 already has a cover
+\newpage
+\section{Chapter 6: Testing}
+\begin{itemize}
+\item \subsection{Report Outline:}
+\begin{itemize}
+    \item \textbf{Scenarios for Unit Testing:} Scenarios details
+
+    \item \textbf{Unit Testing:} Testing results
+    
+    \item \textbf{Scenarios for Integration Testing:} Scenarios details
+    
+    \item \textbf{Integration Testing:} Testing details/results
+    
+    \item \textbf{Scenarios for Usability and Compatibility Testing:} Scenarios details according to the type of project.
+    \item \textbf{Usability and Compatibility Testing:} Testing details according to the type of project.
+\end{itemize}
+\newpage
+\item \subsection{Scenarios for Unit Testing:}
+\subsubsection{\label{sec:scenario1} Scenario 1: Validating the first and last name of the user during the sign-up process}
+\subsubsection{\label{sec:scenario2} Scenario 2: Validating the user's email pattern during the sign-up process}
+\subsubsection{\label{sec:scenario3} Scenario 3: Validating the password of the user during the sign-up process}
+\subsubsection{\label{sec:scenario4} Scenario 4: Validating the user is one of the defined user types in the system {customer, barber, admin} used in multiple processes}
+\newpage
+\item \subsection{Unit Testing:}
+\subsubsection{Overview: Substituting values against the validation methods whether these values satisfy the validations}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{attachments/UtilityTest_Overview_1.png}
+    \caption{Test overview}
+    \label{fig: Test overview }
+\end{figure}
+
+\href{https://tiedsnake.github.io/Uj_Senior_project2/Test_Results_UtilityTest.html}{Click here to access the test report on Github}
+\lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/UtilityTest.java}
+
+\newpage
+
+\item \subsection{Scenarios for Integration Testing:}
+\subsubsection{\label{sec:scenario5} Scenario 1: Signing-up with valid first name, last name, email, password, usertype }
+\subsubsection{\label{sec:scenario6} Scenario 2: Signing-up with invalid first name }
+\subsubsection{\label{sec:scenario7} Scenario 3: Signing-up with invalid last name}
+\subsubsection{\label{sec:scenario8} Scenario 4: Signing-up with invalid password}
+\subsubsection{\label{sec:scenario8} Scenario 5: Signing-up with invalid usertype}
+\newpage
+
+\item \subsection{Integration Testing:}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{attachments/Integration_SignupTest_Overview.png}
+    \caption{Signup integration test overview}
+    \label{fig: Signup integration test overview }
+\end{figure}
+
+\href{https://tiedsnake.github.io/Uj_Senior_project2/Test_Results%20_ServiceTest.html}{Click here to access the test report on Github}
+\lstinputlisting[style=javaCode, language=Java, caption=Welcome.java]{attachments/ServiceTest.java}
+
+\newpage
+
+\item \subsection{Scenarios for Usability and Compatibility Testing:}
+\subsubsection{\label{sec:scenario9} Scenario 1: Signup}
+\subsubsection{\label{sec:scenario10} Scenario 2: Login}
+\subsubsection{\label{sec:scenario11} Scenario 3: Password Reset}
+\subsubsection{\label{sec:scenario12} Scenario 4: Update profile}
+\subsubsection{\label{sec:scenario13} Scenario 5: Signout}
+
+\newpage
+
+\item \subsection{Usability and Compatibility Testing:}
+\href{https://tiedsnake.github.io/Uj_Senior_project2/Usability_Test.html}{Click here to access the test report on Github}
+\end{itemize}
+
 \end{document}

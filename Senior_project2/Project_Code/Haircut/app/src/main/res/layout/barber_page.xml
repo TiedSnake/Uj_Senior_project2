@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:openDrawer="start"
-    tools:context=".frontend.BarberPage">
+    tools:context=".frontend.barber.BarberPage">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

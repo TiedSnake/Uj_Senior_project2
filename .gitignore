@@ -4,6 +4,9 @@
 *.docx
 *.jar
 
+#Ignore generated test reports
+**/Test_Results/
+
 #Ignoring firebase configuration file
 **/google-services.json
 

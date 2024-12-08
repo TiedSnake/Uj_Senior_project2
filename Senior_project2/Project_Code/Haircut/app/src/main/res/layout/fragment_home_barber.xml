@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".frontend.fragment_home_barber">
+    tools:context=".frontend.barber.fragment_home_barber">
 
     <!-- Incoming Appointments Section -->
     <TextView

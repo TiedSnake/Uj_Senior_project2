@@ -30,19 +30,19 @@
             android:value="AIzaSyDkjclvFuCZBIxcEarf0WNtF3Veesh2wHs" />
 
         <activity
-            android:name=".frontend.MapsActivity"
+            android:name=".frontend.customer.MapsActivity"
             android:exported="true" />
         <activity
-            android:name=".frontend.WelcomePage"
+            android:name=".frontend.shared.WelcomePage"
             android:exported="true">
                         <intent-filter>
                             <action android:name="android.intent.action.MAIN" />
                             <category android:name="android.intent.category.LAUNCHER" />
                         </intent-filter>
         </activity>
-        <activity android:name=".frontend.SignupAndLoginPage" />
+        <activity android:name=".frontend.shared.SignupAndLoginPage" />
         <activity
-            android:name=".frontend.CustomerPage"
+            android:name=".frontend.customer.CustomerPage"
             android:exported="true">
 <!--                        <intent-filter>-->
 <!--                            <action android:name="android.intent.action.MAIN" />-->
@@ -51,7 +51,7 @@
         </activity>
 
         <activity
-            android:name=".frontend.PasswordResetPage"
+            android:name=".frontend.shared.PasswordResetPage"
             android:exported="true">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -59,23 +59,26 @@
             <!--            </intent-filter>-->
         </activity>
 
-        <activity android:name=".frontend.LoginPage" />
+        <activity android:name=".frontend.shared.LoginPage" />
 
-        <activity android:name=".frontend.SignupPage" />
+        <activity android:name=".frontend.shared.SignupPage" />
 
         <activity
-            android:name=".frontend.BarberPage"
+            android:name=".frontend.barber.BarberPage"
             android:exported="true">
 
         </activity>
 
         <activity
-            android:name=".frontend.AdminPage"
+            android:name=".frontend.admin.AdminPage"
             android:exported="true">
-
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".frontend.MapActivity2"
+            android:name=".frontend.customer.MapActivity2"
             android:exported="true" />
     </application>
 
